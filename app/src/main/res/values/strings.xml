@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">App Limiter</string>
+    <string name="app_tagline">Control your app usage</string>
+
+    <!-- Navigation -->
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_apps">Apps</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_settings">Settings</string>
+
+    <!-- Dashboard -->
+    <string name="today_usage">Today\'s Usage</string>
+    <string name="total_used">Total Used</string>
+    <string name="remaining_time">Remaining</string>
+    <string name="most_used_app">Most Used App</string>
+    <string name="blocked_apps">Blocked Apps</string>
+    <string name="minutes">min</string>
+    <string name="hours">hrs</string>
+
+    <!-- Apps Screen -->
+    <string name="installed_apps">Installed Apps</string>
+    <string name="limited_apps">Limited Apps</string>
+    <string name="search_apps">Search apps...</string>
+    <string name="no_apps_limited">No apps limited</string>
+    <string name="add_limit_to_apps">Add limits to apps to control your usage</string>
+    <string name="add_limit">Add Limit</string>
+    <string name="edit_limit">Edit Limit</string>
+    <string name="remove_limit">Remove Limit</string>
+    <string name="block_app">Block App</string>
+    <string name="unblock_app">Unblock</string>
+    <string name="no_limit_set">Cheklanmagan</string> <!-- Added this line -->
+    <string name="app_category_social">Social</string>
+    <string name="app_category_entertainment">Entertainment</string>
+    <string name="app_category_video">Video</string>
+    <string name="app_category_communication">Communication</string>
+    <string name="app_category_music">Music</string>
+    <string name="app_category_productivity">Productivity</string>
+    <string name="app_category_other">Other</string>
+
+    <!-- Statistics -->
+    <string name="daily_stats">Daily Stats</string>
+    <string name="weekly_stats">Weekly Stats</string>
+    <string name="monthly_stats">Monthly Stats</string>
+    <string name="total_usage">Total Usage</string>
+    <string name="average_daily">Average Daily</string>
+    <string name="saved_time">Time Saved</string>
+    <string name="usage_trend">Usage Trend</string>
+    <string name="top_apps">Top Apps</string>
+    <string name="export_data">Export Data</string>
+
+    <!-- Settings -->
+    <string name="general_settings">General Settings</string>
+    <string name="appearance">Appearance</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy">Privacy</string>
+    <string name="about">About</string>
+
+    <!-- Settings Options -->
+    <string name="enable_dark_mode">Enable Dark Mode</string>
+    <string name="auto_reset_daily">Auto Reset Daily</string>
+    <string name="block_notifications">Block Notifications</string>
+    <string name="usage_reminders">Usage Reminders</string>
+    <string name="data_collection">Data Collection</string>
+    <string name="export_my_data">Export My Data</string>
+    <string name="app_version">App Version</string>
+    <string name="rate_app">Rate App</string>
+    <string name="help_feedback">Help &amp; Feedback</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+
+    <!-- Dialog Titles -->
+    <string name="add_app_limit">Add App Limit</string>
+    <string name="edit_app_limit">Edit App Limit</string>
+    <string name="set_time_limit">Set Time Limit</string>
+    <string name="confirm_block">Confirm Block</string>
+    <string name="app_details">App Details</string>
+
+    <!-- Dialog Messages -->
+    <string name="select_time_limit">Select daily time limit for this app</string>
+    <string name="block_app_message">This app will be blocked for 24 hours after reaching the limit</string>
+    <string name="confirm_block_message">Are you sure you want to block %s for 24 hours?</string>
+    <string name="remove_limit_message">Remove time limit from %s?</string>
+
+    <!-- Time Options -->
+    <string name="time_15_min">15 minutes</string>
+    <string name="time_30_min">30 minutes</string>
+    <string name="time_45_min">45 minutes</string>
+    <string name="time_1_hour">1 hour</string>
+    <string name="time_2_hours">2 hours</string>
+    <string name="time_3_hours">3 hours</string>
+    <string name="time_custom">Custom</string>
+
+    <!-- Buttons -->
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_apply">Apply</string>
+    <string name="button_done">Done</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
+
+    <!-- Notifications -->
+    <string name="notification_title_limit_reached">Limit Reached</string>
+    <string name="notification_message_limit_reached">You\'ve reached your daily limit for %s</string>
+    <string name="notification_title_app_blocked">App Blocked</string>
+    <string name="notification_message_app_blocked">%s is now blocked for 24 hours</string>
+    <string name="notification_title_usage_reminder">Usage Reminder</string>
+    <string name="notification_message_usage_reminder">You\'ve used %s for %d minutes today</string>
+
+    <!-- Empty States -->
+    <string name="empty_dashboard_title">No limits set yet</string>
+    <string name="empty_dashboard_message">Add limits to apps to start tracking your usage</string>
+    <string name="empty_apps_title">No apps limited</string>
+    <string name="empty_apps_message">Tap the + button to add your first app limit</string>
+    <string name="empty_stats_title">No data yet</string>
+    <string name="empty_stats_message">Usage data will appear after you start limiting apps</string>
+
+    <!-- Errors -->
+    <string name="error_permission_required">Permission required</string>
+    <string name="error_usage_access">Usage access permission is required to track app usage</string>
+    <string name="error_no_apps_found">No apps found</string>
+    <string name="error_invalid_time">Please enter a valid time</string>
+    <string name="error_network">Network error</string>
+    <string name="error_unknown">Something went wrong</string>
+
+    <!-- Success Messages -->
+    <string name="success_limit_added">Limit added successfully</string>
+    <string name="success_limit_updated">Limit updated successfully</string>
+    <string name="success_limit_removed">Limit removed successfully</string>
+    <string name="success_app_blocked">App blocked successfully</string>
+    <string name="success_app_unblocked">App unblocked successfully</string>
+
+    <!-- App Categories -->
+    <string name="category_all">All</string>
+    <string name="category_social_media">Social Media</string>
+    <string name="category_games">Games</string>
+    <string name="category_productivity">Productivity</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_education">Education</string>
+    <string name="category_tools">Tools</string>
+
+    <!-- Time Units -->
+    <string name="unit_minute">minute</string>
+    <string name="unit_minutes">minutes</string>
+    <string name="unit_hour">hour</string>
+    <string name="unit_hours">hours</string>
+    <string name="unit_day">day</string>
+    <string name="unit_days">days</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Control Your Time</string>
+    <string name="onboarding_message_1">Set daily limits for apps and avoid overuse</string>
+    <string name="onboarding_title_2">Stay Focused</string>
+    <string name="onboarding_message_2">Apps get blocked automatically when limit is reached</string>
+    <string name="onboarding_title_3">Track Progress</string>
+    <string name="onboarding_message_3">View detailed statistics of your app usage</string>
+    <string name="onboarding_get_started">Get Started</string>
+
+    <!-- Permissions -->
+    <string name="permission_usage_access">Usage Access</string>
+    <string name="permission_usage_access_description">Required to track how much time you spend on each app</string>
+    <string name="permission_notification">Notifications</string>
+    <string name="permission_notification_description">Receive alerts when you reach your limits</string>
+
+    <!-- Tips -->
+    <string name="tip_1">Start with your most used apps</string>
+    <string name="tip_2">Set realistic limits you can stick to</string>
+    <string name="tip_3">Review your weekly stats to adjust limits</string>
+    <string name="tip_4">Use blocking to break bad habits</string>
+
+    <!-- About -->
+    <string name="about_description">App Limiter helps you take control of your digital habits by limiting time spent on apps.</string>
+    <string name="version">Version 1.0.0</string>
+    <string name="developed_by">Developed with ❤️</string>
+    <string name="copyright">© 2024 App Limiter. All rights reserved.</string>
+
+    <!-- Actions -->
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_share">Share</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_view_all">View All</string>
+
+    <!-- Status -->
+    <string name="status_active">Active</string>
+    <string name="status_blocked">Blocked</string>
+    <string name="status_paused">Paused</string>
+    <string name="status_expired">Expired</string>
+    <string name="status_limited">Limited</string>
+
+    <!-- Time Format -->
+    <string name="time_format_hours_minutes">%1$dh %2$dm</string>
+    <string name="time_format_minutes">%1$d min</string>
+    <string name="time_format_percentage">%1$d%% used</string>
+
+    <!-- Placeholders -->
+    <string name="placeholder_app_name">App Name</string>
+    <string name="placeholder_limit">Limit</string>
+    <string name="placeholder_used">Used</string>
+    <string name="placeholder_remaining">Remaining</string>
+
+    <!-- Feedback -->
+    <string name="feedback_title">How are we doing?</string>
+    <string name="feedback_message">Your feedback helps us improve the app</string>
+    <string name="feedback_placeholder">Tell us what you think...</string>
+    <string name="feedback_submit">Submit Feedback</string>
+
+    <!-- Updates -->
+    <string name="update_available">Update Available</string>
+    <string name="update_message">A new version of App Limiter is available</string>
+    <string name="update_now">Update Now</string>
+    <string name="update_later">Later</string>
+
+
+        <!-- Navigation -->
+        <string name="dashboard">Dashboard</string>
+        <string name="apps">Ilovalar</string>
+        <string name="statistics">Statistika</string>
+        <string name="settings">Sozlamalar</string>
+
+        <!-- Search -->
+        <string name="search_hint">Ilova qidirish</string>
+
+        <!-- Filters -->
+        <string name="filter_all">Barchasi</string>
+        <string name="filter_limited">Cheklangan</string>
+        <string name="filter_unlimited">Cheklanmagan</string>
+        <string name="filter_blocked">Bloklangan</string>
+
+        <!-- Status -->
+        <string name="status_unlimited">Cheklanmagan</string>
+
+        <!-- Buttons -->
+        <string name="edit">Tahrirlash</string>
+        <string name="block">Bloklash</string>
+        <string name="unblock">Blokdan chiqarish</string>
+        <string name="set_limit">Limit qo\'yish</string>
+
+        <!-- Dialogs -->
+        <string name="set_limit_title">Limit qo\'yish</string>
+        <string name="daily_limit">Kunlik limit</string>
+
+        <!-- Messages -->
+        <string name="limit_saved">Limit saqlandi</string>
+        <string name="limit_removed">Limit olib tashlandi</string>
+        <string name="app_blocked">Ilova bloklandi</string>
+        <string name="app_unblocked">Ilova blokdan chiqarildi</string>
+
+        <!-- Empty states -->
+        <string name="no_apps_found">Ilova topilmadi</string>
+        <string name="try_different_search">Boshqa qidiruv so\'zini kiriting</string>
+
+
+</resources>

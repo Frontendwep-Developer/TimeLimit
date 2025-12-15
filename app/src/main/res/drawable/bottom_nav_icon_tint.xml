@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#FF6200EE" android:state_checked="true" /> <!-- purple_500 -->
+    <item android:color="#FF9E9E9E" android:state_checked="false" /> <!-- gray_500 -->
+</selector>
