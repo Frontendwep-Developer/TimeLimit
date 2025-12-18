@@ -39,6 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "app_database"
                 )
                 .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .enableMultiInstanceInvalidation() // MUHIM: Alohida processlar uchun
                 .build()
                 INSTANCE = instance
                 instance

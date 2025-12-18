@@ -38,8 +38,10 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
+        <!-- android:process=":blocker" - BU XIZMATNI O'LMAS QILADI -->
         <service
             android:name=".AppBlockerService"
+            android:process=":blocker"
             android:exported="false"
             android:stopWithTask="false"
             android:directBootAware="true"

@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -23,27 +24,68 @@ class AppBlockerService : AccessibilityService() {
     private var currentPackage: String? = null
     private var trackingJob: Job? = null
 
+    companion object {
+        private const val TAG = "AppBlockerService"
+    }
+
     override fun onServiceConnected() {
         super.onServiceConnected()
+        Log.d(TAG, "Service Connected")
         appLimitDao = AppDatabase.getDatabase(this).appLimitDao()
         
         startForegroundService()
-        checkCurrentWindow()
         
-        Log.d("AppBlockerService", "Service Connected & Ready")
+        // Servis ulanganda darhol tekshirish
+        serviceScope.launch {
+            delay(1000)
+            checkCurrentWindow()
+        }
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d(TAG, "onStartCommand called")
+        startForegroundService()
+        // Ekran holatini tekshirish yoki boshqa triggerlar
+        checkCurrentWindow()
+        return START_STICKY
     }
     
     private fun checkCurrentWindow() {
+        var foundPkg: String? = null
+
+        // 1. Accessibility orqali urinib ko'ramiz
         try {
             val rootNode = rootInActiveWindow
-            if (rootNode != null && rootNode.packageName != null) {
-                val currentPkg = rootNode.packageName.toString()
-                val event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
-                event.packageName = currentPkg
-                onAccessibilityEvent(event)
+            if (rootNode?.packageName != null) {
+                foundPkg = rootNode.packageName.toString()
+                Log.d(TAG, "Current window (Accessibility): $foundPkg")
             }
         } catch (e: Exception) {
-            Log.e("AppBlockerService", "Error checking active window", e)
+            Log.e(TAG, "Error checking window via Accessibility", e)
+        }
+
+        // 2. Agar Accessibility topolmasa, UsageStatsManager ishlatamiz (Zaxira)
+        if (foundPkg == null) {
+            try {
+                val usageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+                val time = System.currentTimeMillis()
+                // Oxirgi 10 soniyadagi statistika
+                val stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 10000, time)
+                if (stats != null) {
+                    val sortedStats = stats.sortedByDescending { it.lastTimeUsed }
+                    if (sortedStats.isNotEmpty()) {
+                        foundPkg = sortedStats[0].packageName
+                        Log.d(TAG, "Current window (UsageStats): $foundPkg")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error checking window via UsageStats", e)
+            }
+        }
+
+        // Agar ilova topilgan bo'lsa, monitoringni boshlaymiz
+        if (foundPkg != null && foundPkg != packageName && !isLauncher(foundPkg)) {
+             startTracking(foundPkg)
         }
     }
     
@@ -60,8 +102,8 @@ class AppBlockerService : AccessibilityService() {
         }
 
         val notification: Notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("TimeLimit himoyasi")
-            .setContentText("Ilovalar nazorat qilinmoqda")
+            .setContentTitle("TimeLimit")
+            .setContentText("Monitoring faol")
             .setSmallIcon(R.drawable.ic_dashboard)
             .setOngoing(true)
             .build()
@@ -74,26 +116,33 @@ class AppBlockerService : AccessibilityService() {
 
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             val newPackage = event.packageName?.toString() ?: return
-
+            
             if (currentPackage == newPackage) return
-
-            stopTracking()
 
             if (newPackage != packageName && !isLauncher(newPackage)) {
                 startTracking(newPackage)
+            } else {
+                stopTracking()
             }
         }
     }
 
     private fun startTracking(packageName: String) {
-        currentPackage = packageName
+        stopTracking()
         
+        currentPackage = packageName
+        Log.d(TAG, "START tracking: $packageName")
+
         trackingJob = serviceScope.launch {
-            val limit = appLimitDao.getLimit(packageName) ?: return@launch
+            val limit = appLimitDao.getLimit(packageName)
+            
+            if (limit == null) return@launch
 
             checkAndResetDailyLimit(limit)
 
             if (limit.limitTime <= 0) return@launch
+
+            Log.d(TAG, "Limit: ${limit.limitTime}m. Used: ${limit.usageTime}s")
 
             if (limit.isBlocked) {
                 blockApp(packageName)
@@ -104,6 +153,7 @@ class AppBlockerService : AccessibilityService() {
                 val limitInSeconds = limit.limitTime * 60
                 
                 if (limit.usageTime >= limitInSeconds) {
+                    Log.d(TAG, "Limit reached! Blocking $packageName")
                     limit.isBlocked = true
                     appLimitDao.insertOrUpdateLimit(limit)
                     blockApp(packageName)
@@ -114,7 +164,6 @@ class AppBlockerService : AccessibilityService() {
 
                 limit.usageTime += 1
                 appLimitDao.updateUsageTime(packageName, limit.usageTime)
-                Log.d("AppBlockerService", "$packageName: ${limit.usageTime}/${limitInSeconds}")
             }
         }
     }
@@ -123,7 +172,8 @@ class AppBlockerService : AccessibilityService() {
         withContext(Dispatchers.Main) {
             performGlobalAction(GLOBAL_ACTION_HOME)
             val intent = Intent(this@AppBlockerService, BlockingActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 putExtra("packageName", packageName)
             }
             startActivity(intent)
@@ -141,13 +191,15 @@ class AppBlockerService : AccessibilityService() {
             limit.isBlocked = false
             limit.lastReset = System.currentTimeMillis()
             appLimitDao.insertOrUpdateLimit(limit)
-            Log.d("AppBlockerService", "Daily limit reset for ${limit.packageName}")
+            Log.d(TAG, "Daily reset for ${limit.packageName}")
         }
     }
 
     private fun stopTracking() {
-        trackingJob?.cancel()
-        trackingJob = null
+        if (trackingJob != null) {
+            trackingJob?.cancel()
+            trackingJob = null
+        }
         currentPackage = null
     }
 
@@ -161,15 +213,16 @@ class AppBlockerService : AccessibilityService() {
         stopTracking()
     }
     
-    // Ilova task managerdan o'chirilganda chaqiriladi
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
-        Log.d("AppBlockerService", "Task Removed. Restarting foreground service...")
-        startForegroundService() // Xizmatni yangilaymiz
+        Log.d(TAG, "Task Removed. Restarting...")
+        startForegroundService() 
+        checkCurrentWindow() // Qayta tekshiramiz
     }
     
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "Service Destroyed")
         stopTracking()
         serviceScope.cancel()
     }

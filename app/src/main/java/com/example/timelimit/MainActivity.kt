@@ -15,6 +15,7 @@ import android.view.accessibility.AccessibilityManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.timelimit.databinding.ActivityMainBinding
@@ -56,7 +57,12 @@ class MainActivity : AppCompatActivity() {
 
     // 1. Monitoringni boshlash
     private fun startMonitoring() {
-        Log.d("MainActivity", "All permissions granted. Accessibility Service should be running.")
+        Log.d("MainActivity", "All permissions granted. Starting foreground monitoring service.")
+
+        // ForegroundMonitoringService orqali AppMonitoringService fon rejimida ishlaydi.
+        // Bu TimeLimit ilovasi yopilganida ham limit va bloklash davom etishini ta'minlaydi.
+        val serviceIntent = Intent(this, ForegroundMonitoringService::class.java)
+        ContextCompat.startForegroundService(this, serviceIntent)
     }
 
     // 2. Accessibility Service tekshirish
