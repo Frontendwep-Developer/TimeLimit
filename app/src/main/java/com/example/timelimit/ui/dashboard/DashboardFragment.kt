@@ -1,4 +1,4 @@
-package com.example.timelimit
+package com.example.timelimit.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.timelimit.AppsViewModel
 import com.example.timelimit.databinding.FragmentDashboardBinding
-import com.example.timelimit.ui.dashboard.BlockedAppsAdapter
 
 class DashboardFragment : Fragment() {
 

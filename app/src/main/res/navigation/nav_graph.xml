@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_apps">
+    app:startDestination="@id/navigation_dashboard">
+
+    <!-- Dashboard Fragment -->
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.timelimit.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 
     <!-- Apps Fragment -->
     <fragment
@@ -11,5 +18,12 @@
         android:name="com.example.timelimit.AppsFragment"
         android:label="Apps"
         tools:layout="@layout/fragment_apps" />
+
+    <!-- Statistics Fragment -->
+    <fragment
+        android:id="@+id/navigation_statistics"
+        android:name="com.example.timelimit.StatisticsFragment"
+        android:label="Statistics"
+        tools:layout="@layout/fragment_statistics" />
 
 </navigation>

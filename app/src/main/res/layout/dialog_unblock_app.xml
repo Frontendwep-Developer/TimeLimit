@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog_rounded"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_unblock_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            tools:text="TikTok blokini olib tashlash"
+            android:text="@string/unblock_dialog_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btn_close_unblock_dialog"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_close"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Yopish" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp">
+
+        <Button
+            android:id="@+id/btn_unblock_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/unblock_dialog_button_unblock"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_unblock_cancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/unblock_dialog_button_close"
+            android:textColor="?android:attr/textColorSecondary"/>
+            
+    </LinearLayout>
+
+</LinearLayout>

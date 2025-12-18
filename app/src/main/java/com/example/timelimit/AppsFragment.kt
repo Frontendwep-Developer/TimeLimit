@@ -36,15 +36,10 @@ class AppsFragment : Fragment() {
 
         setupRecyclerView()
         observeViewModel()
-
-        if (viewModel.appsList.value.isNullOrEmpty()) {
-            viewModel.loadInstalledApps(requireContext())
-        }
     }
 
     private fun setupRecyclerView() {
         adapter = AppsAdapter { appInfo ->
-            // Decide which dialog to show based on whether a limit is already set
             if (appInfo.limitTime > 0) {
                 showEditTimeLimitDialog(appInfo)
             } else {
@@ -59,11 +54,6 @@ class AppsFragment : Fragment() {
         viewModel.appsList.observe(viewLifecycleOwner) { apps ->
             Log.d("AppsFragment", "appsList observer triggered with ${apps.size} apps")
             adapter.submitList(apps)
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            Log.d("AppsFragment", "isLoading observer triggered: $isLoading")
-            // You can show a loading spinner here if needed
         }
     }
 

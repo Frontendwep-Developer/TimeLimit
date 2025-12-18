@@ -1,6 +1,6 @@
 package com.example.timelimit
 
-import android.content.res.ColorStateList
+import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.timelimit.R
 import com.example.timelimit.databinding.ItemAppBinding
 import com.example.timelimit.model.AppInfo
 
@@ -22,8 +21,7 @@ class AppsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appInfo = getItem(position)
-        holder.bind(appInfo, onItemClick)
+        holder.bind(getItem(position), onItemClick)
     }
 
     class ViewHolder(private val binding: ItemAppBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -32,34 +30,33 @@ class AppsAdapter(
 
             binding.ivAppIcon.setImageDrawable(appInfo.icon)
             binding.tvAppName.text = appInfo.appName
+            
+            binding.tvBlockedStatus.visibility = if (appInfo.isLimited && appInfo.isBlocked) View.VISIBLE else View.GONE
 
-            if (appInfo.limitTime > 0) {
+            if (appInfo.isLimited && appInfo.limitTime > 0) {
                 val usageInMinutes = appInfo.usageTime / 60
-                val limitInMinutes = appInfo.limitTime
-
-                binding.tvUsageTime.text = "${usageInMinutes} / ${limitInMinutes} min"
+                binding.tvUsageTime.text = "${usageInMinutes} / ${appInfo.limitTime} min"
                 binding.progressUsage.visibility = View.VISIBLE
 
-                val progress = (appInfo.usageTime * 100 / (limitInMinutes * 60)).toInt().coerceAtMost(100)
-                binding.progressUsage.progress = progress
+                val limitInSeconds = (appInfo.limitTime * 60).toFloat()
+                val progress = if (limitInSeconds > 0) {
+                    ((appInfo.usageTime.toFloat() / limitInSeconds) * 100).toInt()
+                } else { 0 }
 
-                val isBlocked = usageInMinutes >= limitInMinutes
+                binding.progressUsage.progress = progress.coerceAtMost(100)
 
-                if (isBlocked) {
-                    binding.progressUsage.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.red))
-                    binding.btnEditLimit.setImageResource(R.drawable.ic_lock_open)
-                } else {
-                    binding.progressUsage.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
-                    binding.btnEditLimit.setImageResource(R.drawable.ic_edit)
-                }
-
+                // --- Correct way to change progress bar color ---
+                val progressDrawable = binding.progressUsage.progressDrawable.mutate() as LayerDrawable
+                val progressLayer = progressDrawable.findDrawableByLayerId(android.R.id.progress)
+                val colorRes = if (appInfo.isBlocked) R.color.red else R.color.green
+                progressLayer.setTint(ContextCompat.getColor(context, colorRes))
+                
             } else {
                 binding.tvUsageTime.text = context.getString(R.string.no_limit_set)
                 binding.progressUsage.visibility = View.GONE
-                binding.btnEditLimit.setImageResource(R.drawable.ic_edit)
             }
 
-            binding.root.setOnClickListener { onItemClick(appInfo) }
+            binding.btnEditLimit.setOnClickListener { onItemClick(appInfo) }
         }
     }
 
@@ -69,7 +66,10 @@ class AppsAdapter(
         }
 
         override fun areContentsTheSame(oldItem: AppInfo, newItem: AppInfo): Boolean {
-            return oldItem == newItem
+            return oldItem.isLimited == newItem.isLimited && 
+                   oldItem.limitTime == newItem.limitTime &&
+                   oldItem.usageTime == newItem.usageTime &&
+                   oldItem.isBlocked == newItem.isBlocked
         }
     }
 }

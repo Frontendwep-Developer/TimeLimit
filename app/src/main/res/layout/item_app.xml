@@ -52,13 +52,37 @@
                     android:textColor="?android:attr/textColorPrimary"
                     tools:text="Instagram" />
 
-                <TextView
-                    android:id="@+id/tv_usage_time"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    tools:text="15/30 min" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_usage_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="?android:attr/textColorSecondary"
+                        tools:text="15/30 min" />
+
+                    <TextView
+                        android:id="@+id/tv_blocked_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BLOCKED"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/red"
+                        android:background="@drawable/bg_blocked_tag"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:layout_marginStart="8dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".StatisticsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="Instagram - Haftalik"
+            app:menu="@menu/statistics_menu"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Chart Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Umumiy vaqt"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    android:textColor="@color/gray_700" />
+
+                <TextView
+                    android:id="@+id/total_time_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5s 34m"
+                    android:textAppearance="?attr/textAppearanceDisplaySmall"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Haftalik"
+                    app:chipBackgroundColor="@color/primary"
+                    app:chipStrokeWidth="0dp"
+                    android:textColor="@color/white"/>
+
+                <!-- Bar Chart -->
+                <com.example.timelimit.BarChartView
+                    android:id="@+id/bar_chart_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp" />
+
+            </LinearLayout>
+
+            <!-- Today's Status Card -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bugungi holat"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:layout_marginBottom="8dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/daily_limit_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kunlik limit"
+                            android:textAppearance="?attr/textAppearanceLabelMedium"
+                            android:textColor="@color/gray_700"/>
+
+                         <TextView
+                            android:id="@+id/daily_limit_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/daily_limit_label"
+                            android:text="45m / 60m"
+                            android:textAppearance="?attr/textAppearanceTitleLarge"
+                            android:textColor="@color/black"/>
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/remaining_time_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="15 daqiqa qoldi"
+                            app:chipIcon="@drawable/ic_timer"
+                            app:chipBackgroundColor="@color/colorErrorContainer"
+                            app:chipStrokeWidth="0dp"
+                            android:textColor="@color/colorError"/>
+
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:progress="75"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Stats List -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray_200">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_lock_open"
+                            app:tint="?attr/colorPrimary"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ochilishlar soni"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"/>
+                             <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bugungi hisob"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:textColor="@color/gray_700"/>
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/openings_count_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12 marta"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"/>
+                     </LinearLayout>
+
+                     <View
+                         android:layout_width="match_parent"
+                         android:layout_height="1dp"
+                         android:background="@color/gray_200"/>
+
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_trending_down"
+                            app:tint="?attr/colorPrimary"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="O'rtacha vaqt"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"/>
+                             <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="O'tgan haftaga nisbatan"
+                                android:textAppearance="?attr/textAppearanceBodySmall"
+                                android:textColor="@color/gray_700"/>
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/average_time_change_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-5%"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="@color/colorError"/>
+                     </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

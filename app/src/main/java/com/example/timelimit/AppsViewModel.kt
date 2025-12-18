@@ -1,126 +1,121 @@
 package com.example.timelimit
 
+import android.app.Application
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.timelimit.data.AppLimit
+import com.example.timelimit.data.AppLimitDao
 import com.example.timelimit.model.AppInfo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
-class AppsViewModel : ViewModel() {
+class AppsViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val appLimitDao: AppLimitDao
 
     private val _appsList = MutableLiveData<List<AppInfo>>()
     val appsList: LiveData<List<AppInfo>> = _appsList
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _totalUsageTimeFormatted = MutableLiveData<String>()
+    val totalUsageTimeFormatted: LiveData<String> = _totalUsageTimeFormatted
 
-    private var isTrackerRunning = false
+    private val _mostUsedApp = MutableLiveData<AppInfo?>()
+    val mostUsedApp: LiveData<AppInfo?> = _mostUsedApp
 
-    fun startUsageTracker(context: Context) {
-        if (isTrackerRunning) return
-        isTrackerRunning = true
+    private val _blockedApps = MutableLiveData<List<AppInfo>>()
+    val blockedApps: LiveData<List<AppInfo>> = _blockedApps
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-            while (isActive) {
-                val foregroundApp = getForegroundApp(usageStatsManager)
+    init {
+        val database = AppDatabase.getDatabase(application)
+        appLimitDao = database.appLimitDao()
 
-                if (foregroundApp != null) {
-                    val currentList = _appsList.value ?: emptyList()
-                    var listUpdated = false
-                    val updatedList = currentList.map {
-                        if (it.packageName == foregroundApp && it.limitTime > 0) {
-                            // Increment usage time by 1 second (we delay by 1 sec)
-                            val newUsageTime = it.usageTime + 1 // This should be seconds, not minutes
-                            listUpdated = true
-                            it.copy(usageTime = newUsageTime)
-                        } else {
-                            it
-                        }
-                    }
-
-                    if (listUpdated) {
-                        _appsList.postValue(sortApps(updatedList))
-                    }
-                }
-                delay(1000) // Check every second
-            }
-        }
-    }
-
-    private fun getForegroundApp(usageStatsManager: UsageStatsManager): String? {
-        val time = System.currentTimeMillis()
-        val usageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 10, time)
-        if (usageStats != null && usageStats.isNotEmpty()) {
-            return usageStats.sortedBy { it.lastTimeUsed }.lastOrNull()?.packageName
-        }
-        return null
-    }
-
-    fun loadInstalledApps(context: Context) {
         viewModelScope.launch {
-            _isLoading.value = true
-            val apps = withContext(Dispatchers.IO) {
-                // ... (existing code to load apps)
-                val pm = context.packageManager
-                val mainIntent = Intent(Intent.ACTION_MAIN, null)
-                mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-                val packages = pm.queryIntentActivities(mainIntent, 0)
-                packages.map {
-                    AppInfo(
-                        packageName = it.activityInfo.packageName,
-                        appName = it.loadLabel(pm).toString(),
-                        category = "",
-                        icon = it.loadIcon(pm),
-                        isLimited = false,
-                        usageTime = 0 // Initial usage time
-                    )
-                }
+            appLimitDao.getAllLimits().distinctUntilChanged().collect { dbLimits ->
+                updateFullAppList(dbLimits)
             }
-            _appsList.value = sortApps(apps)
-            _isLoading.value = false
+        }
+    }
+
+    fun forceUpdate() {
+        viewModelScope.launch {
+            val currentLimits = appLimitDao.getAllLimitsAsList()
+            updateFullAppList(currentLimits)
+        }
+    }
+
+    private suspend fun updateFullAppList(dbLimits: List<AppLimit>) {
+        withContext(Dispatchers.IO) {
+            val pm = getApplication<Application>().packageManager
+            val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
+                addCategory(Intent.CATEGORY_LAUNCHER)
+            }
+            val packages = pm.queryIntentActivities(mainIntent, 0)
+
+            val allApps = packages.map { resolveInfo ->
+                val dbLimit = dbLimits.find { it.packageName == resolveInfo.activityInfo.packageName }
+                AppInfo(
+                    packageName = resolveInfo.activityInfo.packageName,
+                    appName = resolveInfo.loadLabel(pm).toString(),
+                    icon = resolveInfo.loadIcon(pm),
+                    category = "",
+                    isLimited = dbLimit != null,
+                    usageTime = dbLimit?.usageTime ?: 0,
+                    limitTime = dbLimit?.limitTime ?: 0,
+                    isBlocked = dbLimit?.isBlocked ?: false
+                )
+            }
+
+            _appsList.postValue(sortApps(allApps))
+
+            val limitedApps = allApps.filter { it.isLimited }
+            val totalUsageSeconds = limitedApps.sumOf { it.usageTime }
+            val hours = totalUsageSeconds / 3600
+            val minutes = (totalUsageSeconds % 3600) / 60
+            _totalUsageTimeFormatted.postValue("${hours} soat ${minutes} daq")
+
+            _mostUsedApp.postValue(limitedApps.maxByOrNull { it.usageTime })
+
+            _blockedApps.postValue(limitedApps.filter { it.isBlocked })
         }
     }
 
     fun setAppLimit(packageName: String, limitInMinutes: Int) {
-        val currentList = _appsList.value ?: return
-        val updatedList = currentList.map {
-            if (it.packageName == packageName) {
-                // limitTime is in minutes, usageTime is in seconds
-                it.copy(limitTime = limitInMinutes, isLimited = limitInMinutes > 0)
-            } else {
-                it
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val newLimit = AppLimit(
+                packageName = packageName,
+                limitTime = limitInMinutes,
+                usageTime = 0, // **THE FIX IS HERE: Reset usage time to 0**
+                isBlocked = false,
+                lastReset = System.currentTimeMillis(),
+                usageOffset = 0 // No longer needed, but kept for DB schema compatibility
+            )
+            appLimitDao.insertOrUpdateLimit(newLimit)
+            forceUpdate()
         }
-        _appsList.value = sortApps(updatedList)
     }
 
     fun removeAppLimit(packageName: String) {
-        val currentList = _appsList.value ?: return
-        val updatedList = currentList.map {
-            if (it.packageName == packageName) {
-                it.copy(limitTime = 0, isLimited = false, usageTime = 0) // Reset usage time as well
-            } else {
-                it
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            appLimitDao.deleteLimit(packageName)
+            forceUpdate()
         }
-        _appsList.value = sortApps(updatedList)
     }
 
     private fun sortApps(apps: List<AppInfo>): List<AppInfo> {
         return apps.sortedWith(
-            compareByDescending<AppInfo> { it.limitTime > 0 && (it.usageTime / 60) >= it.limitTime } // Blocked apps first
-                .thenByDescending { it.isLimited } // Then limited apps
-                .thenBy { it.appName } // Then by app name alphabetically
+            compareByDescending<AppInfo> { it.isBlocked }
+                .thenByDescending { it.isLimited }
+                .thenBy { it.appName }
         )
     }
 }

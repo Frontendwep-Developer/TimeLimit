@@ -1,10 +1,17 @@
 package com.example.timelimit
 
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.os.Process
 import android.provider.Settings
+import android.util.Log
+import android.view.accessibility.AccessibilityManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,37 +36,129 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        checkUsageStatsPermission()
+        checkAllPermissionsAndStart()
+        viewModel.forceUpdate()
     }
 
-    private fun checkUsageStatsPermission() {
-        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
-        val mode = appOps.unsafeCheckOpNoThrow(
-            AppOpsManager.OPSTR_GET_USAGE_STATS,
-            android.os.Process.myUid(),
-            packageName
-        )
-
-        if (mode != AppOpsManager.MODE_ALLOWED) {
-            showPermissionDialog()
+    private fun checkAllPermissionsAndStart() {
+        if (!hasUsageStatsPermission()) {
+            showUsageStatsDialog()
+        } else if (!checkOverlayPermission()) {
+            showOverlayPermissionDialog()
+        } else if (!isAccessibilityServiceEnabled()) {
+            showAccessibilityPermissionDialog()
         } else {
-            // Permission is granted, start the tracker in the ViewModel
-            viewModel.startUsageTracker(applicationContext)
+            // Hamma ruxsatlar bor, endi batareyani tekshiramiz
+            checkBatteryOptimization()
+            startMonitoring()
         }
     }
 
-    private fun showPermissionDialog() {
+    // 1. Monitoringni boshlash
+    private fun startMonitoring() {
+        Log.d("MainActivity", "All permissions granted. Accessibility Service should be running.")
+    }
+
+    // 2. Accessibility Service tekshirish
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val am = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
+        return enabledServices.any { it.resolveInfo.serviceInfo.packageName == packageName }
+    }
+
+    // 3. Usage Stats ruxsatini tekshirish
+    private fun hasUsageStatsPermission(): Boolean {
+        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            appOps.unsafeCheckOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                Process.myUid(), packageName
+            )
+        } else {
+            appOps.checkOpNoThrow(
+                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                Process.myUid(), packageName
+            )
+        }
+        return mode == AppOpsManager.MODE_ALLOWED
+    }
+
+    // 4. Overlay ruxsatini tekshirish
+    private fun checkOverlayPermission(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(this)
+        } else {
+            true
+        }
+    }
+
+    // 5. Batareya optimizatsiyasini tekshirish
+    private fun checkBatteryOptimization() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val packageName = packageName
+            val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                showBatteryOptimizationDialog()
+            }
+        }
+    }
+
+    // --- Dialoglar va Yo'naltirishlar ---
+
+    private fun showUsageStatsDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Permission Required")
-            .setMessage("This app needs 'Usage Access' permission to track app usage and enforce limits. Please grant the permission in the settings.")
-            .setPositiveButton("Go to Settings") { _, _ ->
+            .setTitle("Ruxsatnoma kerak")
+            .setMessage("Ilovalar vaqtini hisoblash uchun 'Foydalanishga ruxsat' (Usage Access) talab qilinadi.")
+            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton("Bekor qilish", null)
             .setCancelable(false)
-            .create()
+            .show()
+    }
+
+    private fun showOverlayPermissionDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Bloklash oynasi uchun ruxsat")
+            .setMessage("Bloklash oynasini ko'rsatish uchun 'Boshqa ilovalar ustida ko'rsatish' ruxsati kerak.")
+            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:$packageName")
+                    )
+                    startActivity(intent)
+                }
+            }
+            .setNegativeButton("Bekor qilish", null)
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun showAccessibilityPermissionDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Qo'shimcha himoya")
+            .setMessage("Ilovalarni ishonchli bloklash uchun Maxsus imkoniyatlar (Accessibility) xizmatini yoqing.")
+            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
+                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+            }
+            .setNegativeButton("Keyinroq") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun showBatteryOptimizationDialog() {
+         AlertDialog.Builder(this)
+            .setTitle("Batareya cheklovini olib tashlash")
+            .setMessage("Ilova yopilganda ham ishlashi uchun, iltimos, batareya optimizatsiyasini o'chiring.")
+            .setPositiveButton("Sozlash") { _, _ ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                    intent.data = Uri.parse("package:$packageName")
+                    startActivity(intent)
+                }
+            }
+            .setNegativeButton("Keyinroq", null)
             .show()
     }
 }

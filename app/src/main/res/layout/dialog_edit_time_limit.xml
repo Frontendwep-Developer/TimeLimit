@@ -18,7 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="Instagram limitini o'zgartirish"
+            tools:text="Instagram limitini o'zgartirish"
+            android:text="@string/edit_limit_title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="?android:attr/textColorPrimary"
@@ -51,7 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hozirgi holat:"
+            android:text="@string/current_usage_label"
             android:textSize="12sp"
             android:textAllCaps="true"
             android:layout_marginBottom="8dp"/>
@@ -79,7 +80,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tezkor yangilash:"
+            android:text="@string/quick_update_label"
             android:textSize="12sp"
             android:textAllCaps="true"
             android:layout_marginBottom="8dp"/>
@@ -119,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aniq sozlash:"
+            android:text="@string/fine_tune_label"
             android:textSize="12sp"
             android:textAllCaps="true"
             android:layout_marginBottom="8dp"/>
@@ -138,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Soat" 
+                    android:text="@string/hours_label" 
                     android:textSize="12sp"/>
                 <EditText
                     android:id="@+id/et_hours_edit"
@@ -160,7 +161,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daqiqa"
+                    android:text="@string/minutes_label"
                     android:textSize="12sp"/>
                 <EditText
                     android:id="@+id/et_minutes_edit"
@@ -192,7 +193,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Bekor qilish"/>
+            android:text="@string/button_cancel_edit"/>
 
         <Button
             android:id="@+id/btn_delete_limit"
@@ -201,7 +202,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="O'chirish"
+            android:text="@string/button_delete_limit"
             android:textColor="@color/red"/>
 
         <Button
@@ -209,7 +210,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Saqlash"/>
+            android:text="@string/button_save_limit"/>
 
     </LinearLayout>
 

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.timelimit.AppsViewModel
@@ -63,10 +62,11 @@ class EditTimeLimitDialog(private val appInfo: AppInfo) : DialogFragment() {
         binding.btn1HourEdit.setOnClickListener { updateCustomTimeFields(60) }
         binding.btn90MinEdit.setOnClickListener { updateCustomTimeFields(90) }
 
-        // Delete Button
+        // Delete Button now opens the UnblockAppDialog
         binding.btnDeleteLimit.setOnClickListener {
-            viewModel.removeAppLimit(appInfo.packageName)
-            dismiss()
+            val unblockDialog = UnblockAppDialog(appInfo)
+            unblockDialog.show(parentFragmentManager, UnblockAppDialog.TAG)
+            dismiss() // Close the current edit dialog
         }
 
         // Save Button

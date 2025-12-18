@@ -8,6 +8,7 @@ data class AppInfo(
     val category: String,
     val icon: Drawable,
     var isLimited: Boolean,
-    var usageTime: Long,      // Changed to Long to store seconds, not minutes
-    var limitTime: Int = 0          // Limit remains in minutes
+    var usageTime: Int,      // in seconds
+    var limitTime: Int = 0,         // Limit remains in minutes
+    var isBlocked: Boolean = false
 )

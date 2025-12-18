@@ -2,21 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Query All Packages Permission -->
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-
-    <!-- Usage Stats Permission -->
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
-
-    <!-- Foreground Service Permission -->
+    <!-- Asosiy ruxsatnomalar -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <!-- Post Notifications Permission -->
+    <!-- Qo'shimcha ruxsatnomalar -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <!-- Internet Permission -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +21,6 @@
         android:theme="@style/Theme.TimeLimit"
         tools:targetApi="31">
 
-        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -37,12 +31,28 @@
             </intent-filter>
         </activity>
 
-        <!-- Usage Tracking Service -->
-        <service
-            android:name=".UsageTrackingService"
-            android:enabled="true"
+        <activity
+            android:name=".BlockingActivity"
+            android:excludeFromRecents="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+
+        <service
+            android:name=".AppBlockerService"
+            android:exported="false"
+            android:stopWithTask="false"
+            android:directBootAware="true"
+            android:foregroundServiceType="dataSync"
+            android:label="TimeLimit Protector"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/app_blocker_service_config" />
+        </service>
 
     </application>
 
