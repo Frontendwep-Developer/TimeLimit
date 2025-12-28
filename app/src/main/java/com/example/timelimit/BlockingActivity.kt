@@ -53,6 +53,7 @@ class BlockingActivity : AppCompatActivity() {
         finishAffinity() // Ilovani to'liq yopish
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         // Orqaga tugmasini bosganda ham ilovani yopamiz
         exitApp()

@@ -5,62 +5,65 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.timelimit.databinding.FragmentStatisticsBinding
+import com.example.timelimit.model.AppInfoForStats
 
 class StatisticsFragment : Fragment() {
 
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: StatisticsViewModel
+    private val viewModel: StatisticsViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel()
-
-        // TODO: Replace with dynamic package name and limit
-        viewModel.loadWeeklyStatsForApp("com.instagram.android", 60L)
-    }
-
-    private fun observeViewModel() {
-        viewModel.weeklyTotalUsage.observe(viewLifecycleOwner) {
-            binding.totalTimeTextview.text = it
+        viewModel.limitedApps.observe(viewLifecycleOwner) { apps ->
+            if (!apps.isNullOrEmpty()) {
+                // For now, let's just load the stats for the first app
+                viewModel.selectApp(apps.first().packageName)
+            }
         }
 
-        viewModel.todayUsage.observe(viewLifecycleOwner) {
-            binding.dailyLimitTextview.text = it
+        viewModel.selectedAppInfo.observe(viewLifecycleOwner) { appInfo ->
+            binding.toolbar.title = "${appInfo.appName} - Haftalik"
+            viewModel.loadWeeklyStatsForApp(appInfo.packageName)
         }
 
-        viewModel.remainingTime.observe(viewLifecycleOwner) {
-            binding.remainingTimeChip.text = it
+        viewModel.weeklyTotalUsage.observe(viewLifecycleOwner) { 
+             val minutes = it / 60
+             val seconds = it % 60
+             binding.totalTimeTextview.text = "${minutes}m ${seconds}s" 
         }
-
-        viewModel.dailyProgress.observe(viewLifecycleOwner) {
+        viewModel.dailyUsageData.observe(viewLifecycleOwner) { binding.barChartView.setData(it) }
+        viewModel.todayUsage.observe(viewLifecycleOwner) { 
+            // Placeholder for daily_limit_textview
+        }
+        viewModel.remainingTime.observe(viewLifecycleOwner) { 
+            val minutes = it / 60
+            val seconds = it % 60
+            if (minutes > 0) {
+                binding.remainingTimeChip.text = "${minutes} daqiqa ${seconds} soniya qoldi"
+            } else {
+                binding.remainingTimeChip.text = "${seconds} soniya qoldi"
+            }
+        }
+        viewModel.dailyProgress.observe(viewLifecycleOwner) { 
             binding.progressBar.progress = it
         }
-
-        viewModel.openingsCount.observe(viewLifecycleOwner) {
-            binding.openingsCountTextview.text = it
+        viewModel.openingsCount.observe(viewLifecycleOwner) { 
+             binding.openingsCountTextview.text = "$it marta"
         }
-
-        viewModel.averageTimeChange.observe(viewLifecycleOwner) {
-            binding.averageTimeChangeTextview.text = it
-        }
-
-        viewModel.dailyUsageData.observe(viewLifecycleOwner) { dailyUsage ->
-            binding.barChartView.setData(dailyUsage)
+        viewModel.averageTimeChange.observe(viewLifecycleOwner) { 
+             binding.averageTimeChangeTextview.text = String.format("%.1f%%", it)
         }
     }
 

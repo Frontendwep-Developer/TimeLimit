@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.example.timelimit.model.DailyUsage
 import java.util.concurrent.TimeUnit
 
 class BarChartView @JvmOverloads constructor(

@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                 Process.myUid(), packageName
             )
         } else {
+            @Suppress("DEPRECATION")
             appOps.checkOpNoThrow(
                 AppOpsManager.OPSTR_GET_USAGE_STATS,
                 Process.myUid(), packageName
