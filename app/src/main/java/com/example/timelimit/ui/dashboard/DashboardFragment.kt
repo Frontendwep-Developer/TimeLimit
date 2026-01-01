@@ -41,15 +41,16 @@ class DashboardFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.totalUsageTimeFormatted.observe(viewLifecycleOwner) {
-            binding.tvTotalUsageTime.text = it
+            binding.tvUsedTime.text = it // Updated ID
         }
 
-        viewModel.mostUsedApp.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.ivMostUsedAppIcon.setImageDrawable(it.icon)
-                binding.tvMostUsedAppName.text = it.appName
-            }
-        }
+        // Most used app UI was removed in the new design
+//        viewModel.mostUsedApp.observe(viewLifecycleOwner) {
+//            it?.let {
+//                binding.ivMostUsedAppIcon.setImageDrawable(it.icon)
+//                binding.tvMostUsedAppName.text = it.appName
+//            }
+//        }
 
         viewModel.blockedApps.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {

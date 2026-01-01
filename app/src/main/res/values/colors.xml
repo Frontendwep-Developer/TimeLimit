@@ -24,6 +24,7 @@
     <color name="settings_primary">#4463ee</color>
     <color name="settings_background">#f6f6f8</color>
     <color name="slate_900">#0f172a</color>
+    <color name="slate_700">#334155</color> <!-- Added slate_700 -->
     <color name="slate_500">#64748b</color>
     <color name="slate_400">#94a3b8</color>
     <color name="slate_200">#e2e8f0</color>
