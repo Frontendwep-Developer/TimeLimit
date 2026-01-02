@@ -2,786 +2,290 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/settings_background"
+    android:background="@color/background_light"
+    android:fillViewport="true"
     tools:context=".ui.settings.SettingsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
-        <!-- Top App Bar -->
+        <!-- 1. HEADER (O'zgarishsiz) -->
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/settings_background"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="Sozlamalar"
-                app:titleCentered="true"
-                app:navigationIcon="@drawable/ic_arrow_back" />
+                android:layout_height="wrap_content">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="SOZLAMALAR"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_close"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_subtitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ilova sozlamalari va boshqaruv paneli"
+                        android:textColor="@color/gray_700"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+                    <ImageButton
+                        android:id="@+id/btn_close"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_close"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Main Content -->
+        <!-- 2. CONTENT -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/settings_content_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+            android:padding="16dp">
 
-            <!-- SECTION 1: ASOSIY SOZLAMALAR -->
-            <TextView
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:text="Asosiy Sozlamalar"
-                android:textColor="@color/slate_500"
-                android:textStyle="bold"
-                android:textAllCaps="true" />
-
-            <com.google.android.material.card.MaterialCardView
+            <!-- LANGUAGE SECTION HEADER (Toggle) -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/slate_100"
-                app:strokeWidth="1dp">
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
+                    android:id="@+id/layout_language_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:divider="@drawable/divider_settings_inset"
-                    android:showDividers="middle">
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-                    <!-- Language -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/language_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_language"
+                        app:tint="@color/primary" />
 
-                        <ImageView
-                            android:id="@+id/icon_language"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_primary"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_language"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/settings_primary" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Til"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_language"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/text_language_value"/>
-
-                        <TextView
-                            android:id="@+id/text_language_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="O'zbek"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:textColor="@color/slate_500"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/icon_chevron_language"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/icon_chevron_language"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_400" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <!-- Language Selection Container (Accordion) -->
-                    <LinearLayout
-                        android:id="@+id/language_accordion_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical"
-                        android:paddingStart="72dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp">
-
-                        <RadioGroup
-                            android:id="@+id/language_radio_group"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <RadioButton
-                                android:id="@+id/lang_uz"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="O'zbek"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                android:buttonTint="@color/teal_200"
-                                android:layoutDirection="rtl"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/slate_900" />
-
-                            <RadioButton
-                                android:id="@+id/lang_en"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="English"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                android:buttonTint="@color/teal_200"
-                                android:layoutDirection="rtl"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/slate_900" />
-
-                            <RadioButton
-                                android:id="@+id/lang_ru"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Русский"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                android:buttonTint="@color/teal_200"
-                                android:layoutDirection="rtl"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/slate_900" />
-                        </RadioGroup>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="end"
-                            android:paddingTop="8dp">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_lang_cancel"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="Bekor qilish"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/slate_500"/>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btn_lang_ok"
-                                style="@style/Widget.Material3.Button.TextButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="OK"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/teal_200"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <!-- Notifications Header (Virtual) -->
-                     <TextView
-                        style="@style/TextAppearance.Material3.LabelSmall"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Bildirishnomalar"
-                        android:textColor="@color/slate_400"
-                        android:textStyle="bold"
-                        android:textAllCaps="true" />
+                        android:layout_weight="1"
+                        android:text="TIL"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                    <!-- Notif 1: 5 daqiqa qolganda -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_notif_limit"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_alarm"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_500" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="5 daqiqa qolganda"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_notif_limit"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_notif_limit"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_notif_limit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <!-- Notif 2: Kunlik eslatma -->
-                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_notif_daily"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_calendar_month"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_500" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Kunlik eslatma"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_notif_daily"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_notif_daily"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_notif_daily"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Notif 3: Haftalik hisobot -->
-                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:paddingBottom="8dp">
-
-                        <ImageView
-                            android:id="@+id/icon_notif_weekly"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_statistics"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_500" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Haftalik hisobot"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_notif_weekly"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_notif_weekly"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_notif_weekly"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <!-- Dark Mode (Moved here) -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_dark_mode"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_slate"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_dark_mode"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_900" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Qorong'u rejim"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_dark_mode"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_dark_mode"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_dark_mode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Maxsus Ruxsatlar Header -->
-                     <TextView
-                        style="@style/TextAppearance.Material3.LabelSmall"
+                    <TextView
+                        android:id="@+id/tv_current_language"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Maxsus Ruxsatlar"
-                        android:textColor="@color/slate_400"
-                        android:textStyle="bold"
-                        android:textAllCaps="true" />
-                        
-                     <!-- Usage Access -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
+                        android:layout_marginEnd="8dp"
+                        android:text="O'zbekcha"
+                        android:textColor="@color/gray_700"
+                        android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/icon_usage_access"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_slate"
-                            android:backgroundTint="#EF4444" 
-                            android:padding="8dp"
-                            android:src="@drawable/ic_bar_chart"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Foydalanish statistikasi"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_usage_access"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_usage_permission"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_usage_permission"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Draw Overlay -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_overlay"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_slate"
-                            android:backgroundTint="#EF4444" 
-                            android:padding="8dp"
-                            android:src="@drawable/ic_layers"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Ilovalar ustida ko'rsatish"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_overlay"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_overlay_permission"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_overlay_permission"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Accessibility Service -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_accessibility"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_slate"
-                            android:backgroundTint="#EF4444" 
-                            android:padding="8dp"
-                            android:src="@drawable/ic_accessibility"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Accessibility Service"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_accessibility"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch_accessibility_permission"/>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch_accessibility_permission"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    <ImageView
+                        android:id="@+id/iv_language_arrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_expand_more"
+                        app:tint="@color/gray_700" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <!-- SECTION 2: YORDAM VA QO'LLAB-QUVVATLASH -->
-            <TextView
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="Yordam va qo'llab-quvvatlash"
-                android:textColor="@color/slate_500"
-                android:textStyle="bold"
-                android:textAllCaps="true" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/slate_100"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:divider="@drawable/divider_settings_inset"
-                    android:showDividers="middle">
-
-                    <!-- FAQ -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btn_faq"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_faq"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_settings_icon_orange"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_help"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/orange" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="FAQ"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_faq"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/icon_chevron_faq"/>
-
-                        <ImageView
-                            android:id="@+id/icon_chevron_faq"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_chevron_right"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_400" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Telegram -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btn_telegram"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_telegram"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_send"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="#2196F3" /> <!-- Blue 500 -->
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Telegram"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_telegram"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/icon_open_telegram"/>
-
-                        <ImageView
-                            android:id="@+id/icon_open_telegram"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_sort"
-                            android:rotation="90" 
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/slate_400" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Email -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btn_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_email"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_mail"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/red" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Email"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_email"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                     <!-- Feedback -->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/btn_feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp">
-
-                        <ImageView
-                            android:id="@+id/icon_feedback"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_chat_bubble"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/green" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Izoh qoldirish"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/slate_900"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/icon_feedback"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Version Footer -->
-            <TextView
-                android:id="@+id/version_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:text="Versiya 1.0.0"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:textColor="@color/slate_400" />
-
+            <!-- LANGUAGE EXPANDABLE CONTENT (Yangi dizayn) -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/layout_language_expandable"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/rg_languages"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yangilanishlar"
-                    android:textColor="@color/settings_primary"
+                    android:orientation="vertical">
+
+                    <!-- O'zbekcha (Lotin) -->
+                    <RadioButton
+                        android:id="@+id/rb_uzbek"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/selector_language_item_bg"
+                        android:button="@null"
+                        android:drawableStart="@drawable/selector_radio_icon"
+                        android:drawablePadding="12dp"
+                        android:padding="16dp"
+                        android:text="O'zbekcha (Lotin)"
+                        android:textColor="@color/selector_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:checked="true"/>
+
+                    <!-- O'zbekcha (Kirill) -->
+                    <RadioButton
+                        android:id="@+id/rb_uzbek_cyrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/selector_language_item_bg"
+                        android:button="@null"
+                        android:drawableStart="@drawable/selector_radio_icon"
+                        android:drawablePadding="12dp"
+                        android:padding="16dp"
+                        android:text="O'zbekcha (Kirill)"
+                        android:textColor="@color/selector_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Russian -->
+                    <RadioButton
+                        android:id="@+id/rb_russian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/selector_language_item_bg"
+                        android:button="@null"
+                        android:drawableStart="@drawable/selector_radio_icon"
+                        android:drawablePadding="12dp"
+                        android:padding="16dp"
+                        android:text="Русский"
+                        android:textColor="@color/selector_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- English -->
+                    <RadioButton
+                        android:id="@+id/rb_english"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/selector_language_item_bg"
+                        android:button="@null"
+                        android:drawableStart="@drawable/selector_radio_icon"
+                        android:drawablePadding="12dp"
+                        android:padding="16dp"
+                        android:text="English"
+                        android:textColor="@color/selector_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Turkish -->
+                    <RadioButton
+                        android:id="@+id/rb_turkish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/selector_language_item_bg"
+                        android:button="@null"
+                        android:drawableStart="@drawable/selector_radio_icon"
+                        android:drawablePadding="12dp"
+                        android:padding="16dp"
+                        android:text="Türkçe"
+                        android:textColor="@color/selector_text_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RadioGroup>
+
+                <!-- OK Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_language"
+                    android:layout_width="120dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="OK"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="8dp"/>
-
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:background="@drawable/bg_chip_selected"
-                    android:backgroundTint="@color/slate_200"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Maxfiylik kelishuvi"
-                    android:textColor="@color/settings_primary"
-                    android:textStyle="bold"/>
+                    app:cornerRadius="28dp"
+                    app:backgroundTint="@color/primary"/>
 
             </LinearLayout>
 
+            <!-- NOTIFICATIONS SECTION -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_notifications_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_notification"
+                        app:tint="@color/primary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:text="Bildirishnomalar"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/gray_700" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </ScrollView>

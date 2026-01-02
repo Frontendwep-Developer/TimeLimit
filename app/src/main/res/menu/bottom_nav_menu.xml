@@ -2,29 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard"
-        android:title="Dashboard" />
-
-    <item
         android:id="@+id/navigation_apps"
         android:icon="@drawable/ic_apps"
-        android:title="Apps" />
-
-    <!-- Empty item for FAB space -->
-    <item
-        android:id="@+id/navigation_empty"
-        android:title=""
-        android:enabled="false" />
-
-    <item
-        android:id="@+id/navigation_statistics"
-        android:icon="@drawable/ic_statistics"
-        android:title="Statistics" />
+        android:title="Ilovalar" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:title="Sozlamalar" />
 
 </menu>

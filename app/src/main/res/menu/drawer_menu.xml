@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Guruh 1: Asosiy Sozlamalar -->
+    <group android:id="@+id/group_general">
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/ic_language"
+            android:title="TIL" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notification"
+            android:title="BILDIRISHNOMALAR" />
+        <item
+            android:id="@+id/nav_interface"
+            android:icon="@drawable/ic_dark_mode"
+            android:title="INTERFEYS" />
+    </group>
+
+    <!-- Guruh 2: Xavfsizlik va Ruxsatlar -->
+    <item android:title=""> <!-- Bo'sh sarlavha ajratuvchi sifatida -->
+        <menu>
+            <group android:id="@+id/group_security">
+                <!-- Yangi qo'shilgan qism -->
+                <item
+                    android:id="@+id/nav_permissions"
+                    android:icon="@drawable/ic_lock_open"
+                    android:title="MAXSUS RUXSATLAR" />
+
+                <item
+                    android:id="@+id/nav_security"
+                    android:icon="@drawable/ic_lock"
+                    android:title="XAVFSIZLIK" />
+                <item
+                    android:id="@+id/nav_privacy"
+                    android:icon="@drawable/ic_privacy_tip"
+                    android:title="MAXFIYLIK" />
+            </group>
+        </menu>
+    </item>
+
+    <!-- Guruh 3: Yordam -->
+    <item android:title="">
+        <menu>
+            <group android:id="@+id/group_help">
+                <item
+                    android:id="@+id/nav_help"
+                    android:icon="@drawable/ic_help"
+                    android:title="YORDAM" />
+                <item
+                    android:id="@+id/nav_help_center"
+                    android:icon="@drawable/ic_support_agent"
+                    android:title="YORDAM MARKAZI" />
+                <item
+                    android:id="@+id/nav_contact"
+                    android:icon="@drawable/ic_call"
+                    android:title="BOG'LANISH" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

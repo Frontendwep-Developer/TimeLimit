@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="XAVFSIZLIK"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Parol himoyasi"/>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_password_protection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            
+            <CheckBox android:id="@+id/cb_cloud_sync" android:text="Cloud sync" style="@style/Widget.App.CheckBox" />
+            <CheckBox android:id="@+id/cb_save_stats" android:text="Statistikani saqlash" style="@style/Widget.App.CheckBox" />
+            <CheckBox android:id="@+id/cb_local_encrypt" android:text="Lokal shifrlash" style="@style/Widget.App.CheckBox" />
+            <CheckBox android:id="@+id/cb_incognito" android:text="Anonim rejim" style="@style/Widget.App.CheckBox" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+        <Button android:id="@+id/btn_sec_reset_all" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="BARCHASINI O'CHIRISH"/>
+        <Button android:id="@+id/btn_sec_export" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="EKSPORT QILISH"/>
+    </LinearLayout>
+
+</LinearLayout>

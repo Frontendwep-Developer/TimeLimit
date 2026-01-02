@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp">
+
+    <!-- Header (Bosiladigan qism) -->
+    <LinearLayout
+        android:id="@+id/header_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_public"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TIL"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/icon_expand_language"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_expand_more"/>
+    </LinearLayout>
+
+    <!-- Content (Ochiladigan/Yopiladigan qism) -->
+    <LinearLayout
+        android:id="@+id/content_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"> <!-- Boshlanishida yashirin -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="?attr/colorOutline">
+            <RadioGroup
+                android:id="@+id/rg_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <RadioButton android:id="@+id/rb_lang_uz_lotin" android:text="O'zbekcha (Lotin)" style="@style/Widget.App.RadioButton" />
+                <RadioButton android:id="@+id/rb_lang_uz_kirill" android:text="O'zbekcha (Kirill)" style="@style/Widget.App.RadioButton" />
+                <RadioButton android:id="@+id/rb_lang_ru" android:text="Русский" style="@style/Widget.App.RadioButton" />
+                <RadioButton android:id="@+id/rb_lang_en" android:text="English" style="@style/Widget.App.RadioButton" />
+                <RadioButton android:id="@+id/rb_lang_tr" android:text="Türkçe" style="@style/Widget.App.RadioButton" />
+
+            </RadioGroup>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginTop="8dp">
+            <Button android:id="@+id/btn_lang_cancel" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="BEKOR QILISH"/>
+            <Button android:id="@+id/btn_lang_save" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="SAQLASH"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

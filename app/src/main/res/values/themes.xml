@@ -22,6 +22,10 @@
 
     </style>
 
+    <!-- AppBar and Popup Styles for Toolbar -->
+    <style name="Theme.TimeLimit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.TimeLimit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- Button Styles -->
     <style name="Widget.App.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/gray_700</item>
@@ -29,10 +33,38 @@
         <item name="strokeWidth">0dp</item> <!-- Remove border -->
     </style>
 
+    <style name="Widget.App.Button.Contact" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="iconGravity">top</item>
+    </style>
+
     <!-- Shape Styles -->
     <style name="ShapeAppearanceOverlay.App.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Drawer" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">28dp</item>
+        <item name="cornerSizeBottomRight">28dp</item>
+    </style>
+
+    <!-- Settings Widgets -->
+    <style name="Widget.App.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

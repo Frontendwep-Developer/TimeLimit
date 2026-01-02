@@ -11,18 +11,27 @@ import android.os.PowerManager
 import android.os.Process
 import android.provider.Settings
 import android.util.Log
+import android.view.MenuItem
 import android.view.accessibility.AccessibilityManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.timelimit.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
     private val viewModel: AppsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +39,77 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        binding.bottomNavigation.setupWithNavController(navController)
+        navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.navigation_apps, R.id.navigation_settings, R.id.navigation_permissions, R.id.navigation_notifications),
+            binding.drawerLayout
+        )
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.navView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val bundle = Bundle()
+        
+        when (item.itemId) {
+            // Asosiy navigatsiya
+            R.id.navigation_apps -> {
+                navController.navigate(R.id.navigation_apps)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            R.id.navigation_settings -> {
+                navController.navigate(R.id.navigation_settings)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            
+            // Maxsus ruxsatlar bo'limi
+            R.id.nav_permissions -> {
+                navController.navigate(R.id.navigation_permissions)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            // Bildirishnomalar bo'limi
+            R.id.nav_notifications -> {
+                navController.navigate(R.id.navigation_notifications)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            
+            // TIL bo'limi
+            R.id.nav_language -> {
+                bundle.putString("target_section", "language")
+                navController.navigate(R.id.navigation_settings, bundle)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            
+            // Boshqa bo'limlar (Hozircha o'chirilgan)
+            R.id.nav_interface,
+            R.id.nav_security,
+            R.id.nav_privacy,
+            R.id.nav_help,
+            R.id.nav_help_center,
+            R.id.nav_contact -> {
+                // Hech nima qilmaydi
+                return false
+            }
+        }
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onResume() {
@@ -49,30 +126,23 @@ class MainActivity : AppCompatActivity() {
         } else if (!isAccessibilityServiceEnabled()) {
             showAccessibilityPermissionDialog()
         } else {
-            // Hamma ruxsatlar bor, endi batareyani tekshiramiz
             checkBatteryOptimization()
             startMonitoring()
         }
     }
 
-    // 1. Monitoringni boshlash
     private fun startMonitoring() {
         Log.d("MainActivity", "All permissions granted. Starting foreground monitoring service.")
-
-        // ForegroundMonitoringService orqali AppMonitoringService fon rejimida ishlaydi.
-        // Bu TimeLimit ilovasi yopilganida ham limit va bloklash davom etishini ta'minlaydi.
         val serviceIntent = Intent(this, ForegroundMonitoringService::class.java)
         ContextCompat.startForegroundService(this, serviceIntent)
     }
 
-    // 2. Accessibility Service tekshirish
     private fun isAccessibilityServiceEnabled(): Boolean {
         val am = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
         return enabledServices.any { it.resolveInfo.serviceInfo.packageName == packageName }
     }
 
-    // 3. Usage Stats ruxsatini tekshirish
     private fun hasUsageStatsPermission(): Boolean {
         val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -90,7 +160,6 @@ class MainActivity : AppCompatActivity() {
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-    // 4. Overlay ruxsatini tekshirish
     private fun checkOverlayPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Settings.canDrawOverlays(this)
@@ -99,7 +168,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 5. Batareya optimizatsiyasini tekshirish
     private fun checkBatteryOptimization() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val packageName = packageName
@@ -109,8 +177,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    // --- Dialoglar va Yo'naltirishlar ---
 
     private fun showUsageStatsDialog() {
         AlertDialog.Builder(this)

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp">
+
+    <LinearLayout
+        android:id="@+id/header_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_notification"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="BILDIRISHNOMALAR"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/icon_expand_notifications"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_expand_more"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_limit_alerts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Limit ogohlantirishlari"
+                    android:checked="true"/>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_daily_reports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kunlik hisobotlar"
+                    android:checked="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tovushli signallar"
+                    android:layout_marginTop="8dp"/>
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_sound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:value="75.0"
+                    android:valueFrom="0.0"
+                    android:valueTo="100.0"/>
+
+                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vibratsiya"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+            <Button android:id="@+id/btn_notif_off_all" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="HAMMASINI O'CHIRISH"/>
+            <Button android:id="@+id/btn_notif_on_all" style="@style/Widget.MaterialComponents.Button.TextButton" android:text="HAMMASINI YOQISH"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

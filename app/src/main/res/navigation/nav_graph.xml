@@ -3,34 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_dashboard">
+    app:startDestination="@id/navigation_apps">
 
-    <!-- Dashboard Fragment -->
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.timelimit.DashboardFragment"
-        android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <!-- Apps Fragment -->
     <fragment
         android:id="@+id/navigation_apps"
         android:name="com.example.timelimit.AppsFragment"
-        android:label="Apps"
+        android:label="Ilovalar"
         tools:layout="@layout/fragment_apps" />
 
-    <!-- Statistics Fragment -->
-    <fragment
-        android:id="@+id/navigation_statistics"
-        android:name="com.example.timelimit.StatisticsFragment"
-        android:label="Statistics"
-        tools:layout="@layout/fragment_statistics" />
-
-    <!-- Settings Fragment -->
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.timelimit.ui.settings.SettingsFragment"
-        android:label="Settings"
+        android:label="Sozlamalar"
         tools:layout="@layout/fragment_settings" />
+        
+    <fragment
+        android:id="@+id/navigation_permissions"
+        android:name="com.example.timelimit.ui.permissions.PermissionsFragment"
+        android:label="Maxsus Ruxsatlar"
+        tools:layout="@layout/fragment_permissions" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.timelimit.ui.notifications.NotificationsFragment"
+        android:label="Bildirishnoma Sozlamalari"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>
