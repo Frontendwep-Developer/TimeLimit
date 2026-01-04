@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.legal.LicenseFragment">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:minHeight="64dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Litsenziya Shartlari"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:tint="@color/black" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            
+            <TextView style="@style/AboutSectionTitle" android:text="⚖️ LITSENZIYA SHARTLARI"/>
+            <View style="@style/Divider" android:layout_marginBottom="16dp"/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="1. DASTURIY TA'MINOT LITSENZIYASI"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi MIT License ostida tarqatiladi. Bu litsenziya sizga bepul foydalanish, o'zgartirish va tarqatish, shuningdek, shaxsiy va tijorat maqsadlarida foydalanish huquqini beradi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="2. FOYDALANISH CHEKLOVLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Litsenziya mualliflik huquqini saqlash, kafolatlarni rad etish va mas'uliyatni cheklash kabi standart cheklovlarni o'z ichiga oladi. Dasturni qayta sotish taqiqlanadi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="3. INTELLEKTUAL MULK HUQUQLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Barcha intellektual mulk huquqlari, jumladan, logo, brend nomi va dizayn ishlab chiqaruvchiga tegishli."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="4. KAFOLATLARNING RAD ETILISHI"/>
+            <TextView style="@style/LegalBodyText" android:text="Dasturiy ta'minot &quot;xuddi shunday&quot; holatda taqdim etiladi. Hech qanday ishlash, savdo yoki muayyan maqsadga moslik kafolati berilmaydi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="5. QAYTA TARQATISH SHARTLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Siz dasturni MIT License matni va mualliflik huquqi bildirishnomasini saqlagan holda qayta tarqatishingiz mumkin."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="6. O'ZGARTIRISH VA MODIFIKATSIYA QILISH"/>
+            <TextView style="@style/LegalBodyText" android:text="Siz dasturni o'zgartirishingiz mumkin, ammo asl mualliflik huquqini saqlashingiz va kiritilgan o'zgarishlarni bildirishingiz kerak."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="7. LITSENZIYA MATNI"/>
+            <TextView style="@style/LegalBodyText" android:text="Copyright (c) 2024 TimeLimit\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:..."/>
+            
+            <TextView style="@style/LegalSectionTitle" android:text="8. QO'LLANILADIGAN QONUNLAR"/>
+            <TextView style="@style/LegalBodyText" android:text="Ushbu shartnoma O'zbekiston Respublikasining qonunlari bilan tartibga solinadi. Har qanday nizolar O'zbekiston sudlarida ko'rib chiqiladi."/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.legal.TermsFragment">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:minHeight="64dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Foydalanish Shartlari"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:tint="@color/black" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            
+            <TextView style="@style/AboutSectionTitle" android:text="📜 FOYDALANISH SHARTLARI"/>
+            <View style="@style/Divider" android:layout_marginBottom="16dp"/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="1. KIRISH"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi - bu sizning smartfoningizdagi ilovalarga vaqt limiti qo'yishga yordam beruvchi vosita. Ilovaning asosiy maqsadi raqamli farovonligingizni oshirish va ekranga qaramlikni kamaytirishdir. Ushbu shartlar ilovadan foydalanishning huquqiy asoslarini belgilaydi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="2. FOYDALANISH SHARTLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Ilovadan foydalanish uchun siz kamida 13 yoshda bo'lishingiz kerak. Agar siz 18 yoshga to'lmagan bo'lsangiz, ota-onangiz yoki vasiyingiz ushbu shartlarga rozi bo'lishi kerak. Ushbu shartlarni qabul qilish orqali siz qonuniy majburiyatlarni o'z zimmangizga olganingizni tasdiqlaysiz."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="3. FOYDALANUVCHI MAJBURIYATLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Foydalanuvchi sifatida siz quyidagi majburiyatlarni bajarishingiz shart: ilovani faqat qonuniy maqsadlarda ishlatish; boshqa foydalanuvchilarni bezovta qilmaslik; ilova xavfsizligiga zarar yetkazmaslik; ruxsat etilmagan usullar bilan ilova kodiga kirishga urinmaslik."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="4. QONUNIY CHEKLOVLAR"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi faqat qonuniy faoliyatlar uchun mo'ljallangan. Ilovadan noqonuniy, zararli yoki axloqsiz maqsadlarda foydalanish qat'iyan man etiladi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="5. MAS'ULIYAT CHEKLOVI"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi &apos;xuddi shunday&apos; tamoyili asosida taqdim etiladi. Ishlab chiqaruvchi ilovaning uzluksiz ishlashi yoki xatolarsiz bo'lishiga kafolat bermaydi. Ilovadan foydalanish natijasida kelib chiqadigan har qanday zarar uchun ishlab chiqaruvchi javobgar emas."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="6. XIZMATNING O'ZGARISHI YOKI TO'XTATILISHI"/>
+            <TextView style="@style/LegalBodyText" android:text="Ishlab chiqaruvchi TimeLimit ilovasini istalgan vaqtda, oldindan ogohlantirmasdan o'zgartirish, yangilash yoki to'xtatish huquqini o'zida saqlab qoladi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="7. BAHOLASH VA SHARHLAR"/>
+            <TextView style="@style/LegalBodyText" android:text="Foydalanuvchilar TimeLimit ilovasini Google Play Do'koni yoki boshqa platformalarda baholashlari va sharh qoldirishlari mumkin. Barcha sharhlar haqoratli yoki noo'rin bo'lmasligi kerak."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="8. ALOQA MA'LUMOTLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Agar sizda TimeLimit ilovasi bilan bog'liq savollar yoki takliflar bo'lsa, quyidagi manzillar orqali biz bilan bog'lanishingiz mumkin:
+• Elektron pochta: support@timelimit.app
+• Telegram: @timelimit_support
+• Veb-sayt: www.timelimit.app"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.timelimit.ui.notifications
+package com.example.timelimit.ui.legal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.timelimit.databinding.FragmentNotificationsBinding
+import com.example.timelimit.databinding.FragmentLicenseBinding
 
-class NotificationsFragment : Fragment() {
+class LicenseFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentLicenseBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,25 +18,15 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentLicenseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        // Back & Close
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.btnClose.setOnClickListener { findNavController().navigateUp() }
-
-        // Switch listeners
-        binding.switch5Min.setOnCheckedChangeListener { _, isChecked -> }
-        binding.switchLimitReached.setOnCheckedChangeListener { _, isChecked -> }
-        binding.switch1Hour.setOnCheckedChangeListener { _, isChecked -> }
     }
 
     override fun onDestroyView() {

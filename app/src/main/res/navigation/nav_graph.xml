@@ -29,4 +29,62 @@
         android:label="Bildirishnoma Sozlamalari"
         tools:layout="@layout/fragment_notifications" />
 
+    <fragment
+        android:id="@+id/navigation_interface"
+        android:name="com.example.timelimit.ui.interface_theme.InterfaceFragment"
+        android:label="Interfeys Mavzusi"
+        tools:layout="@layout/fragment_interface" />
+        
+    <fragment
+        android:id="@+id/navigation_security"
+        android:name="com.example.timelimit.ui.security.SecurityFragment"
+        android:label="Xavfsizlik Sozlamalari"
+        tools:layout="@layout/fragment_security" />
+
+    <fragment
+        android:id="@+id/navigation_privacy"
+        android:name="com.example.timelimit.ui.privacy.PrivacyFragment"
+        android:label="Maxfiylik Sozlamalari"
+        tools:layout="@layout/fragment_privacy" />
+
+    <fragment
+        android:id="@+id/navigation_help"
+        android:name="com.example.timelimit.ui.help.HelpFragment"
+        android:label="Yordam"
+        tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/navigation_about"
+        android:name="com.example.timelimit.ui.about.AboutFragment"
+        android:label="Ilova haqida"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_termsFragment"
+            app:destination="@id/navigation_terms" />
+        <action
+            android:id="@+id/action_aboutFragment_to_policyFragment"
+            app:destination="@id/navigation_policy" />
+        <action
+            android:id="@+id/action_aboutFragment_to_licenseFragment"
+            app:destination="@+id/navigation_license" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_terms"
+        android:name="com.example.timelimit.ui.legal.TermsFragment"
+        android:label="Foydalanish Shartlari"
+        tools:layout="@layout/fragment_terms" />
+
+    <fragment
+        android:id="@+id/navigation_policy"
+        android:name="com.example.timelimit.ui.legal.PolicyFragment"
+        android:label="Maxfiylik Siyosati"
+        tools:layout="@layout/fragment_policy" />
+
+    <fragment
+        android:id="@+id/navigation_license"
+        android:name="com.example.timelimit.ui.legal.LicenseFragment"
+        android:label="Litsenziya Shartlari"
+        tools:layout="@layout/fragment_license" />
+
 </navigation>

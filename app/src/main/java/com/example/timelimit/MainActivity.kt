@@ -12,6 +12,7 @@ import android.os.Process
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -45,58 +46,51 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_apps, R.id.navigation_settings, R.id.navigation_permissions, R.id.navigation_notifications),
+            setOf(R.id.navigation_apps, R.id.navigation_settings, R.id.navigation_permissions, R.id.navigation_notifications, R.id.navigation_interface, R.id.navigation_security, R.id.navigation_privacy, R.id.navigation_help, R.id.navigation_about, R.id.navigation_terms, R.id.navigation_policy, R.id.navigation_license),
             binding.drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setNavigationItemSelectedListener(this)
+
+        // Fragmentlar o'zgarganda Toolbarni boshqarish
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_settings,
+                R.id.navigation_permissions,
+                R.id.navigation_notifications,
+                R.id.navigation_interface,
+                R.id.navigation_security,
+                R.id.navigation_privacy,
+                R.id.navigation_help,
+                R.id.navigation_about,
+                R.id.navigation_terms,
+                R.id.navigation_policy,
+                R.id.navigation_license -> {
+                    // Bu fragmentlarda shaxsiy header bor, shuning uchun asosiysini yashiramiz
+                    supportActionBar?.hide()
+                }
+                else -> {
+                    // Boshqa fragmentlarda (masalan, Apps) ko'rsatamiz
+                    supportActionBar?.show()
+                }
+            }
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val bundle = Bundle()
-        
         when (item.itemId) {
-            // Asosiy navigatsiya
-            R.id.navigation_apps -> {
-                navController.navigate(R.id.navigation_apps)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            R.id.navigation_settings -> {
-                navController.navigate(R.id.navigation_settings)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            
-            // Maxsus ruxsatlar bo'limi
-            R.id.nav_permissions -> {
-                navController.navigate(R.id.navigation_permissions)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            // Bildirishnomalar bo'limi
-            R.id.nav_notifications -> {
-                navController.navigate(R.id.navigation_notifications)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            
-            // TIL bo'limi
-            R.id.nav_language -> {
-                bundle.putString("target_section", "language")
-                navController.navigate(R.id.navigation_settings, bundle)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            
-            // Boshqa bo'limlar (Hozircha o'chirilgan)
-            R.id.nav_interface,
-            R.id.nav_security,
-            R.id.nav_privacy,
-            R.id.nav_help,
-            R.id.nav_help_center,
-            R.id.nav_contact -> {
-                // Hech nima qilmaydi
-                return false
-            }
+            R.id.navigation_apps -> navController.navigate(R.id.navigation_apps)
+            R.id.nav_language -> navController.navigate(R.id.navigation_settings) // Settings is now Language
+            R.id.nav_notifications -> navController.navigate(R.id.navigation_notifications)
+            R.id.nav_interface -> navController.navigate(R.id.navigation_interface)
+            R.id.nav_permissions -> navController.navigate(R.id.navigation_permissions)
+            R.id.nav_security -> navController.navigate(R.id.navigation_security)
+            R.id.nav_privacy -> navController.navigate(R.id.navigation_privacy)
+            R.id.nav_help -> navController.navigate(R.id.navigation_help)
+            R.id.nav_about -> navController.navigate(R.id.navigation_about)
         }
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -114,21 +108,24 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
 
     override fun onResume() {
         super.onResume()
-        checkAllPermissionsAndStart()
-        viewModel.forceUpdate()
+        // Barcha ruxsatlar berilganligini tekshirish
+        if (areAllPermissionsGranted()) {
+            startMonitoring()
+            viewModel.forceUpdate()
+        } else {
+            // Agar ruxsat berilmagan bo'lsa va biz allaqachon ruxsatlar ekranida bo'lmasak
+            if (navController.currentDestination?.id != R.id.navigation_permissions) {
+                Toast.makeText(this, "Ilova to'liq ishlashi uchun ruxsatlar kerak", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.navigation_permissions)
+            }
+        }
     }
 
-    private fun checkAllPermissionsAndStart() {
-        if (!hasUsageStatsPermission()) {
-            showUsageStatsDialog()
-        } else if (!checkOverlayPermission()) {
-            showOverlayPermissionDialog()
-        } else if (!isAccessibilityServiceEnabled()) {
-            showAccessibilityPermissionDialog()
-        } else {
-            checkBatteryOptimization()
-            startMonitoring()
-        }
+    private fun areAllPermissionsGranted(): Boolean {
+        return hasUsageStatsPermission() &&
+                checkOverlayPermission() &&
+                isAccessibilityServiceEnabled() &&
+                isBatteryOptimizationIgnored()
     }
 
     private fun startMonitoring() {
@@ -168,70 +165,11 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
         }
     }
 
-    private fun checkBatteryOptimization() {
+    private fun isBatteryOptimizationIgnored(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val packageName = packageName
             val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
-            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-                showBatteryOptimizationDialog()
-            }
+            return pm.isIgnoringBatteryOptimizations(packageName)
         }
-    }
-
-    private fun showUsageStatsDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Ruxsatnoma kerak")
-            .setMessage("Ilovalar vaqtini hisoblash uchun 'Foydalanishga ruxsat' (Usage Access) talab qilinadi.")
-            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
-                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-            }
-            .setNegativeButton("Bekor qilish", null)
-            .setCancelable(false)
-            .show()
-    }
-
-    private fun showOverlayPermissionDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Bloklash oynasi uchun ruxsat")
-            .setMessage("Bloklash oynasini ko'rsatish uchun 'Boshqa ilovalar ustida ko'rsatish' ruxsati kerak.")
-            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val intent = Intent(
-                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:$packageName")
-                    )
-                    startActivity(intent)
-                }
-            }
-            .setNegativeButton("Bekor qilish", null)
-            .setCancelable(false)
-            .show()
-    }
-
-    private fun showAccessibilityPermissionDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Qo'shimcha himoya")
-            .setMessage("Ilovalarni ishonchli bloklash uchun Maxsus imkoniyatlar (Accessibility) xizmatini yoqing.")
-            .setPositiveButton("Sozlamalarga o'tish") { _, _ ->
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-            }
-            .setNegativeButton("Keyinroq") { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .show()
-    }
-
-    private fun showBatteryOptimizationDialog() {
-         AlertDialog.Builder(this)
-            .setTitle("Batareya cheklovini olib tashlash")
-            .setMessage("Ilova yopilganda ham ishlashi uchun, iltimos, batareya optimizatsiyasini o'chiring.")
-            .setPositiveButton("Sozlash") { _, _ ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                    intent.data = Uri.parse("package:$packageName")
-                    startActivity(intent)
-                }
-            }
-            .setNegativeButton("Keyinroq", null)
-            .show()
+        return true
     }
 }

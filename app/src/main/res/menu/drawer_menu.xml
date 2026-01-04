@@ -22,7 +22,6 @@
     <item android:title=""> <!-- Bo'sh sarlavha ajratuvchi sifatida -->
         <menu>
             <group android:id="@+id/group_security">
-                <!-- Yangi qo'shilgan qism -->
                 <item
                     android:id="@+id/nav_permissions"
                     android:icon="@drawable/ic_lock_open"
@@ -49,13 +48,9 @@
                     android:icon="@drawable/ic_help"
                     android:title="YORDAM" />
                 <item
-                    android:id="@+id/nav_help_center"
-                    android:icon="@drawable/ic_support_agent"
-                    android:title="YORDAM MARKAZI" />
-                <item
-                    android:id="@+id/nav_contact"
-                    android:icon="@drawable/ic_call"
-                    android:title="BOG'LANISH" />
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_info"
+                    android:title="Ilova haqida" />
             </group>
         </menu>
     </item>

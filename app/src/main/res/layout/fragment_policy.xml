@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.legal.PolicyFragment">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:minHeight="64dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Maxfiylik Siyosati"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:tint="@color/black" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            
+            <TextView style="@style/AboutSectionTitle" android:text="🔒 MAXFIYLIK SIYOSATI"/>
+            <View style="@style/Divider" android:layout_marginBottom="16dp"/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="1. QANDAY MA'LUMOTLAR TO'PLANADI"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi quyidagi ma'lumotlarni to'playdi: Ilova nomlari, Foydalanish vaqti (kunlik/haftalik), Limit sozlashlari, Qurilma modeli va Android versiyasi. Biz sizning shaxsiy ma'lumotlaringizni (ism, email, telefon raqami) yig'maymiz."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="2. MA'LUMOTLARDAN QANDAY FOYDALANILADI"/>
+            <TextView style="@style/LegalBodyText" android:text="To'plangan ma'lumotlar faqat quyidagi maqsadlarda ishlatiladi: Foydalanish statistikasi ko'rsatish, Limitlarni boshqarish, Ilova ishlashini yaxshilash va xatolarni tuzatish."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="3. UCHINCHI TOMONLAR BILAN BAHAM KO'RISH"/>
+            <TextView style="@style/LegalBodyText" android:text="Biz sizning ma'lumotlaringizni hech qanday uchinchi tomonlarga sotmaymiz yoki ulashmaymiz. Barcha ma'lumotlar faqat mahalliy qurilmangizda saqlanadi va ilova ishlashi uchun ishlatiladi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="4. MA'LUMOTLARNI SAQLASH MUDDATI"/>
+            <TextView style="@style/LegalBodyText" android:text="Ma'lumotlar quyidagi muddatda saqlanadi: Aktiv statistika - 90 kun, Arxiv statistikasi - 1 yil. Siz istalgan vaqtda barcha ma'lumotlarni o'chirib tashlash imkoniyatiga egasiz."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="5. FOYDALANUVCHI HUQUQLARI"/>
+            <TextView style="@style/LegalBodyText" android:text="Siz quyidagi huquqlarga egasiz: ma'lumotlarni ko'rish, ma'lumotlarni o'chirish, ma'lumot to'plashni to'xtatish. Ushbu huquqlarni amalga oshirish uchun ilova sozlamalariga murojaat qiling."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="6. COOKIE'LAR VA KUZATUV TEXNOLOGIYALARI"/>
+            <TextView style="@style/LegalBodyText" android:text="TimeLimit ilovasi cookie'lar yoki boshqa kuzatuv texnologiyalaridan foydalanmaydi."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="7. BOLALAR MAXFIYLIGI"/>
+            <TextView style="@style/LegalBodyText" android:text="Ilova 13 yoshdan kichik bolalar uchun mo'ljallanmagan. Agar bola tomonidan foydalanilsa, ota-onalar biz bilan bog'lanishlari va ma'lumotlarni o'chirishni so'rashlari mumkin."/>
+
+            <TextView style="@style/LegalSectionTitle" android:text="8. O'ZGARTIRISHLAR"/>
+            <TextView style="@style/LegalBodyText" android:text="Biz maxfiylik siyosatini yangilash huquqini o'zimizda saqlaymiz. Barcha yangilanishlar ilova ichida e'lon qilinadi."/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -14,12 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
-import android.widget.CompoundButton
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.timelimit.R
 import com.example.timelimit.databinding.FragmentPermissionsBinding
 
 class PermissionsFragment : Fragment() {
@@ -49,11 +45,7 @@ class PermissionsFragment : Fragment() {
 
     private fun setupListeners() {
         // Orqaga tugmasi
-        binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
-            // Drawer ni ochish
-            requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)?.openDrawer(GravityCompat.START)
-        }
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
 
         // 1. Usage Access
         val usageListener = View.OnClickListener {
@@ -89,7 +81,6 @@ class PermissionsFragment : Fragment() {
                 try {
                     startActivity(intent)
                 } catch (e: Exception) {
-                    // Ba'zan bu intent ishlamaydi, umumiy sozlamalarni ochamiz
                     startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
                 }
             }
@@ -102,10 +93,8 @@ class PermissionsFragment : Fragment() {
             enableNextPermission()
         }
 
-        // BARCHASINI O'CHIRISH (Shunchaki info beramiz, chunki ilova ruxsatlarni o'zi o'chirolmaydi)
+        // BARCHASINI O'CHIRISH 
         binding.btnDisableAll.setOnClickListener {
-            // Androidda ilova o'ziga berilgan ruxsatlarni o'zi qaytarib ololmaydi,
-            // faqat sozlamalarni ochib foydalanuvchiga o'chirtirishi mumkin.
              val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
              intent.data = Uri.parse("package:${requireContext().packageName}")
              startActivity(intent)
@@ -118,15 +107,11 @@ class PermissionsFragment : Fragment() {
         val hasAccessibility = isAccessibilityServiceEnabled()
         val hasBattery = isBatteryOptimizationIgnored()
 
-        // Switch holatlarini yangilash (foydalanuvchi bosganda o'zgarmasligi uchun clickable false qilinmaydi, 
-        // lekin dasturiy o'zgarish listenerni chaqirmasligi kerak)
-        
         binding.switchUsageAccess.isChecked = hasUsage
         binding.switchOverlay.isChecked = hasOverlay
         binding.switchAccessibility.isChecked = hasAccessibility
         binding.switchBattery.isChecked = hasBattery
 
-        // Progress hisoblash
         var count = 0
         if (hasUsage) count++
         if (hasOverlay) count++
@@ -139,8 +124,6 @@ class PermissionsFragment : Fragment() {
         binding.progressBarPermissions.progress = progress
         binding.tvProgressText.text = "$count/4 ruxsatlar yoqilgan"
         binding.tvProgressPercent.text = "$percent%"
-        
-        // Agar hammasi yoqilgan bo'lsa tugmani o'zgartirish mumkin, lekin shart emas
     }
 
     private fun enableNextPermission() {
@@ -168,8 +151,6 @@ class PermissionsFragment : Fragment() {
             }
         }
     }
-
-    // --- Helper Functions (MainActivity dan ko'chirildi) ---
 
     private fun hasUsageStatsPermission(): Boolean {
         val appOps = requireContext().getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
