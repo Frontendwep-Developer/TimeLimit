@@ -1,5 +1,7 @@
 package com.example.timelimit
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -30,33 +32,54 @@ class AppsAdapter(
 
             binding.ivAppIcon.setImageDrawable(appInfo.icon)
             binding.tvAppName.text = appInfo.appName
-            
-            binding.tvBlockedStatus.visibility = if (appInfo.isLimited && appInfo.isBlocked) View.VISIBLE else View.GONE
 
-            if (appInfo.isLimited && appInfo.limitTime > 0) {
-                val usageInMinutes = appInfo.usageTime / 60
-                binding.tvUsageTime.text = "${usageInMinutes} / ${appInfo.limitTime} min"
-                binding.progressUsage.visibility = View.VISIBLE
-
-                val limitInSeconds = (appInfo.limitTime * 60).toFloat()
-                val progress = if (limitInSeconds > 0) {
-                    ((appInfo.usageTime.toFloat() / limitInSeconds) * 100).toInt()
-                } else { 0 }
-
-                binding.progressUsage.progress = progress.coerceAtMost(100)
-
-                // --- Correct way to change progress bar color ---
-                val progressDrawable = binding.progressUsage.progressDrawable.mutate() as LayerDrawable
-                val progressLayer = progressDrawable.findDrawableByLayerId(android.R.id.progress)
-                val colorRes = if (appInfo.isBlocked) R.color.red else R.color.green
-                progressLayer.setTint(ContextCompat.getColor(context, colorRes))
-                
+            // Limit ma'lumoti
+            if (appInfo.isLimited) {
+                binding.tvLimitInfo.text = "Limit: ${appInfo.limitTime} daqiqa"
             } else {
-                binding.tvUsageTime.text = context.getString(R.string.no_limit_set)
-                binding.progressUsage.visibility = View.GONE
+                binding.tvLimitInfo.text = "Limit o'rnatilmagan"
             }
 
-            binding.btnEditLimit.setOnClickListener { onItemClick(appInfo) }
+            // Foydalanish ma'lumoti
+            val usageMinutes = appInfo.usageTime / 60
+            binding.tvUsageInfo.text = "Bugun: $usageMinutes daqiqa"
+
+            // Progress Bar va Foiz
+            val limitInSeconds = appInfo.limitTime * 60
+            val progress = if (limitInSeconds > 0) {
+                ((appInfo.usageTime.toFloat() / limitInSeconds) * 100).toInt()
+            } else { 0 }
+            
+            binding.pbCircleUsage.progress = progress.coerceAtMost(100)
+            binding.tvProgressPercent.text = "${progress.coerceAtMost(100)}%"
+
+            // Ranglar va status
+            if (appInfo.isBlocked) {
+                binding.viewStatusIndicator.setBackgroundColor(Color.parseColor("#B3261E")) // Red
+                binding.tvProgressPercent.setTextColor(Color.parseColor("#B3261E"))
+                binding.ivStatusBadge.setImageResource(R.drawable.ic_lock) // Lock icon
+                binding.ivStatusBadge.setColorFilter(Color.parseColor("#B3261E"))
+                
+                // Progress bar rangini o'zgartirish
+                updateProgressColor(Color.parseColor("#B3261E"))
+            } else {
+                binding.viewStatusIndicator.setBackgroundColor(Color.parseColor("#366938")) // Green
+                binding.tvProgressPercent.setTextColor(Color.parseColor("#366938"))
+                binding.ivStatusBadge.setImageResource(R.drawable.ic_check_circle)
+                binding.ivStatusBadge.setColorFilter(Color.parseColor("#366938"))
+                
+                updateProgressColor(Color.parseColor("#366938"))
+            }
+
+            binding.btnEdit.setOnClickListener { onItemClick(appInfo) }
+        }
+        
+        private fun updateProgressColor(color: Int) {
+             val progressDrawable = binding.pbCircleUsage.progressDrawable.mutate() as LayerDrawable
+             val progressLayer = progressDrawable.findDrawableByLayerId(android.R.id.progress)
+             // LayerDrawable ichidagi RotateDrawable ni topib, uning shape rangini o'zgartirish kerak
+             // Oddiyroq usul: Tint ishlatish
+             progressLayer.setTint(color)
         }
     }
 

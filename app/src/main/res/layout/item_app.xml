@@ -1,115 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="0dp">
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_app_card"
+    android:clipChildren="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Chapdagi rangli chiziq -->
+    <View
+        android:id="@+id/view_status_indicator"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:background="#366938"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_status_indicator"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
+        <!-- Ikonka konteyneri -->
+        <FrameLayout
+            android:id="@+id/fl_icon_container"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_app_icon_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- App Icon -->
             <ImageView
                 android:id="@+id/iv_app_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
                 tools:src="@tools:sample/avatars" />
 
-            <!-- App Info -->
-            <LinearLayout
-                android:id="@+id/app_info_layout"
-                android:layout_width="0dp"
+            <!-- Kichik status ikonka (masalan check yoki lock) -->
+            <ImageView
+                android:id="@+id/iv_status_badge"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="-4dp"
+                android:background="@drawable/bg_circle_white"
+                android:padding="2dp"
+                android:src="@drawable/ic_check_circle"
+                app:tint="#366938" />
+        </FrameLayout>
+
+        <!-- Ma'lumotlar -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/progress_chart"
+            app:layout_constraintStart_toEndOf="@id/fl_icon_container"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@id/iv_app_icon"
-                app:layout_constraintEnd_toStartOf="@id/btn_edit_limit"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:textColor="#1D1B20"
+                android:textSize="16sp"
+                tools:text="Instagram" />
+
+            <!-- Limit vaqti -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_timer"
+                    app:tint="#49454F" />
 
                 <TextView
-                    android:id="@+id/tv_app_name"
+                    android:id="@+id/tv_limit_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
-                    tools:text="Instagram" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/tv_usage_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="?android:attr/textColorSecondary"
-                        tools:text="15/30 min" />
-
-                    <TextView
-                        android:id="@+id/tv_blocked_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BLOCKED"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/red"
-                        android:background="@drawable/bg_blocked_tag"
-                        android:paddingStart="6dp"
-                        android:paddingEnd="6dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:layout_marginStart="8dp"
-                        android:visibility="gone"
-                        tools:visibility="visible"/>
-                </LinearLayout>
-
+                    android:layout_marginStart="4dp"
+                    android:textColor="#49454F"
+                    android:textSize="12sp"
+                    tools:text="Limit: 30 daqiqa" />
             </LinearLayout>
 
-            <!-- Edit Button -->
-            <ImageButton
-                android:id="@+id/btn_edit_limit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_edit"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="Edit Limit" />
+            <!-- Bugungi ishlatilishi -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_bar_chart"
+                    app:tint="#49454F" />
 
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/progress_usage"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:max="100"
-            android:progress="50"
-            android:progressDrawable="@drawable/bg_progress_bar"
-            android:scaleY="2"/>
+                <TextView
+                    android:id="@+id/tv_usage_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#49454F"
+                    android:textSize="12sp"
+                    tools:text="Bugun: 15 daqiqa" />
+            </LinearLayout>
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Dumaloq Progress Bar -->
+        <FrameLayout
+            android:id="@+id/progress_chart"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_edit"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/pb_circle_usage"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="50"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:rotation="-90" />
+
+            <TextView
+                android:id="@+id/tv_progress_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#366938"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:text="50%" />
+        </FrameLayout>
+
+        <!-- Tahrirlash tugmasi -->
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_edit"
+            android:tint="#49454F"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

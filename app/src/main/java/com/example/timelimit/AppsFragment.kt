@@ -12,6 +12,7 @@ import com.example.timelimit.databinding.FragmentAppsBinding
 import com.example.timelimit.model.AppInfo
 import com.example.timelimit.ui.EditTimeLimitDialog
 import com.example.timelimit.ui.TimeLimitDialog
+import com.example.timelimit.ui.AppSelectionDialog
 
 class AppsFragment : Fragment() {
 
@@ -19,7 +20,6 @@ class AppsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AppsViewModel by activityViewModels()
-    
     private lateinit var adapter: AppsAdapter
 
     override fun onCreateView(
@@ -35,6 +35,11 @@ class AppsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupListeners()
+        
+        // Boshida faqat loading ko'rsatamiz
+        showLoadingState()
+        
         observeViewModel()
     }
 
@@ -50,11 +55,57 @@ class AppsFragment : Fragment() {
         binding.rvApps.adapter = adapter
     }
 
-    private fun observeViewModel() {
-        viewModel.appsList.observe(viewLifecycleOwner) { apps ->
-            Log.d("AppsFragment", "appsList observer triggered with ${apps.size} apps")
-            adapter.submitList(apps)
+    private fun setupListeners() {
+        binding.btnAddAppLarge.setOnClickListener {
+            showAppSelectionDialog()
         }
+        
+        binding.fabAddApp.setOnClickListener {
+            showAppSelectionDialog()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.appsList.observe(viewLifecycleOwner) { allApps ->
+            // Faqat limiti bor yoki bloklangan ilovalarni filtrlab ko'rsatamiz
+            val activeApps = allApps.filter { it.isLimited || it.isBlocked }
+            adapter.submitList(activeApps)
+            
+            updateUIState(activeApps.isEmpty())
+        }
+    }
+
+    private fun showLoadingState() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.rvApps.visibility = View.GONE
+        binding.layoutEmptyState.visibility = View.GONE
+        binding.btnAddAppLarge.visibility = View.GONE
+        binding.fabAddApp.visibility = View.GONE
+    }
+
+    private fun updateUIState(isEmpty: Boolean) {
+        binding.progressBar.visibility = View.GONE
+        if (isEmpty) {
+            binding.rvApps.visibility = View.GONE
+            binding.fabAddApp.visibility = View.GONE
+            binding.layoutEmptyState.visibility = View.VISIBLE
+            binding.btnAddAppLarge.visibility = View.VISIBLE
+        } else {
+            binding.rvApps.visibility = View.VISIBLE
+            binding.fabAddApp.visibility = View.VISIBLE
+            binding.layoutEmptyState.visibility = View.GONE
+            binding.btnAddAppLarge.visibility = View.GONE
+        }
+    }
+
+    private fun showAppSelectionDialog() {
+        val allApps = viewModel.appsList.value ?: emptyList()
+        val availableApps = allApps.filter { !it.isLimited && !it.isBlocked }
+        
+        val dialog = AppSelectionDialog(availableApps) { selectedApp ->
+            showAddTimeLimitDialog(selectedApp)
+        }
+        dialog.show(parentFragmentManager, AppSelectionDialog.TAG)
     }
 
     private fun showAddTimeLimitDialog(appInfo: AppInfo) {

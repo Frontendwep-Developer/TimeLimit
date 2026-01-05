@@ -2,6 +2,7 @@ package com.example.timelimit
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.AppOpsManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.os.Process
 import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -112,10 +114,16 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
         if (areAllPermissionsGranted()) {
             startMonitoring()
             viewModel.forceUpdate()
+            
+            // Agar hozir Permissions fragmentida bo'lsak va ruxsatlar berilgan bo'lsa, Apps ga qaytamiz
+            if (navController.currentDestination?.id == R.id.navigation_permissions) {
+                 navController.navigate(R.id.navigation_apps)
+            }
         } else {
             // Agar ruxsat berilmagan bo'lsa va biz allaqachon ruxsatlar ekranida bo'lmasak
             if (navController.currentDestination?.id != R.id.navigation_permissions) {
-                Toast.makeText(this, "Ilova to'liq ishlashi uchun ruxsatlar kerak", Toast.LENGTH_SHORT).show()
+                // Toast o'rniga shunchaki o'tkazib yuboramiz
+                // Toast.makeText(this, "Ilova to'liq ishlashi uchun ruxsatlar kerak", Toast.LENGTH_SHORT).show()
                 navController.navigate(R.id.navigation_permissions)
             }
         }
@@ -134,10 +142,27 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
         ContextCompat.startForegroundService(this, serviceIntent)
     }
 
+    // YANGILANGAN VA ISHONCHLI TEKSHIRUV
     private fun isAccessibilityServiceEnabled(): Boolean {
-        val am = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-        val enabledServices = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC)
-        return enabledServices.any { it.resolveInfo.serviceInfo.packageName == packageName }
+        val expectedComponentName = ComponentName(this, AppBlockerService::class.java)
+
+        val enabledServicesSetting = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+
+        val colonSplitter = TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledComponent = ComponentName.unflattenFromString(componentNameString)
+
+            if (enabledComponent != null && enabledComponent == expectedComponentName) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun hasUsageStatsPermission(): Boolean {
