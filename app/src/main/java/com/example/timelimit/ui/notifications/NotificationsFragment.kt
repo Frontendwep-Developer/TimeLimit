@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.timelimit.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
@@ -29,9 +28,6 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Back listener
-        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
-
         // Switch listeners
         binding.switch5Min.setOnCheckedChangeListener { _, isChecked -> }
         binding.switchLimitReached.setOnCheckedChangeListener { _, isChecked -> }

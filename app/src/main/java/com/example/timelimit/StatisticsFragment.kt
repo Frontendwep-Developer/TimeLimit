@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.timelimit.databinding.FragmentStatisticsBinding
-import com.example.timelimit.model.AppInfoForStats
 
 class StatisticsFragment : Fragment() {
 
@@ -28,13 +28,13 @@ class StatisticsFragment : Fragment() {
 
         viewModel.limitedApps.observe(viewLifecycleOwner) { apps ->
             if (!apps.isNullOrEmpty()) {
-                // For now, let's just load the stats for the first app
                 viewModel.selectApp(apps.first().packageName)
             }
         }
 
         viewModel.selectedAppInfo.observe(viewLifecycleOwner) { appInfo ->
-            binding.toolbar.title = "${appInfo.appName} - Haftalik"
+            // Markaziy toolbarni yangilash
+            activity?.findViewById<TextView>(R.id.toolbar_title)?.text = "${appInfo.appName.uppercase()} STATISTIKASI"
             viewModel.loadWeeklyStatsForApp(appInfo.packageName)
         }
 
@@ -44,9 +44,7 @@ class StatisticsFragment : Fragment() {
              binding.totalTimeTextview.text = "${minutes}m ${seconds}s" 
         }
         viewModel.dailyUsageData.observe(viewLifecycleOwner) { binding.barChartView.setData(it) }
-        viewModel.todayUsage.observe(viewLifecycleOwner) { 
-            // Placeholder for daily_limit_textview
-        }
+        
         viewModel.remainingTime.observe(viewLifecycleOwner) { 
             val minutes = it / 60
             val seconds = it % 60
