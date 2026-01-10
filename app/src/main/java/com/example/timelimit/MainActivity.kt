@@ -11,6 +11,7 @@ import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,50 +38,44 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
         // Toolbarni o'rnatamiz
         setSupportActionBar(binding.toolbar)
         
-        // MUHIM: Standart sarlavhalarni o'chirish
+        // Standart sarlavhalarni o'chirish
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbar.title = null // Toolbarning o'z title'ini o'chirish
+        binding.toolbar.title = null
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_apps, R.id.navigation_settings, R.id.navigation_notifications, R.id.navigation_interface, R.id.navigation_security, R.id.navigation_privacy, R.id.navigation_help, R.id.navigation_about),
+            setOf(R.id.navigation_apps),
             binding.drawerLayout
         )
 
         // Navigatsiyani Toolbar bilan bog'laymiz
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
         
-        // NavigationUI sarlavhani majburlab qo'shmasligi uchun quyidagini qilamiz:
-        navController.addOnDestinationChangedListener { _, _, _ ->
-            // Har safar navigatsiya o'zgarganda sarlavhani majburlab yashiramiz
+        // MAXSUS TextView NI TOPAMIZ
+        val toolbarTitle = findViewById<TextView>(R.id.toolbar_title)
+
+        // Sarlavha va Toolbarni boshqarish
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_apps) {
+                // Faqat Ilovalar bo'limida ko'rsatamiz
+                binding.appBarLayout.visibility = View.VISIBLE
+                toolbarTitle.text = "ILOVALAR"
+            } else {
+                // Boshqa barcha bo'limlarda yashiramiz
+                binding.appBarLayout.visibility = View.GONE
+            }
+            
+            // Tizim avtomatik qo'shadigan sarlavhani har doim o'chiramiz
             binding.toolbar.title = null
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
         binding.navView.setNavigationItemSelectedListener(this)
-
-        // MAXSUS TextView NI YANGILASH
-        val toolbarTitle = findViewById<TextView>(R.id.toolbar_title)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.navigation_apps -> toolbarTitle.text = "ILOVALAR"
-                R.id.navigation_settings -> toolbarTitle.text = "SOZLAMALAR"
-                R.id.navigation_notifications -> toolbarTitle.text = "BILDIRISHNOMALAR"
-                R.id.navigation_permissions -> toolbarTitle.text = "RUXSATLAR"
-                R.id.navigation_interface -> toolbarTitle.text = "MAVZU"
-                R.id.navigation_security -> toolbarTitle.text = "XAVFSIZLIK"
-                R.id.navigation_privacy -> toolbarTitle.text = "MAXFIYLIK"
-                R.id.navigation_help -> toolbarTitle.text = "YORDAM"
-                R.id.navigation_about -> toolbarTitle.text = "ILOVA HAQIDA"
-                else -> toolbarTitle.text = destination.label?.toString()?.uppercase() ?: "TIMELIMIT"
-            }
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Navigatsiyani qo'lda amalga oshiramiz (NavigationUI o'zi sarlavhani o'zgartirib yubormasligi uchun)
         when (item.itemId) {
             R.id.navigation_apps -> navController.navigate(R.id.navigation_apps)
             R.id.nav_language -> navController.navigate(R.id.navigation_settings)

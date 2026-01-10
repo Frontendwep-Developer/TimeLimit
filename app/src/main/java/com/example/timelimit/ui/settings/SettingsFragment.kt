@@ -27,7 +27,20 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupListeners()
         setupUI()
+    }
+
+    private fun setupListeners() {
+        // Orqaga qaytish tugmasi (<)
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.navigation_apps)
+        }
+
+        // Yopish tugmasi (X)
+        binding.btnClose.setOnClickListener {
+            findNavController().navigate(R.id.navigation_apps)
+        }
     }
 
     private fun setupUI() {
@@ -43,8 +56,7 @@ class SettingsFragment : Fragment() {
             }
             
             Toast.makeText(requireContext(), "$selectedLanguage tanlandi", Toast.LENGTH_SHORT).show()
-            
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.navigation_apps)
         }
     }
 

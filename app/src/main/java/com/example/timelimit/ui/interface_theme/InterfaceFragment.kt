@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.timelimit.R
@@ -38,9 +36,9 @@ class InterfaceFragment : Fragment() {
 
     private fun setupListeners() {
         // Back & Close
-        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
-        binding.btnClose.setOnClickListener { findNavController().navigateUp() }
-        binding.btnCancel.setOnClickListener { findNavController().navigateUp() }
+        binding.btnBack.setOnClickListener { findNavController().navigate(R.id.navigation_apps) }
+        binding.btnClose.setOnClickListener { findNavController().navigate(R.id.navigation_apps) }
+        binding.btnCancel.setOnClickListener { findNavController().navigate(R.id.navigation_apps) }
 
         // Click listeners for rows
         binding.layoutLight.setOnClickListener { updateSelection(AppCompatDelegate.MODE_NIGHT_NO) }
@@ -51,7 +49,7 @@ class InterfaceFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(selectedMode)
             Toast.makeText(requireContext(), "Mavzu o'zgartirildi", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.navigation_apps)
         }
     }
 

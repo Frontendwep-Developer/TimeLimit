@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.timelimit.R
 import com.example.timelimit.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
@@ -28,6 +30,16 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun setupListeners() {
+        // Orqaga qaytish tugmasi (<)
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.navigation_apps)
+        }
+
+        // Yopish tugmasi (X)
+        binding.btnClose.setOnClickListener {
+            findNavController().navigate(R.id.navigation_apps)
+        }
+
         // Switch listeners
         binding.switch5Min.setOnCheckedChangeListener { _, isChecked -> }
         binding.switchLimitReached.setOnCheckedChangeListener { _, isChecked -> }
