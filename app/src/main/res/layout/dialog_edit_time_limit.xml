@@ -1,217 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_dialog_rounded">
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp"
+    android:backgroundTint="@color/white"
+    android:layout_margin="16dp">
 
-    <!-- Header -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tv_edit_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            tools:text="Instagram limitini o'zgartirish"
-            android:text="@string/edit_limit_title"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_close_edit_dialog"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageButton
-            android:id="@+id/btn_close_edit_dialog"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_close"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:contentDescription="Yopish" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Body -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Current Usage -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current_usage_label"
-            android:textSize="12sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="8dp"/>
-        
-        <TextView
-            android:id="@+id/tv_current_usage_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="15/30 daqiqa"
-            android:textStyle="bold"/>
-
-        <ProgressBar
-            android:id="@+id/progress_usage_edit"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:max="100"
-            android:progress="50"
-            android:scaleY="2"
-            android:progressDrawable="@drawable/bg_progress_bar"/>
-
-        <!-- Quick Update -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/quick_update_label"
-            android:textSize="12sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="8dp"/>
-        
+        <!-- Header Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:padding="24dp"
+            android:gravity="center_vertical">
 
-            <Button
-                android:id="@+id/btn_45_min_edit"
-                style="@style/Widget.App.Button.Outlined"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="45 daq"/>
-            <Button
-                android:id="@+id/btn_1_hour_edit"
-                style="@style/Widget.App.Button.Outlined"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="1 soat"/>
-            <Button
-                android:id="@+id/btn_90_min_edit"
-                style="@style/Widget.App.Button.Outlined"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="90 daq"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheklov o'rnatish"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05"
+                    android:textColor="@color/slate_400"/>
+
+                <TextView
+                    android:id="@+id/tv_edit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Ilova nomi"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/slate_900"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_close_edit_dialog"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_close"
+                android:background="@drawable/bg_circle_button"
+                android:backgroundTint="@color/slate_100"
+                app:tint="@color/slate_400"
+                android:padding="6dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Close"/>
         </LinearLayout>
 
-        <!-- Custom Time -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fine_tune_label"
-            android:textSize="12sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="8dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/slate_100"/>
 
+        <!-- Content Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Quick Options -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vaqt tanlang:"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/slate_500"
+                android:textAllCaps="true"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="12dp"/>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginEnd="8dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hours_label" 
-                    android:textSize="12sp"/>
-                <EditText
-                    android:id="@+id/et_hours_edit"
+                android:showDividers="middle"
+                android:divider="@drawable/divider_transparent_8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_15_min_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:background="@drawable/bg_edittext_rounded"/>
+                    android:layout_height="56dp"
+                    android:text="15 daqiqa"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/slate_700"
+                    android:textAllCaps="false"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    app:icon="@drawable/selector_checkbox_circle"
+                    app:iconGravity="end"
+                    app:iconTint="@null"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/slate_200"
+                    app:strokeWidth="1dp"
+                    android:backgroundTint="@color/slate_50"
+                    app:elevation="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:checkable="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_30_min_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="30 daqiqa"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/slate_700"
+                    android:textAllCaps="false"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    app:icon="@drawable/selector_checkbox_circle"
+                    app:iconGravity="end"
+                    app:iconTint="@null"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/slate_200"
+                    app:strokeWidth="1dp"
+                    android:backgroundTint="@color/slate_50"
+                    app:elevation="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:checkable="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_45_min_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="45 daqiqa"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/slate_700"
+                    android:textAllCaps="false"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="16dp"
+                    app:icon="@drawable/selector_checkbox_circle"
+                    app:iconGravity="end"
+                    app:iconTint="@null"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/slate_200"
+                    app:strokeWidth="1dp"
+                    android:backgroundTint="@color/slate_50"
+                    app:elevation="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:checkable="true"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <!-- Custom Input -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
+                android:text="O'zingiz vaqt kiriting:"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/slate_500"
+                android:textAllCaps="true"
+                android:letterSpacing="0.05"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="top">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <EditText
+                        android:id="@+id/et_hours_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/bg_input_field"
+                        android:gravity="center"
+                        android:hint="00"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/slate_900"
+                        android:textColorHint="@color/slate_300"/>
+                    
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Soat"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/slate_400"/>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/minutes_label"
-                    android:textSize="12sp"/>
-                <EditText
-                    android:id="@+id/et_minutes_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
+                    android:layout_height="80dp"
+                    android:text=":"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/slate_300"
                     android:gravity="center"
-                    android:textSize="20sp"
-                    android:background="@drawable/bg_edittext_rounded"/>
+                    android:layout_marginHorizontal="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et_minutes_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="@drawable/bg_input_field"
+                        android:gravity="center"
+                        android:hint="00"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/slate_900"
+                        android:textColorHint="@color/slate_300"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Daqiqa"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/slate_400"/>
+                </LinearLayout>
             </LinearLayout>
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_limit"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:text="Saqlash"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="16dp"
+                android:backgroundTint="@color/primary"
+                app:icon="@drawable/ic_check_circle"
+                app:iconGravity="end"
+                android:elevation="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O'chirish uchun 00:00 kiriting yoki 'Saqlash' tugmasini bosib turing"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textSize="12sp"
+                android:textColor="@color/slate_400"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
-    <!-- Footer -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@color/gray_50">
-
-        <Button
-            android:id="@+id/btn_cancel_edit"
-            style="@style/Widget.App.Button.Outlined"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/button_cancel_edit"/>
-
-        <Button
-            android:id="@+id/btn_delete_limit"
-            style="@style/Widget.App.Button.Outlined"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/button_delete_limit"
-            android:textColor="@color/red"/>
-
-        <Button
-            android:id="@+id/btn_save_limit"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/button_save_limit"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

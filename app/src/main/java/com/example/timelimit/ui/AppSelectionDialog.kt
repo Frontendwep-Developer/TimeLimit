@@ -22,6 +22,8 @@ class AppSelectionDialog(
 
     private var _binding: DialogAppSelectionBinding? = null
     private val binding get() = _binding!!
+    
+    private var selectedApp: AppInfo? = null
 
     companion object {
         const val TAG = "AppSelectionDialog"
@@ -52,15 +54,24 @@ class AppSelectionDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = AppSelectionAdapter(availableApps) { selectedApp ->
-            onAppSelected(selectedApp)
-            dismiss()
+        val adapter = AppSelectionAdapter(availableApps) { app ->
+            // Ilova tanlanganda (bosilganda)
+            selectedApp = app
+            binding.btnAddSelectedApp.isEnabled = true
         }
 
         binding.rvAppSelection.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAppSelection.adapter = adapter
         
         binding.btnClose.setOnClickListener { dismiss() }
+        
+        // "Qo'shish" tugmasi bosilganda
+        binding.btnAddSelectedApp.setOnClickListener {
+            selectedApp?.let { app ->
+                onAppSelected(app)
+                dismiss()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -73,6 +84,8 @@ class AppSelectionDialog(
         private val onClick: (AppInfo) -> Unit
     ) : RecyclerView.Adapter<AppSelectionAdapter.ViewHolder>() {
 
+        private var selectedPosition = -1
+
         inner class ViewHolder(val binding: ItemAppSelectionBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -84,7 +97,19 @@ class AppSelectionDialog(
             val app = apps[position]
             holder.binding.ivAppIcon.setImageDrawable(app.icon)
             holder.binding.tvAppName.text = app.appName
-            holder.binding.root.setOnClickListener { onClick(app) }
+            
+            // Checkbox holati
+            holder.binding.rbSelected.isChecked = (position == selectedPosition)
+
+            holder.binding.root.setOnClickListener { 
+                val previousPosition = selectedPosition
+                selectedPosition = holder.adapterPosition
+                
+                notifyItemChanged(previousPosition)
+                notifyItemChanged(selectedPosition)
+                
+                onClick(app)
+            }
         }
 
         override fun getItemCount(): Int = apps.size

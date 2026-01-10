@@ -1,36 +1,79 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TimeLimit" parent="Theme.MaterialComponents.DayNight.NoActionBar"> <!-- Changed to NoActionBar for custom headers -->
+    <style name="Theme.TimeLimit" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
 
-        <!-- Text Appearances -->
-        <item name="textAppearanceLabelMedium">@style/TextAppearance.MaterialComponents.Body2</item>
-        <item name="textAppearanceDisplaySmall">@style/TextAppearance.MaterialComponents.Headline5</item>
-        <item name="textAppearanceTitleLarge">@style/TextAppearance.MaterialComponents.Headline6</item>
-        <item name="textAppearanceTitleMedium">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-        <item name="textAppearanceBodySmall">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="android:navigationBarColor">@color/background_light</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o">true</item>
 
+        <!-- Standard Text Appearances for CONSISTENCY -->
+        <item name="textAppearanceLabelMedium">@style/AppText.Caption</item>
+        <item name="textAppearanceDisplaySmall">@style/AppText.Title</item>
+        <item name="textAppearanceTitleLarge">@style/AppText.Title</item>
+        <item name="textAppearanceTitleMedium">@style/AppText.Subtitle</item>
+        <item name="textAppearanceBodyLarge">@style/AppText.Body</item>
+        <item name="textAppearanceBodySmall">@style/AppText.Caption</item>
     </style>
 
-    <!-- AppBar and Popup Styles for Toolbar -->
+    <!-- Global Text Styles -->
+    <style name="AppText.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppText.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/slate_900</item>
+    </style>
+
+    <style name="AppText.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/slate_700</item>
+    </style>
+
+    <style name="AppText.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/slate_500</item>
+    </style>
+
+    <!-- Drawer Style -->
+    <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="android:background">@color/primary</item>
+        <item name="itemIconTint">@color/nav_white_90</item>
+        <item name="itemTextColor">@color/nav_white_90</item>
+        <item name="itemShapeFillColor">@color/nav_white_20</item>
+        <item name="itemShapeAppearance">@style/ShapeAppearance.App.DrawerItem</item>
+        <item name="itemHorizontalPadding">16dp</item>
+        <item name="itemVerticalPadding">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.DrawerItem" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.Drawer" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">28dp</item>
+        <item name="cornerSizeBottomRight">28dp</item>
+    </style>
+
+    <!-- AppBar and Popup Styles -->
     <style name="Theme.TimeLimit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.TimeLimit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Button Styles -->
     <style name="Widget.App.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textColor">@color/gray_700</item>
-        <item name="backgroundTint">@color/gray_100</item>
-        <item name="strokeWidth">0dp</item> <!-- Remove border -->
+        <item name="android:textColor">@color/slate_700</item>
+        <item name="backgroundTint">@color/slate_100</item>
+        <item name="strokeWidth">0dp</item>
     </style>
 
     <style name="Widget.App.Button.Contact" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -42,16 +85,94 @@
         <item name="iconGravity">top</item>
     </style>
 
-    <!-- Shape Styles -->
-    <style name="ShapeAppearanceOverlay.App.Circle" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+    <!-- About & Legal Styles (Re-added for build consistency) -->
+    <style name="AboutFeatureItem" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/slate_700</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="drawableStartCompat">@drawable/ic_check_circle_filled</item>
     </style>
 
-    <style name="ShapeAppearance.App.Drawer" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">28dp</item>
-        <item name="cornerSizeBottomRight">28dp</item>
+    <style name="AboutSectionTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/slate_900</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    
+    <style name="AboutBodyText" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/slate_700</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+    </style>
+    
+    <style name="AboutLegalItem" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/slate_700</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
+    </style>
+    
+    <style name="AboutDeveloperItem" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:textColor">@color/slate_900</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <style name="SocialIcon" parent="">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/bg_circle_button</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+    
+    <style name="TechInfoItem" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/bg_input_field</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/slate_100</item>
+        <item name="android:layout_marginHorizontal">16dp</item>
+    </style>
+
+    <style name="LegalSectionTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/slate_900</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+    
+    <style name="LegalBodyText" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/slate_700</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
     </style>
 
     <!-- Settings Widgets -->
@@ -67,94 +188,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="AboutFeatureItem" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:drawablePadding">8dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/gray_700</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="drawableStartCompat">@drawable/ic_check_circle_filled</item>
-    </style>
-
-    <!-- About Page Styles -->
-    <style name="AboutSectionTitle" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">24dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
-    
-    <style name="AboutBodyText" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/gray_700</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">4dp</item>
-    </style>
-    
-    <style name="AboutLegalItem" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">16dp</item>
-        <item name="android:textColor">@color/gray_700</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
-        <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
-    </style>
-    
-    <style name="AboutDeveloperItem" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:drawablePadding">12dp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:layout_marginBottom">12dp</item>
-    </style>
-    
-    <style name="SocialIcon" parent="">
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:background">@drawable/bg_circle_gray_light</item>
-        <item name="android:layout_margin">8dp</item>
-    </style>
-    
-    <style name="TechInfoItem" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:background">@drawable/bg_settings_card</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
-
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/gray_100</item>
-        <item name="android:layout_marginHorizontal">16dp</item>
-    </style>
-    
-    <style name="LegalSectionTitle" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
-    
-    <style name="LegalBodyText" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/gray_700</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:lineSpacingExtra">4dp</item>
+    <style name="ShapeAppearanceOverlay.App.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

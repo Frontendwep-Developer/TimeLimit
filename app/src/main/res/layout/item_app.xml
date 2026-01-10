@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:background="@drawable/bg_app_card"
-    android:clipChildren="true">
+    android:clipChildren="true"
+    android:foreground="?attr/selectableItemBackground"> <!-- Card bosilishi uchun vizual effekt -->
 
     <!-- Chapdagi rangli chiziq -->
     <View
@@ -137,7 +138,7 @@
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_edit"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
@@ -162,17 +163,7 @@
                 tools:text="50%" />
         </FrameLayout>
 
-        <!-- Tahrirlash tugmasi -->
-        <ImageButton
-            android:id="@+id/btn_edit"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_edit"
-            android:tint="#49454F"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!-- Tahrirlash tugmasi OLIB TASHLANDI -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

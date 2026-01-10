@@ -4,24 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FEF7FF">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FEF7FF"
-        app:elevation="0dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="ILOVALAR"
-            app:titleTextColor="#1D1B20"
-            app:titleCentered="true"
-            app:menu="@menu/menu_apps" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    android:background="@color/background_light">
 
     <!-- Yuklanish (Loading) -->
     <ProgressBar
@@ -39,7 +22,6 @@
         android:clipToPadding="false"
         android:padding="16dp"
         android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_app" />
 
     <!-- Bo'sh holat (Empty State) -->
@@ -51,10 +33,8 @@
         android:gravity="center"
         android:padding="24dp"
         android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:visibility="gone">
 
-        <!-- Illyustratsiya -->
         <FrameLayout
             android:layout_width="280dp"
             android:layout_height="280dp"
@@ -72,7 +52,7 @@
                  android:layout_height="120dp"
                  android:layout_gravity="center"
                  android:src="@drawable/ic_hourglass_empty"
-                 app:tint="#7142f0"/>
+                 app:tint="@color/primary"/>
 
              <androidx.cardview.widget.CardView
                  android:layout_width="wrap_content"
@@ -87,7 +67,7 @@
                      android:layout_height="24dp"
                      android:layout_margin="12dp"
                      android:src="@drawable/ic_timer"
-                     app:tint="#7142f0"/>
+                     app:tint="@color/primary"/>
              </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -103,7 +83,7 @@
                     android:layout_height="24dp"
                     android:layout_margin="12dp"
                     android:src="@drawable/ic_block"
-                    app:tint="#7142f0"/>
+                    app:tint="@color/primary"/>
             </androidx.cardview.widget.CardView>
 
         </FrameLayout>
@@ -114,7 +94,7 @@
             android:text="Hech qanday limit qo'shilmagan"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#1D1B20"
+            android:textColor="@color/slate_900"
             android:textAlignment="center"
             android:layout_marginBottom="12dp"/>
 
@@ -123,13 +103,12 @@
             android:layout_height="wrap_content"
             android:text="Vaqtingizdan unumli foydalanish uchun ilovalarga cheklovlar o'rnating va kuningizni nazorat qiling."
             android:textSize="16sp"
-            android:textColor="#79747E"
+            android:textColor="@color/slate_500"
             android:textAlignment="center"
             android:lineSpacingMultiplier="1.2"/>
 
     </LinearLayout>
 
-    <!-- Katta tugma (Empty State uchun) -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_app_large"
         android:layout_width="match_parent"
@@ -143,21 +122,20 @@
         app:cornerRadius="28dp"
         app:icon="@drawable/ic_add"
         app:iconGravity="textStart"
-        android:backgroundTint="#7142f0"
+        android:backgroundTint="@color/primary"
         android:visibility="gone" />
 
-    <!-- Kichik FAB (Ro'yxat bor bo'lsa) -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_add_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:backgroundTint="#D0BCFF"
+        android:backgroundTint="@color/primary"
         android:text="QO'SHISH"
-        android:textColor="#381E72"
+        android:textColor="@color/white"
         app:icon="@drawable/ic_add"
-        app:iconTint="#381E72"
+        app:iconTint="@color/white"
         android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

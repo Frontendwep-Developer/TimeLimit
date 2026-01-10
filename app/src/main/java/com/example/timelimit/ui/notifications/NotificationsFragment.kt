@@ -29,9 +29,8 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Back & Close
+        // Back listener
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
-        binding.btnClose.setOnClickListener { findNavController().navigateUp() }
 
         // Switch listeners
         binding.switch5Min.setOnCheckedChangeListener { _, isChecked -> }

@@ -71,14 +71,13 @@ class AppsAdapter(
                 updateProgressColor(Color.parseColor("#366938"))
             }
 
-            binding.btnEdit.setOnClickListener { onItemClick(appInfo) }
+            // Butun element bosilganda edit oynasini ochamiz
+            binding.root.setOnClickListener { onItemClick(appInfo) }
         }
         
         private fun updateProgressColor(color: Int) {
              val progressDrawable = binding.pbCircleUsage.progressDrawable.mutate() as LayerDrawable
              val progressLayer = progressDrawable.findDrawableByLayerId(android.R.id.progress)
-             // LayerDrawable ichidagi RotateDrawable ni topib, uning shape rangini o'zgartirish kerak
-             // Oddiyroq usul: Tint ishlatish
              progressLayer.setTint(color)
         }
     }

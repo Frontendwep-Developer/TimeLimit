@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingStart="24dp"
     android:paddingTop="64dp" 
     android:paddingEnd="24dp"
-    android:paddingBottom="24dp"
-    android:gravity="center_vertical">
+    android:paddingBottom="32dp"
+    android:gravity="center_vertical"
+    android:background="@color/primary">
 
     <ImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_build" 
-        android:contentDescription="Sozlamalar ikonkasi"/>
+        android:src="@drawable/ic_settings" 
+        android:contentDescription="Sozlamalar"
+        app:tint="@color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,6 +25,7 @@
         android:text="SOZLAMALAR"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="?attr/colorOnSurface"/>
+        android:letterSpacing="0.02"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

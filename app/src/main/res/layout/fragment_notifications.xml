@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <!-- Header -->
+    <!-- Header (Blue Background) -->
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -15,8 +15,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="16dp"
-        android:background="@color/white"
-        android:elevation="2dp"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -25,26 +24,22 @@
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Bildirishnoma Sozlamalari"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginHorizontal="8dp"/>
 
-        <ImageButton
-            android:id="@+id/btn_close"
+        <View
             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_close"
-            app:tint="@color/black" />
+            android:layout_height="40dp" />
 
     </LinearLayout>
 

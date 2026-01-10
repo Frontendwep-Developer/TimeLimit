@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,6 @@ class AppsFragment : Fragment() {
         setupRecyclerView()
         setupListeners()
         
-        // Boshida faqat loading ko'rsatamiz
         showLoadingState()
         
         observeViewModel()
@@ -48,7 +48,9 @@ class AppsFragment : Fragment() {
             if (appInfo.limitTime > 0) {
                 showEditTimeLimitDialog(appInfo)
             } else {
-                showAddTimeLimitDialog(appInfo)
+                // Agar ro'yxatda limit yo'q bo'lsa (lekin qandaydir sabab bilan ro'yxatga tushgan bo'lsa),
+                // uni tahrirlash oynasini ochamiz (yoki avtomatik limit qo'shish mumkin, lekin tahrirlash mantiqiyroq)
+                showEditTimeLimitDialog(appInfo)
             }
         }
         binding.rvApps.layoutManager = LinearLayoutManager(requireContext())
@@ -67,7 +69,6 @@ class AppsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.appsList.observe(viewLifecycleOwner) { allApps ->
-            // Faqat limiti bor yoki bloklangan ilovalarni filtrlab ko'rsatamiz
             val activeApps = allApps.filter { it.isLimited || it.isBlocked }
             adapter.submitList(activeApps)
             
@@ -103,12 +104,16 @@ class AppsFragment : Fragment() {
         val availableApps = allApps.filter { !it.isLimited && !it.isBlocked }
         
         val dialog = AppSelectionDialog(availableApps) { selectedApp ->
-            showAddTimeLimitDialog(selectedApp)
+            // O'ZGARISH: Ilova tanlanganda avtomatik 45 daqiqa limit qo'shamiz
+            viewModel.setAppLimit(selectedApp.packageName, 45)
+            Toast.makeText(context, "${selectedApp.appName} qo'shildi (45 daqiqa)", Toast.LENGTH_SHORT).show()
         }
         dialog.show(parentFragmentManager, AppSelectionDialog.TAG)
     }
 
     private fun showAddTimeLimitDialog(appInfo: AppInfo) {
+        // Bu funksiya endi ishlatilmaydi, chunki avtomatik qo'shyapmiz
+        // Lekin kodda qolishi mumkin yoki o'chirib tashlash mumkin
         val dialog = TimeLimitDialog(appInfo)
         dialog.show(parentFragmentManager, TimeLimitDialog.TAG)
     }

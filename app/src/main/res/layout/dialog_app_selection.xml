@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_bottom_sheet"
-    android:paddingBottom="16dp">
+    android:background="@drawable/bg_bottom_sheet">
 
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,11 +38,35 @@
         android:layout_height="1dp"
         android:background="#CAC4D0"/>
 
+    <!-- Ro'yxat (O'rtada) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_app_selection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingTop="8dp"/>
+    
+    <!-- AJRATUVCHI CHIZIQ (VIEW) OLIB TASHLANDI -->
+
+    <!-- Footer (Tugma joyi) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_selected_app"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Qo'shish"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:cornerRadius="16dp"
+            android:backgroundTint="@color/primary"
+            android:enabled="false"/> <!-- Boshida o'chiq bo'ladi -->
+            
+    </LinearLayout>
 
 </LinearLayout>

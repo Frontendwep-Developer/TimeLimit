@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_light"
     tools:context=".StatisticsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="Instagram - Haftalik"
+            app:navigationIconTint="@color/white"
+            app:title="Statistika"
+            app:titleTextColor="@color/white"
             app:menu="@menu/statistics_menu"/>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -46,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="Umumiy vaqt"
                     android:textAppearance="?attr/textAppearanceLabelMedium"
-                    android:textColor="@color/gray_700" />
+                    android:textColor="@color/slate_500" />
 
                 <TextView
                     android:id="@+id/total_time_textview"
@@ -54,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="5s 34m"
                     android:textAppearance="?attr/textAppearanceDisplaySmall"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/slate_900" />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
@@ -64,7 +66,6 @@
                     app:chipStrokeWidth="0dp"
                     android:textColor="@color/white"/>
 
-                <!-- Bar Chart -->
                 <com.example.timelimit.BarChartView
                     android:id="@+id/bar_chart_view"
                     android:layout_width="match_parent"
@@ -73,21 +74,22 @@
 
             </LinearLayout>
 
-            <!-- Today's Status Card -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bugungi holat"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textColor="@color/slate_900"
                 android:layout_marginBottom="8dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/gray_200">
+                app:strokeColor="@color/slate_100">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -105,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:text="Kunlik limit"
                             android:textAppearance="?attr/textAppearanceLabelMedium"
-                            android:textColor="@color/gray_700"/>
+                            android:textColor="@color/slate_500"/>
 
                          <TextView
                             android:id="@+id/daily_limit_textview"
@@ -114,7 +116,7 @@
                             android:layout_below="@id/daily_limit_label"
                             android:text="45m / 60m"
                             android:textAppearance="?attr/textAppearanceTitleLarge"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/slate_900"/>
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/remaining_time_chip"
@@ -139,13 +141,13 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Stats List -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/gray_200">
+                app:strokeColor="@color/slate_100">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,7 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_lock_open"
-                            app:tint="?attr/colorPrimary"/>
+                            app:tint="@color/primary"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -172,26 +174,28 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ochilishlar soni"
+                                android:textColor="@color/slate_900"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
                              <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bugungi hisob"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
-                                android:textColor="@color/gray_700"/>
+                                android:textColor="@color/slate_500"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/openings_count_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12 marta"
+                            android:textColor="@color/slate_900"
                             android:textAppearance="?attr/textAppearanceTitleMedium"/>
                      </LinearLayout>
 
                      <View
                          android:layout_width="match_parent"
                          android:layout_height="1dp"
-                         android:background="@color/gray_200"/>
+                         android:background="@color/slate_100"/>
 
                      <LinearLayout
                         android:layout_width="match_parent"
@@ -203,7 +207,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_trending_down"
-                            app:tint="?attr/colorPrimary"/>
+                            app:tint="@color/primary"/>
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
@@ -214,13 +218,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="O'rtacha vaqt"
+                                android:textColor="@color/slate_900"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
                              <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="O'tgan haftaga nisbatan"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
-                                android:textColor="@color/gray_700"/>
+                                android:textColor="@color/slate_500"/>
                         </LinearLayout>
                         <TextView
                             android:id="@+id/average_time_change_textview"
@@ -228,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:text="-5%"
                             android:textAppearance="?attr/textAppearanceTitleMedium"
-                            android:textColor="@color/colorError"/>
+                            android:textColor="@color/red"/>
                      </LinearLayout>
                 </LinearLayout>
 

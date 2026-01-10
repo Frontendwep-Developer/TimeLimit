@@ -7,20 +7,15 @@
     android:background="@color/white"
     tools:context=".ui.settings.SettingsFragment">
 
-    <!-- Header -->
+    <!-- Header (Blue Background) -->
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
         
-        <View
-             android:layout_width="match_parent"
-             android:layout_height="24dp"
-             android:visibility="gone"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +31,7 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="0dp"
@@ -44,27 +39,11 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:text="TIL"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Yopish tugmasi kerak emas, chunki orqaga tugmasi bor, lekin simmetriya uchun close qoldirsa ham bo'ladi yoki olib tashlash mumkin. 
-                 Sizning talabingiz bo'yicha "orqaga" tugmasi muhim. -->
-            <ImageButton
-                android:id="@+id/btn_close"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_close"
-                app:tint="@color/black" 
-                android:visibility="gone"/> 
         </LinearLayout>
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"/>
-            
     </LinearLayout>
 
     <ScrollView
@@ -86,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- O'zbekcha (Lotin) -->
                 <RadioButton
                     android:id="@+id/rb_uzbek"
                     android:layout_width="match_parent"
@@ -103,7 +81,6 @@
                     android:textStyle="bold"
                     android:checked="true"/>
 
-                <!-- O'zbekcha (Kirill) -->
                 <RadioButton
                     android:id="@+id/rb_uzbek_cyrl"
                     android:layout_width="match_parent"
@@ -119,7 +96,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- Russian -->
                 <RadioButton
                     android:id="@+id/rb_russian"
                     android:layout_width="match_parent"
@@ -135,7 +111,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- English -->
                 <RadioButton
                     android:id="@+id/rb_english"
                     android:layout_width="match_parent"
@@ -151,7 +126,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- Turkish -->
                 <RadioButton
                     android:id="@+id/rb_turkish"
                     android:layout_width="match_parent"
@@ -172,7 +146,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Footer -->
     <LinearLayout
         android:id="@+id/footer_layout"
         android:layout_width="match_parent"
