@@ -13,38 +13,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
-        
-        <View
-             android:layout_width="match_parent"
-             android:layout_height="24dp"
-             android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:minHeight="64dp">
+            android:paddingHorizontal="12dp">
 
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="XAVFSIZLIK"
-                android:textColor="@color/black"
+                android:layout_marginStart="4dp"
+                android:text="Xavfsizlik"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -52,16 +47,13 @@
                 android:id="@+id/btn_close"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_close"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
         </LinearLayout>
         
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"/>
-            
     </LinearLayout>
 
     <ScrollView
@@ -101,7 +93,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="XAVFSIZLIK SOZLAMALARI"
+                        android:text="Xavfsizlik sozlamalari"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -148,7 +140,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PAROL QO'YISH"
+                        android:text="Parol qo'yish"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -201,7 +193,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BARMOQ IZI"
+                        android:text="Barmoq izi"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -259,7 +251,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="AVTOMATIK CHIQISH"
+                            android:text="Avtomatik chiqish"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -356,7 +348,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FAVQULODDA BLOK"
+                        android:text="Favqulodda blok"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -409,7 +401,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MA'LUMOTLAR HIMOYASI"
+                        android:text="Ma'lumotlar himoyasi"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -446,7 +438,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="BARCHASINI YOQISH"
+            android:text="Barchasini yoqish"
             android:textColor="@color/primary"
             android:textSize="16sp"
             android:textStyle="bold"

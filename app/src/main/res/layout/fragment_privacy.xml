@@ -13,55 +13,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
-        
-        <View
-             android:layout_width="match_parent"
-             android:layout_height="24dp"
-             android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:minHeight="64dp">
+            android:paddingHorizontal="12dp">
 
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="MAXFIYLIK"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:layout_marginStart="4dp"
+                android:text="Maxfiylik"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btn_close"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_close"
-                app:tint="@color/black" />
+                app:tint="@color/white" />
         </LinearLayout>
         
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"/>
-            
     </LinearLayout>
 
     <ScrollView
@@ -101,11 +93,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MAXFIYLIK SOZLAMLARI"
+                        android:text="Maxfiylik sozlamalari"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:layout_marginStart="16dp"/>
+                        android:layout_marginStart="16dp"
+                        android:letterSpacing="0.05"/>
                 </LinearLayout>
             </LinearLayout>
             
@@ -144,7 +137,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NIMA YIG'ILYAPTI?"
+                            android:text="Nima yig'ilyapti?"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -163,7 +156,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="BATAFSIL MA'LUMOT"
+                    android:text="Batafsil ma'lumot"
                     android:textColor="@color/primary"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -203,7 +196,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MA'LUMOTLARNI O'CHIRISH"
+                            android:text="Ma'lumotlarni o'chirish"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -221,7 +214,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="O'CHIRISH"
+                    android:text="O'chirish"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -260,7 +253,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="MAXFIYLIK SIYOSATI"
+                            android:text="Maxfiylik siyosati"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"/>
@@ -279,7 +272,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="O'QISH"
+                    android:text="O'qish"
                     android:textColor="@color/primary"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -315,7 +308,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ROZILIK"
+                        android:text="Rozilik"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>

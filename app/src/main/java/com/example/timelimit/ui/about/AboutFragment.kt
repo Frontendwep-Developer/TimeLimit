@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,8 +35,13 @@ class AboutFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.btnBack.setOnClickListener { goBackToMenu() }
-        binding.btnClose.setOnClickListener { closeScreen() }
+        // Back & Close - explicitly navigate to apps fragment
+        binding.btnBack.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
+        binding.btnClose.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
 
         binding.textTerms.setOnClickListener {
             findNavController().navigate(R.id.action_aboutFragment_to_termsFragment)
@@ -55,15 +58,6 @@ class AboutFragment : Fragment() {
         super.onPause()
         // Save scroll position
         viewModel.scrollY = binding.aboutScrollView.scrollY
-    }
-
-    private fun goBackToMenu() {
-        findNavController().navigateUp()
-        requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)?.openDrawer(GravityCompat.START)
-    }
-
-    private fun closeScreen() {
-        findNavController().navigateUp()
     }
 
     override fun onDestroyView() {

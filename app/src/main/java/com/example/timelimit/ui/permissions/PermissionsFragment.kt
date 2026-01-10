@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.timelimit.R
 import com.example.timelimit.databinding.FragmentPermissionsBinding
 
 class PermissionsFragment : Fragment() {
@@ -44,8 +45,15 @@ class PermissionsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Orqaga tugmasi
-        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+        // Orqaga tugmasi (<)
+        binding.btnBack.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
+
+        // Yopish tugmasi (X)
+        binding.btnClose.setOnClickListener {
+            findNavController().navigate(R.id.navigation_apps)
+        }
 
         // 1. Usage Access
         val usageListener = View.OnClickListener {

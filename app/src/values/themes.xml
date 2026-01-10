@@ -35,20 +35,14 @@
         <item name="android:letterSpacing">0.05</item>
     </style>
 
-    <!-- Drawer Style (Full Blue Design) -->
+    <!-- Drawer Style -->
     <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
         <item name="android:background">@color/primary</item>
-        <item name="itemIconTint">@color/white</item>
-        <item name="itemTextColor">@color/white</item>
+        <item name="itemIconTint">@color/nav_white_90</item>
+        <item name="itemTextColor">@color/nav_white_90</item>
         <item name="itemShapeFillColor">@color/nav_white_20</item>
-        <item name="itemShapeAppearance">@style/ShapeAppearance.App.DrawerItem</item>
         <item name="itemHorizontalPadding">16dp</item>
-        <item name="itemVerticalPadding">4dp</item>
-        <item name="headerLayout">@layout/nav_header_main</item>
-    </style>
-
-    <style name="ShapeAppearance.App.DrawerItem" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerSize">28dp</item>
+        <item name="itemVerticalPadding">8dp</item>
     </style>
 
     <!-- AppBar and Popup Styles -->
@@ -60,15 +54,6 @@
         <item name="android:textColor">@color/slate_700</item>
         <item name="backgroundTint">@color/slate_100</item>
         <item name="strokeWidth">0dp</item>
-    </style>
-
-    <style name="Widget.App.Button.Contact" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_columnWeight">1</item>
-        <item name="android:layout_gravity">fill_horizontal</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="iconGravity">top</item>
     </style>
 
     <style name="AboutFeatureItem" parent="Widget.AppCompat.TextView">
@@ -158,19 +143,6 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/slate_100</item>
         <item name="android:layout_marginHorizontal">16dp</item>
-    </style>
-
-    <!-- Settings Widgets -->
-    <style name="Widget.App.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:padding">12dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="Widget.App.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:padding">12dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

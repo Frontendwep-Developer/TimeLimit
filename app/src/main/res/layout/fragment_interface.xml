@@ -8,69 +8,65 @@
     tools:context=".ui.interface_theme.InterfaceFragment">
 
     <!-- Header -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white"
+        android:layout_height="56dp"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
-        
-        <View
-             android:layout_width="match_parent"
-             android:layout_height="24dp"
-             android:visibility="gone"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:minHeight="64dp">
+            android:layout_marginStart="8dp"
+            android:includeFontPadding="false"
+            android:text="Interfeys"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="@color/black" />
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Interfeys Mavzusi"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/btn_close"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_close"
-                app:tint="@color/black" />
-        </LinearLayout>
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"/>
-            
-    </LinearLayout>
-
-    <!-- Content (RadioGroup o'rniga LinearLayout ishlatamiz, chunki nested radio logic qo'lda yoziladi) -->
+    <!-- Content -->
     <LinearLayout
         android:id="@+id/rg_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="24dp"
         app:layout_constraintTop_toBottomOf="@id/header_layout">
 
         <!-- YORUQ REJIM -->
@@ -96,7 +92,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="YORUQ REJIM"
+                android:text="Yoruq rejim"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -132,7 +128,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="QORONG'I REJIM"
+                android:text="Qorong'i rejim"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -140,7 +136,7 @@
                 android:id="@+id/rb_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
+                android:clickable="false" 
                 android:buttonTint="@color/primary"/>
 
         </LinearLayout>
@@ -168,7 +164,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="AVTOMATIK"
+                android:text="Avtomatik"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -176,7 +172,7 @@
                 android:id="@+id/rb_auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
+                android:clickable="false" 
                 android:buttonTint="@color/primary"/>
 
         </LinearLayout>
@@ -196,7 +192,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="SAQLASH"
+            android:text="Saqlash"
             android:textColor="@color/primary"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -216,7 +212,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="BEKOR QILISH"
+            android:text="Bekor qilish"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"

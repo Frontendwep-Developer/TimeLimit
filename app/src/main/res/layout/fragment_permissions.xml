@@ -10,32 +10,43 @@
 
     <!-- Header -->
     <LinearLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:background="@color/white"
-        android:elevation="2dp">
+        android:paddingHorizontal="12dp"
+        android:background="@color/primary">
 
         <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="MAXSUS RUXSATLAR"
-            android:textColor="@color/black"
+            android:layout_marginStart="4dp"
+            android:text="Maxsus ruxsatlar"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginEnd="40dp"/> <!-- To center text properly -->
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:tint="@color/white" />
 
     </LinearLayout>
 
@@ -68,7 +79,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FOYDALANISHGA RUXSAT"
+                        android:text="Foydalanishga ruxsat"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -115,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BOSHQA ILOVALAR USTIDA\nKO'RSATISH"
+                        android:text="Boshqa ilovalar ustida ko'rsatish"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -124,7 +135,7 @@
                         android:id="@+id/btn_overlay_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ SOZLAMALARGA O'TISH ]"
+                        android:text="[ Sozlamalarga o'tish ]"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -172,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="MAXSUS IMKONIYATLAR\nXIZMATI"
+                        android:text="Maxsus imkoniyatlar xizmati"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -181,7 +192,7 @@
                         android:id="@+id/btn_accessibility_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ XIZMATNI SOZLASH ]"
+                        android:text="[ Xizmatni sozlash ]"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -229,7 +240,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BATAREYA OPTIMIZATSIYASINI\nO'CHIRISH"
+                        android:text="Batareya optimizatsiyasini o'chirish"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -238,7 +249,7 @@
                         android:id="@+id/btn_battery_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ BATAREYA SOZLAMALARI ]"
+                        android:text="[ Batareya sozlamalari ]"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -346,7 +357,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
-                android:text="BARCHASINI YOQISH"
+                android:text="Barchasini yoqish"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:icon="@drawable/ic_check_circle_filled"
@@ -361,7 +372,7 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:text="BARCHASINI O'CHIRISH"
+                android:text="Barchasini o'chirish"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary"

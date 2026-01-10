@@ -1,15 +1,11 @@
 package com.example.timelimit.ui.help
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.timelimit.R
@@ -36,9 +32,13 @@ class HelpFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Back & Close
-        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
-        binding.btnClose.setOnClickListener { findNavController().navigateUp() }
+        // Back & Close - explicitly navigate to apps fragment
+        binding.btnBack.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
+        binding.btnClose.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
 
         // FAQ Toggles
         setupFaqToggle(binding.faqHeader1, binding.faqAnswer1, binding.faqArrow1)

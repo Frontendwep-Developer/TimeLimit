@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
             if (destination.id == R.id.navigation_apps) {
                 // Faqat Ilovalar bo'limida ko'rsatamiz
                 binding.appBarLayout.visibility = View.VISIBLE
-                toolbarTitle.text = "ILOVALAR"
+                toolbarTitle.text = "Ilovalar"
             } else {
                 // Boshqa barcha bo'limlarda yashiramiz
                 binding.appBarLayout.visibility = View.GONE

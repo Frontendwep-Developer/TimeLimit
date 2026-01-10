@@ -14,38 +14,40 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
-        android:minHeight="64dp"
-        android:background="@color/white"
-        android:elevation="2dp"
+        android:paddingHorizontal="12dp"
+        android:minHeight="56dp"
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="YORDAM"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_marginStart="4dp"
+            android:text="Yordam"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btn_close"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_close"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
     </LinearLayout>
 
     <ScrollView
@@ -64,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="❓ 3 ta FAQ"
+                android:text="❓ FAQ"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"

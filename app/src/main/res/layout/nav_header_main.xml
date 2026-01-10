@@ -7,7 +7,7 @@
     android:paddingStart="24dp"
     android:paddingTop="64dp" 
     android:paddingEnd="24dp"
-    android:paddingBottom="32dp"
+    android:paddingBottom="24dp"
     android:gravity="center_vertical"
     android:background="@color/primary">
 
@@ -22,10 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="SOZLAMALAR"
+        android:text="Sozlamalar"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:textColor="@color/white"/>
 
 </LinearLayout>

@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.timelimit.R
@@ -33,9 +31,13 @@ class PrivacyFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Back & Close
-        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
-        binding.btnClose.setOnClickListener { findNavController().navigateUp() }
+        // Back & Close - explicitly navigate to apps fragment
+        binding.btnBack.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
+        binding.btnClose.setOnClickListener { 
+            findNavController().navigate(R.id.navigation_apps) 
+        }
 
         // Buttons
         binding.btnDetails.setOnClickListener {
