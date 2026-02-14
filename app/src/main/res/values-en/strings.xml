@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App & Navigation -->
+    <string name="app_name">TimeLimit</string>
+    <string name="title_apps">Apps</string>
+    <string name="title_language">Language</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_interface">Interface</string>
+    <string name="title_security">Security</string>
+    <string name="title_privacy">Privacy</string>
+    <string name="title_permissions">Special Permissions</string>
+    <string name="title_help">Help</string>
+    <string name="title_about">About app</string>
+
+    <!-- General Buttons -->
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_read">Read</string>
+    <string name="btn_details">More details</string>
+    <string name="btn_enable_all">Enable all</string>
+    <string name="btn_disable_all">Disable all</string>
+
+    <!-- Help (FAQ) Section -->
+    <string name="help_faq_title">❓ FAQ</string>
+    <string name="faq_q1">How does the limit work?</string>
+    <string name="faq_a1">After setting a time limit, the app only works for that duration. When time is up, the app is blocked for 24 hours.</string>
+    <string name="faq_q2">What to do when an app is blocked?</string>
+    <string name="faq_a2">You can only use the blocked app after 24 hours. The duration cannot be changed.</string>
+    <string name="faq_q3">How to change the limit time?</string>
+    <string name="faq_a3">Select the app from the list, click \'Edit\', and set a new time.</string>
+    <string name="help_contact_title">Contact Us</string>
+    <string name="contact_email_label">Email</string>
+    <string name="contact_phone_label">Support Center</string>
+
+    <!-- About Section -->
+    <string name="about_section_desc_title">📱 About App:</string>
+    <string name="about_description">TimeLimit is an app that helps you manage your time. By setting limits on apps, you can limit yourself and increase your productivity.</string>
+    <string name="about_section_features_title">✨ Key Features:</string>
+    <string name="feature_1">Set time limits for apps</string>
+    <string name="feature_2">Daily/weekly usage statistics</string>
+    <string name="feature_3">Blocking modes (strict, flexible)</string>
+    <string name="feature_4">Privacy mode</string>
+    <string name="feature_5">Password/biometric protection</string>
+    <string name="about_section_history_title">📅 Update History:</string>
+    <string name="btn_view_history">[ View full history ]</string>
+    <string name="about_section_legal_title">⚖️ Legal:</string>
+    <string name="legal_terms">Terms of use</string>
+    <string name="legal_policy">Privacy policy</string>
+    <string name="legal_license">License terms (MIT)</string>
+    <string name="about_section_developer_title">👨‍💻 Developer:</string>
+    <string name="about_section_social_title">🌐 Social Media:</string>
+    <string name="about_section_tech_title">📊 Technical Info:</string>
+    <string name="tech_sdk">SDK: Android 8.0+ (API 26+)</string>
+    <string name="tech_size">Size: ~15 MB</string>
+    <string name="tech_languages">Supported languages: Uzbek, Russian, English</string>
+    <string name="tech_devices">Device: Phone, Tablet</string>
+    <string name="about_footer">© 2024 TimeLimit. All rights reserved.</string>
+
+    <!-- App Blocker & Dialogs -->
+    <string name="blocked_title">Your time is up</string>
+    <string name="blocked_desc">You have reached the limit for today.</string>
+    <string name="btn_exit">Exit</string>
+    <string name="btn_return_to_app">Return to TimeLimit</string>
+    
+    <!-- Dialog Edit/Set Limit -->
+    <string name="dialog_set_limit_title">Set Limit</string>
+    <string name="label_select_time">Select time:</string>
+    <string name="label_custom_time">Enter custom time:</string>
+    <string name="label_hours">Hour</string>
+    <string name="label_minutes">Minute</string>
+    <string name="btn_delete_limit">Delete limit</string>
+    <string name="time_15_min">15 minutes</string>
+    <string name="time_30_min">30 minutes</string>
+    <string name="time_45_min">45 minutes</string>
+
+    <!-- Language Settings -->
+    <string name="lang_uzbek_latin">Uzbek (Latin)</string>
+    <string name="lang_uzbek_cyrillic">Uzbek (Cyrillic)</string>
+    <string name="lang_russian">Russian</string>
+    <string name="lang_english">English</string>
+    <string name="lang_turkish">Turkish</string>
+    <string name="language_changed">Language changed</string>
+
+    <!-- Notifications -->
+    <string name="notif_5_min_title">5 minutes left</string>
+    <string name="notif_5_min_desc">5 minutes before limit ends</string>
+    <string name="notif_limit_reached_title">When limit ends</string>
+    <string name="notif_limit_reached_desc">When app is blocked</string>
+    <string name="notif_1_hour_title">When used for 1 hour</string>
+    <string name="notif_1_hour_desc">After using any app for 1 hour</string>
+
+    <!-- Interface -->
+    <string name="theme_light">Light mode</string>
+    <string name="theme_dark">Dark mode</string>
+    <string name="theme_auto">Automatic</string>
+
+    <!-- Security -->
+    <string name="sec_settings_title">Security settings</string>
+    <string name="sec_password_title">Set password</string>
+    <string name="sec_password_desc">Password to lock the app</string>
+    <string name="sec_fingerprint_title">Fingerprint</string>
+    <string name="sec_fingerprint_desc">For quick access</string>
+    <string name="sec_auto_lock_title">Auto lock</string>
+    <string name="sec_auto_lock_desc">After set time</string>
+    <string name="sec_emergency_title">Emergency block</string>
+    <string name="sec_emergency_desc">Block all apps</string>
+    <string name="sec_data_protect_title">Data protection</string>
+    <string name="sec_data_protect_desc">Hide statistics</string>
+
+    <!-- Privacy -->
+    <string name="priv_settings_title">Privacy settings</string>
+    <string name="priv_what_collected">What is collected?</string>
+    <string name="priv_what_collected_desc">App names and usage time</string>
+    <string name="priv_delete_data">Delete data</string>
+    <string name="priv_delete_data_desc">Clear all statistics</string>
+    <string name="priv_policy_title">Privacy policy</string>
+    <string name="priv_policy_desc">How the app collects data</string>
+    <string name="priv_consent">Consent</string>
+    <string name="priv_consent_desc">Consent to collect data</string>
+
+    <!-- Permissions -->
+    <string name="perm_usage_title">Usage access</string>
+    <string name="perm_usage_desc">To track app usage time</string>
+    <string name="perm_overlay_title">Display over apps</string>
+    <string name="perm_overlay_desc">To show blocking screen</string>
+    <string name="perm_accessibility_title">Accessibility service</string>
+    <string name="perm_accessibility_desc">To block and monitor apps</string>
+    <string name="perm_battery_title">Battery optimization</string>
+    <string name="perm_battery_desc">For stable background work</string>
+    <string name="perm_go_to_settings">[ GO TO SETTINGS ]</string>
+
+    <!-- Apps & Blocker -->
+    <string name="empty_state_title">No limits added yet</string>
+    <string name="empty_state_desc">Set limits on apps to manage your time.</string>
+    <string name="btn_add_app">ADD APP</string>
+    <string name="fab_add">ADD</string>
+
+    <!-- Accessibility Service -->
+    <string name="accessibility_service_description">Needed to block apps and track their usage time.</string>
+    <string name="accessibility_service_desc_simple">App blocking service</string>
+
+    <!-- Unblock Dialog -->
+    <string name="unblock_dialog_title">Do you want to unblock %s?</string>
+    <string name="unblock_dialog_button_unblock">Yes</string>
+    <string name="unblock_dialog_button_close">No</string>
+
+</resources>

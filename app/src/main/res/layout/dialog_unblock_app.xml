@@ -1,73 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_dialog_rounded"
-    android:padding="16dp">
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp"
+    android:backgroundTint="@color/white"
+    android:layout_margin="16dp">
 
-    <!-- Header -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/tv_unblock_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            tools:text="TikTok blokini olib tashlash"
-            android:text="@string/unblock_dialog_title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageButton
-            android:id="@+id/btn_close_unblock_dialog"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_close"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Yopish" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Action Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_unblock_confirm"
+        <!-- Header with Close Button -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/unblock_dialog_button_unblock"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:padding="8dp">
 
-        <Button
-            android:id="@+id/btn_unblock_cancel"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            <ImageButton
+                android:id="@+id/btn_close_unblock_dialog"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_close"
+                android:background="@drawable/bg_circle_button"
+                android:backgroundTint="@color/slate_100"
+                app:tint="@color/slate_400"
+                android:padding="6dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Close"/>
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/unblock_dialog_button_close"
-            android:textColor="?android:attr/textColorSecondary"/>
-            
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="24dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_lock_open"
+                app:tint="@color/primary"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_unblock_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unblock_dialog_title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/slate_900"
+                android:textAlignment="center"
+                android:layout_marginBottom="24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_unblock_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="@string/unblock_dialog_button_unblock"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="28dp"
+                    android:backgroundTint="@color/primary"
+                    android:layout_marginEnd="8dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_unblock_cancel"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="@string/unblock_dialog_button_close"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="28dp"
+                    app:strokeColor="@color/slate_200"
+                    android:textColor="@color/slate_700"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

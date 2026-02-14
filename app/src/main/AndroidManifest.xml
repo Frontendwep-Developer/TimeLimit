@@ -16,6 +16,11 @@
     <!-- Android 14+ uchun foreground service types -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:name=".TimeLimitApp"
         android:allowBackup="true"
@@ -39,7 +44,11 @@
             android:name=".BlockingActivity"
             android:excludeFromRecents="true"
             android:exported="false"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
+            android:taskAffinity=".blocking"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
         <service

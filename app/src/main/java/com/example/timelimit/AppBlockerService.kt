@@ -1,16 +1,19 @@
 package com.example.timelimit
 
 import android.accessibilityservice.AccessibilityService
-import android.app.Notification
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.usage.UsageStatsManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
+import android.os.PowerManager
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.timelimit.data.AppLimit
 import com.example.timelimit.data.AppLimitDao
 import kotlinx.coroutines.*
@@ -18,211 +21,209 @@ import java.util.Calendar
 
 class AppBlockerService : AccessibilityService() {
 
-    private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
+    private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private lateinit var appLimitDao: AppLimitDao
-
-    private var currentPackage: String? = null
+    private lateinit var powerManager: PowerManager
+    
+    // Xotirada vaqtni hisoblash uchun
+    private var currentTrackingPackage: String? = null
     private var trackingJob: Job? = null
+    private var currentUsageSeconds: Int = 0
+    private var currentLimitSeconds: Int = 0
+    
+    // Bloklangan ilovalar keshlanadi
+    private var blockedPackagesCache = mutableSetOf<String>()
+    private var lastExitedPackage: String? = null
+    private var exitTimestamp: Long = 0
+
+    private val exitReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == BlockingActivity.ACTION_EXIT_APP) {
+                val pkg = intent.getStringExtra("packageName") ?: currentTrackingPackage
+                Log.i(TAG, "Exit signal for: $pkg")
+                lastExitedPackage = pkg
+                exitTimestamp = System.currentTimeMillis()
+                
+                stopTracking()
+                performGlobalAction(GLOBAL_ACTION_BACK)
+            }
+        }
+    }
 
     companion object {
         private const val TAG = "AppBlockerService"
+        private const val EXIT_GRACE_PERIOD = 3000L
     }
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        Log.d(TAG, "Service Connected")
+        Log.i(TAG, "========== SERVICE CONNECTED ==========")
+        
         appLimitDao = AppDatabase.getDatabase(this).appLimitDao()
+        powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            exitReceiver, IntentFilter(BlockingActivity.ACTION_EXIT_APP)
+        )
         
         startForegroundService()
-        
-        // Servis ulanganda darhol tekshirish
+        observeDatabaseChanges()
+    }
+
+    private fun observeDatabaseChanges() {
         serviceScope.launch {
-            delay(1000)
-            checkCurrentWindow()
-        }
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand called")
-        startForegroundService()
-        // Ekran holatini tekshirish yoki boshqa triggerlar
-        checkCurrentWindow()
-        return START_STICKY
-    }
-    
-    private fun checkCurrentWindow() {
-        var foundPkg: String? = null
-
-        // 1. Accessibility orqali urinib ko'ramiz
-        try {
-            val rootNode = rootInActiveWindow
-            if (rootNode?.packageName != null) {
-                foundPkg = rootNode.packageName.toString()
-                Log.d(TAG, "Current window (Accessibility): $foundPkg")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error checking window via Accessibility", e)
-        }
-
-        // 2. Agar Accessibility topolmasa, UsageStatsManager ishlatamiz (Zaxira)
-        if (foundPkg == null) {
-            try {
-                val usageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-                val time = System.currentTimeMillis()
-                // Oxirgi 10 soniyadagi statistika
-                val stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 10000, time)
-                if (stats != null) {
-                    val sortedStats = stats.sortedByDescending { it.lastTimeUsed }
-                    if (sortedStats.isNotEmpty()) {
-                        foundPkg = sortedStats[0].packageName
-                        Log.d(TAG, "Current window (UsageStats): $foundPkg")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error checking window via UsageStats", e)
+            appLimitDao.getAllLimits().collect { limits ->
+                val newBlockedSet = mutableSetOf<String>()
+                limits.forEach { if (it.isBlocked) newBlockedSet.add(it.packageName) }
+                blockedPackagesCache = newBlockedSet
+                Log.d(TAG, "Blocked cache updated: ${blockedPackagesCache.size} apps")
             }
         }
-
-        // Agar ilova topilgan bo'lsa, monitoringni boshlaymiz
-        if (foundPkg != null && foundPkg != packageName && !isLauncher(foundPkg)) {
-             startTracking(foundPkg)
-        }
-    }
-    
-    private fun startForegroundService() {
-        val channelId = "TimeLimitServiceChannel"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "TimeLimit Monitoring",
-                NotificationManager.IMPORTANCE_LOW
-            )
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
-
-        val notification: Notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("TimeLimit")
-            .setContentText("Monitoring faol")
-            .setSmallIcon(R.drawable.ic_dashboard)
-            .setOngoing(true)
-            .build()
-
-        startForeground(1001, notification)
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event == null) return
-
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            val newPackage = event.packageName?.toString() ?: return
-            
-            if (currentPackage == newPackage) return
-
-            if (newPackage != packageName && !isLauncher(newPackage)) {
-                startTracking(newPackage)
-            } else {
-                stopTracking()
-            }
-        }
-    }
-
-    private fun startTracking(packageName: String) {
-        stopTracking()
         
-        currentPackage = packageName
-        Log.d(TAG, "START tracking: $packageName")
-
-        trackingJob = serviceScope.launch {
-            val limit = appLimitDao.getLimit(packageName)
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            val packageName = event.packageName?.toString() ?: return
             
-            if (limit == null) return@launch
+            // Logcat da har bir oyna o'zgarishini ko'rsatish
+            Log.i(TAG, "WINDOW CHANGE: $packageName")
 
-            checkAndResetDailyLimit(limit)
-
-            if (limit.limitTime <= 0) return@launch
-
-            Log.d(TAG, "Limit: ${limit.limitTime}m. Used: ${limit.usageTime}s")
-
-            if (limit.isBlocked) {
-                blockApp(packageName)
-                return@launch
+            // 1. Grace Period (Chiqishdan keyingi vaqt)
+            val now = System.currentTimeMillis()
+            if (packageName == lastExitedPackage && (now - exitTimestamp) < EXIT_GRACE_PERIOD) {
+                return
             }
 
-            while (isActive) {
-                val limitInSeconds = limit.limitTime * 60
+            // 2. Bloklanganmi?
+            if (blockedPackagesCache.contains(packageName)) {
+                Log.w(TAG, "BLOCKED APP DETECTED: $packageName")
+                showBlockingScreen(packageName)
+                stopTracking()
+                return
+            }
+
+            // 3. Chetlab o'tishlar
+            if (packageName == this.packageName || isLauncher(packageName) || packageName.contains("BlockingActivity")) {
+                stopTracking()
+                return
+            }
+
+            // 4. Yangi ilova ochilsa tracking boshlash
+            if (packageName != currentTrackingPackage) {
+                startTracking(packageName)
+            }
+        }
+    }
+
+    private fun startTracking(pkg: String) {
+        stopTracking()
+        currentTrackingPackage = pkg
+        
+        serviceScope.launch {
+            val limit = withContext(Dispatchers.IO) { appLimitDao.getLimit(pkg) }
+            if (limit != null) {
+                Log.i(TAG, "START TRACKING: $pkg | Limit: ${limit.limitTime}m | Used: ${limit.usageTime}s")
                 
-                if (limit.usageTime >= limitInSeconds) {
-                    Log.d(TAG, "Limit reached! Blocking $packageName")
-                    limit.isBlocked = true
-                    appLimitDao.insertOrUpdateLimit(limit)
-                    blockApp(packageName)
-                    break 
+                checkReset(limit)
+                currentUsageSeconds = limit.usageTime
+                currentLimitSeconds = limit.limitTime * 60
+
+                trackingJob = launch {
+                    while (currentTrackingPackage == pkg && isActive) {
+                        delay(1000)
+                        if (powerManager.isInteractive) {
+                            currentUsageSeconds++
+                            
+                            // Har 5 soniyada bazaga yozamiz (CPU va Batareya uchun foydali)
+                            if (currentUsageSeconds % 5 == 0) {
+                                withContext(Dispatchers.IO) {
+                                    appLimitDao.updateUsageTime(pkg, currentUsageSeconds)
+                                }
+                                Log.d(TAG, "Usage update: $pkg -> $currentUsageSeconds s")
+                            }
+
+                            // Limit tekshiruvi
+                            if (currentUsageSeconds >= currentLimitSeconds) {
+                                Log.w(TAG, "!!! LIMIT REACHED: $pkg !!!")
+                                withContext(Dispatchers.IO) {
+                                    appLimitDao.insertOrUpdateLimit(limit.copy(usageTime = currentUsageSeconds, isBlocked = true))
+                                }
+                                showBlockingScreen(pkg)
+                                break
+                            }
+                        }
+                    }
                 }
-
-                delay(1000)
-
-                limit.usageTime += 1
-                appLimitDao.updateUsageTime(packageName, limit.usageTime)
+            } else {
+                Log.d(TAG, "No limit for: $pkg")
             }
-        }
-    }
-
-    private suspend fun blockApp(packageName: String) {
-        withContext(Dispatchers.Main) {
-            performGlobalAction(GLOBAL_ACTION_HOME)
-            val intent = Intent(this@AppBlockerService, BlockingActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                putExtra("packageName", packageName)
-            }
-            startActivity(intent)
-        }
-    }
-
-    private suspend fun checkAndResetDailyLimit(limit: AppLimit) {
-        val lastResetCalendar = Calendar.getInstance().apply { timeInMillis = limit.lastReset }
-        val currentCalendar = Calendar.getInstance()
-
-        if (lastResetCalendar.get(Calendar.DAY_OF_YEAR) != currentCalendar.get(Calendar.DAY_OF_YEAR) ||
-            lastResetCalendar.get(Calendar.YEAR) != currentCalendar.get(Calendar.YEAR)) {
-            
-            limit.usageTime = 0
-            limit.isBlocked = false
-            limit.lastReset = System.currentTimeMillis()
-            appLimitDao.insertOrUpdateLimit(limit)
-            Log.d(TAG, "Daily reset for ${limit.packageName}")
         }
     }
 
     private fun stopTracking() {
-        if (trackingJob != null) {
-            trackingJob?.cancel()
-            trackingJob = null
+        val pkg = currentTrackingPackage
+        val usage = currentUsageSeconds
+        if (pkg != null) {
+            serviceScope.launch(Dispatchers.IO) {
+                appLimitDao.updateUsageTime(pkg, usage)
+            }
         }
-        currentPackage = null
+        trackingJob?.cancel()
+        trackingJob = null
+        currentTrackingPackage = null
+        currentUsageSeconds = 0
+        Log.d(TAG, "Tracking stopped")
     }
 
-    private fun isLauncher(packageName: String): Boolean {
+    private fun showBlockingScreen(packageName: String) {
+        serviceScope.launch(Dispatchers.Main) {
+            val intent = Intent(this@AppBlockerService, BlockingActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra("packageName", packageName)
+            }
+            try {
+                startActivity(intent)
+                Log.i(TAG, "BlockingActivity SUCCESS for $packageName")
+            } catch (e: Exception) {
+                Log.e(TAG, "BlockingActivity FAILED: ${e.message}")
+            }
+        }
+    }
+
+    private suspend fun checkReset(limit: AppLimit) {
+        val lastReset = Calendar.getInstance().apply { timeInMillis = limit.lastReset }
+        val now = Calendar.getInstance()
+        if (lastReset.get(Calendar.DAY_OF_YEAR) != now.get(Calendar.DAY_OF_YEAR)) {
+            withContext(Dispatchers.IO) {
+                appLimitDao.insertOrUpdateLimit(limit.copy(usageTime = 0, isBlocked = false, lastReset = System.currentTimeMillis()))
+            }
+        }
+    }
+
+    private fun isLauncher(pkg: String): Boolean {
         val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
         val resolveInfo = packageManager.resolveActivity(intent, 0)
-        return resolveInfo?.activityInfo?.packageName == packageName
+        return resolveInfo?.activityInfo?.packageName == pkg
     }
 
-    override fun onInterrupt() {
-        stopTracking()
+    private fun startForegroundService() {
+        val channelId = "AppBlockerChannel"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "TimeLimit Core", NotificationManager.IMPORTANCE_LOW)
+            getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+        }
+        startForeground(1002, NotificationCompat.Builder(this, channelId)
+            .setContentTitle("TimeLimit")
+            .setContentText("Monitoring faol")
+            .setSmallIcon(R.drawable.ic_timer).build())
     }
-    
-    override fun onTaskRemoved(rootIntent: Intent?) {
-        super.onTaskRemoved(rootIntent)
-        Log.d(TAG, "Task Removed. Restarting...")
-        startForegroundService() 
-        checkCurrentWindow() // Qayta tekshiramiz
-    }
-    
+
+    override fun onInterrupt() { stopTracking() }
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "Service Destroyed")
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(exitReceiver)
         stopTracking()
         serviceScope.cancel()
     }

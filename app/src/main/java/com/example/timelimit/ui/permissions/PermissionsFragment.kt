@@ -35,7 +35,6 @@ class PermissionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
         setupListeners()
     }
 
@@ -45,29 +44,18 @@ class PermissionsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Orqaga tugmasi (<)
-        binding.btnBack.setOnClickListener { 
-            findNavController().navigate(R.id.navigation_apps) 
-        }
-
-        // Yopish tugmasi (X)
-        binding.btnClose.setOnClickListener {
-            findNavController().navigate(R.id.navigation_apps)
-        }
+        binding.btnBack.setOnClickListener { findNavController().navigate(R.id.navigation_apps) }
+        binding.btnClose.setOnClickListener { findNavController().navigate(R.id.navigation_apps) }
 
         // 1. Usage Access
-        val usageListener = View.OnClickListener {
+        binding.switchUsageAccess.setOnClickListener {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         }
-        binding.switchUsageAccess.setOnClickListener(usageListener)
 
         // 2. Overlay
         val overlayListener = View.OnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:${requireContext().packageName}")
-                )
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${requireContext().packageName}"))
                 startActivity(intent)
             }
         }
@@ -96,12 +84,7 @@ class PermissionsFragment : Fragment() {
         binding.switchBattery.setOnClickListener(batteryListener)
         binding.btnBatterySettings.setOnClickListener(batteryListener)
 
-        // BARCHASINI YOQISH
-        binding.btnEnableAll.setOnClickListener {
-            enableNextPermission()
-        }
-
-        // BARCHASINI O'CHIRISH 
+        binding.btnEnableAll.setOnClickListener { enableNextPermission() }
         binding.btnDisableAll.setOnClickListener {
              val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
              intent.data = Uri.parse("package:${requireContext().packageName}")
@@ -120,18 +103,16 @@ class PermissionsFragment : Fragment() {
         binding.switchAccessibility.isChecked = hasAccessibility
         binding.switchBattery.isChecked = hasBattery
 
+        // Update progress
         var count = 0
         if (hasUsage) count++
         if (hasOverlay) count++
         if (hasAccessibility) count++
         if (hasBattery) count++
 
-        val progress = count
-        val percent = (count * 100) / 4
-
-        binding.progressBarPermissions.progress = progress
-        binding.tvProgressText.text = "$count/4 ruxsatlar yoqilgan"
-        binding.tvProgressPercent.text = "$percent%"
+        binding.progressBarPermissions.progress = count
+        binding.tvProgressText.text = "$count/4 permissions granted"
+        binding.tvProgressPercent.text = "${(count * 100) / 4}%"
     }
 
     private fun enableNextPermission() {
@@ -139,20 +120,14 @@ class PermissionsFragment : Fragment() {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         } else if (!checkOverlayPermission()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:${requireContext().packageName}")
-                )
-                startActivity(intent)
+                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${requireContext().packageName}")))
             }
         } else if (!isAccessibilityServiceEnabled()) {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         } else if (!isBatteryOptimizationIgnored()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                intent.data = Uri.parse("package:${requireContext().packageName}")
                 try {
-                    startActivity(intent)
+                    startActivity(Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:${requireContext().packageName}")))
                 } catch (e: Exception) {
                     startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
                 }
@@ -163,27 +138,15 @@ class PermissionsFragment : Fragment() {
     private fun hasUsageStatsPermission(): Boolean {
         val appOps = requireContext().getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            appOps.unsafeCheckOpNoThrow(
-                AppOpsManager.OPSTR_GET_USAGE_STATS,
-                Process.myUid(), requireContext().packageName
-            )
+            appOps.unsafeCheckOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), requireContext().packageName)
         } else {
             @Suppress("DEPRECATION")
-            appOps.checkOpNoThrow(
-                AppOpsManager.OPSTR_GET_USAGE_STATS,
-                Process.myUid(), requireContext().packageName
-            )
+            appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), requireContext().packageName)
         }
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-    private fun checkOverlayPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Settings.canDrawOverlays(requireContext())
-        } else {
-            true
-        }
-    }
+    private fun checkOverlayPermission(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Settings.canDrawOverlays(requireContext()) else true
 
     private fun isAccessibilityServiceEnabled(): Boolean {
         val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
@@ -192,11 +155,10 @@ class PermissionsFragment : Fragment() {
     }
 
     private fun isBatteryOptimizationIgnored(): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val pm = requireContext().getSystemService(Context.POWER_SERVICE) as PowerManager
-            return pm.isIgnoringBatteryOptimizations(requireContext().packageName)
-        }
-        return true
+            pm.isIgnoringBatteryOptimizations(requireContext().packageName)
+        } else true
     }
 
     override fun onDestroyView() {

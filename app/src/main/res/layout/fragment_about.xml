@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="Ilova haqida"
+            android:text="@string/title_about"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TimeLimit"
+                    android:text="@string/app_name"
                     android:textColor="@color/black"
                     android:textSize="28sp"
                     android:textStyle="bold"
@@ -88,54 +88,54 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Versiya: 1.0.0 (Build 45)"
+                    android:text="Versiya: 1.0.0"
                     android:textColor="@color/gray_700"
                     android:textSize="14sp"/>
             </LinearLayout>
 
             <!-- SECTION 2: DESCRIPTION -->
-            <TextView style="@style/AboutSectionTitle" android:text="📱 Ilova haqida:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_desc_title"/>
             <TextView
                 style="@style/AboutBodyText"
-                android:text="TimeLimit - bu sizning vaqtingizni boshqarishga yordam beruvchi ilova. Ilovalarga limit qo'yib, o'zingizni cheklashingiz va samaradorligingizni oshirishingiz mumkin."/>
+                android:text="@string/about_description"/>
 
             <!-- SECTION 3: FEATURES -->
-            <TextView style="@style/AboutSectionTitle" android:text="✨ Asosiy imkoniyatlar:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_features_title"/>
             <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="8dp">
-                <TextView style="@style/AboutFeatureItem" android:text="Ilovalarga vaqt limiti qo'yish"/>
-                <TextView style="@style/AboutFeatureItem" android:text="Kunlik/haftalik foydalanish statistikasi"/>
-                <TextView style="@style/AboutFeatureItem" android:text="Bloklov rejimlari (qat'iy, moslashuvchan)"/>
-                <TextView style="@style/AboutFeatureItem" android:text="Maxfiylik rejimi"/>
-                <TextView style="@style/AboutFeatureItem" android:text="Parol/biometrik himoya"/>
+                <TextView style="@style/AboutFeatureItem" android:text="@string/feature_1"/>
+                <TextView style="@style/AboutFeatureItem" android:text="@string/feature_2"/>
+                <TextView style="@style/AboutFeatureItem" android:text="@string/feature_3"/>
+                <TextView style="@style/AboutFeatureItem" android:text="@string/feature_4"/>
+                <TextView style="@style/AboutFeatureItem" android:text="@string/feature_5"/>
             </LinearLayout>
 
             <!-- SECTION 4: UPDATE HISTORY -->
-            <TextView style="@style/AboutSectionTitle" android:text="📅 Yangilanishlar tarixi:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_history_title"/>
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="[ To'liq tarixni ko'rish ]"
+                android:text="@string/btn_view_history"
                 android:textColor="@color/primary"
                 app:strokeColor="@color/gray_200"/>
 
             <!-- SECTION 5: LEGAL -->
-            <TextView style="@style/AboutSectionTitle" android:text="⚖️ Huquqiy:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_legal_title"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/bg_settings_card">
-                <TextView android:id="@+id/text_terms" style="@style/AboutLegalItem" android:text="Foydalanish shartlari"/>
+                <TextView android:id="@+id/text_terms" style="@style/AboutLegalItem" android:text="@string/legal_terms"/>
                 <View style="@style/Divider"/>
-                <TextView android:id="@+id/text_policy" style="@style/AboutLegalItem" android:text="Maxfiylik siyosati"/>
+                <TextView android:id="@+id/text_policy" style="@style/AboutLegalItem" android:text="@string/legal_policy"/>
                 <View style="@style/Divider"/>
-                <TextView android:id="@+id/text_license" style="@style/AboutLegalItem" android:text="Litsenziya shartlari (MIT)"/>
+                <TextView android:id="@+id/text_license" style="@style/AboutLegalItem" android:text="@string/legal_license"/>
             </LinearLayout>
 
             <!-- SECTION 6: DEVELOPER -->
-            <TextView style="@style/AboutSectionTitle" android:text="👨💻 Ishlab chiqaruvchi:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_developer_title"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             </LinearLayout>
 
             <!-- SECTION 7: SOCIAL MEDIA -->
-            <TextView style="@style/AboutSectionTitle" android:text="🌐 Ijtimoiy tarmoqlar:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_social_title"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,15 +162,15 @@
             </LinearLayout>
 
             <!-- SECTION 8: TECHNICAL INFO -->
-            <TextView style="@style/AboutSectionTitle" android:text="📊 Texnik ma'lumotlar:"/>
+            <TextView style="@style/AboutSectionTitle" android:text="@string/about_section_tech_title"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView style="@style/TechInfoItem" android:text="SDK: Android 8.0+ (API 26+)"/>
-                <TextView style="@style/TechInfoItem" android:text="Hajmi: ~15 MB"/>
-                <TextView style="@style/TechInfoItem" android:text="Qo'llab-quvvatlanadigan tillar: O'zbek, Русский, English"/>
-                <TextView style="@style/TechInfoItem" android:text="Qurilma: Telefon, Planshet"/>
+                <TextView style="@style/TechInfoItem" android:text="@string/tech_sdk"/>
+                <TextView style="@style/TechInfoItem" android:text="@string/tech_size"/>
+                <TextView style="@style/TechInfoItem" android:text="@string/tech_languages"/>
+                <TextView style="@style/TechInfoItem" android:text="@string/tech_devices"/>
             </LinearLayout>
 
             <!-- FOOTER -->
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="© 2024 TimeLimit. Barcha huquqlar himoya qilingan."
+                android:text="@string/about_footer"
                 android:textColor="@color/gray_700"
                 android:textSize="12sp"
                 android:layout_marginTop="32dp"/>

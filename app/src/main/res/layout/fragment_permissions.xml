@@ -9,46 +9,55 @@
     tools:context=".ui.permissions.PermissionsFragment">
 
     <!-- Header -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="12dp"
         android:background="@color/primary">
 
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="4dp"
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="Maxsus ruxsatlar"
+            android:includeFontPadding="false"
+            android:text="@string/title_permissions"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_close"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginEnd="4dp"
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -79,7 +88,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Foydalanishga ruxsat"
+                        android:text="@string/perm_usage_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -87,7 +96,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ilovalar ishlash vaqtini hisoblash"
+                        android:text="@string/perm_usage_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
@@ -108,7 +117,7 @@
                 android:background="@color/gray_100"
                 android:layout_marginHorizontal="20dp"/>
 
-            <!-- 2. Overlay Permission -->
+            <!-- 2. Overlay -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,7 +135,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Boshqa ilovalar ustida ko'rsatish"
+                        android:text="@string/perm_overlay_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -135,7 +144,7 @@
                         android:id="@+id/btn_overlay_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ Sozlamalarga o'tish ]"
+                        android:text="@string/perm_go_to_settings"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -144,7 +153,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Floating timer va monitoring"
+                        android:text="@string/perm_overlay_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
@@ -165,7 +174,7 @@
                 android:background="@color/gray_100"
                 android:layout_marginHorizontal="20dp"/>
 
-            <!-- 3. Accessibility Service -->
+            <!-- 3. Accessibility -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -183,7 +192,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Maxsus imkoniyatlar xizmati"
+                        android:text="@string/perm_accessibility_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -192,7 +201,7 @@
                         android:id="@+id/btn_accessibility_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ Xizmatni sozlash ]"
+                        android:text="@string/perm_go_to_settings"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -201,7 +210,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ilovalarni bloklash va nazorat"
+                        android:text="@string/perm_accessibility_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
@@ -222,7 +231,7 @@
                 android:background="@color/gray_100"
                 android:layout_marginHorizontal="20dp"/>
 
-            <!-- 4. Battery Optimization -->
+            <!-- 4. Battery -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,7 +249,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Batareya optimizatsiyasini o'chirish"
+                        android:text="@string/perm_battery_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -249,7 +258,7 @@
                         android:id="@+id/btn_battery_settings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[ Batareya sozlamalari ]"
+                        android:text="@string/perm_go_to_settings"
                         android:textColor="@color/primary"
                         android:textSize="12sp"
                         android:textStyle="bold"
@@ -258,7 +267,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Background service ishlashi uchun"
+                        android:text="@string/perm_battery_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
@@ -278,6 +287,7 @@
 
     <!-- Bottom Action Area -->
     <LinearLayout
+        android:id="@+id/bottom_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -285,65 +295,50 @@
         android:elevation="16dp"
         android:paddingBottom="16dp">
 
-        <!-- Progress Area -->
+        <!-- Progress Section (QAYTA QO'SHILDI) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
             android:paddingTop="16dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="8dp">
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
-                
+                android:gravity="center_vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📊"
-                    android:textSize="18sp"/>
-                    
-                <TextView
-                    android:id="@+id/tv_progress_text"
+                    android:id="@+id/tvProgressText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="0/4 ruxsatlar yoqilgan"
+                    android:text="0/4 permissions granted"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
-                    
                 <TextView
-                    android:id="@+id/tv_progress_percent"
+                    android:id="@+id/tvProgressPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0%"
                     android:textColor="@color/primary"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/bg_chip_primary"
-                    android:backgroundTint="#1A7655F6"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
             
             <ProgressBar
-                android:id="@+id/progress_bar_permissions"
+                android:id="@+id/progressBarPermissions"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:progressDrawable="@drawable/bg_progress_bar"
+                android:layout_marginTop="8dp"
                 android:max="4"
-                android:progress="0"/>
-                
+                android:progress="0"
+                android:progressDrawable="@drawable/bg_progress_bar"/>
         </LinearLayout>
 
-        <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -357,11 +352,9 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
-                android:text="Barchasini yoqish"
+                android:text="@string/btn_enable_all"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:icon="@drawable/ic_check_circle_filled"
-                app:iconTint="@color/white"
                 app:cornerRadius="28dp"
                 app:backgroundTint="@color/primary"/>
 
@@ -372,13 +365,12 @@
                 android:layout_height="56dp"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
-                android:text="Barchasini o'chirish"
+                android:text="@string/btn_disable_all"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary"
                 app:strokeColor="@color/primary"
-                app:icon="@drawable/ic_remove"
-                app:iconTint="@color/primary"
+                app:strokeWidth="1dp"
                 app:cornerRadius="28dp"/>
 
         </LinearLayout>

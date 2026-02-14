@@ -15,14 +15,14 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/ic_settings" 
-        android:contentDescription="Sozlamalar"
+        android:contentDescription="@string/title_settings"
         app:tint="@color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="Sozlamalar"
+        android:text="@string/title_settings"
         android:textSize="20sp"
         android:textStyle="bold"
         android:letterSpacing="-0.02"

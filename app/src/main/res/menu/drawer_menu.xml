@@ -2,56 +2,56 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Guruh 1: Asosiy Sozlamalar -->
-    <group android:id="@+id/group_general">
+    <group android:id="@+id/group_settings">
         <item
             android:id="@+id/nav_language"
             android:icon="@drawable/ic_language"
-            android:title="TIL" />
+            android:title="@string/title_language"
+            app:actionLayout="@layout/menu_chevron" />
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notification"
-            android:title="BILDIRISHNOMALAR" />
+            android:title="@string/title_notifications"
+            app:actionLayout="@layout/menu_chevron" />
         <item
             android:id="@+id/nav_interface"
             android:icon="@drawable/ic_dark_mode"
-            android:title="INTERFEYS" />
+            android:title="@string/title_interface"
+            app:actionLayout="@layout/menu_chevron" />
     </group>
 
-    <!-- Guruh 2: Xavfsizlik va Ruxsatlar -->
-    <item android:title=""> <!-- Bo'sh sarlavha ajratuvchi sifatida -->
+    <item android:title="">
         <menu>
-            <group android:id="@+id/group_security">
-                <item
-                    android:id="@+id/nav_permissions"
-                    android:icon="@drawable/ic_lock_open"
-                    android:title="MAXSUS RUXSATLAR" />
-
-                <item
-                    android:id="@+id/nav_security"
-                    android:icon="@drawable/ic_lock"
-                    android:title="XAVFSIZLIK" />
-                <item
-                    android:id="@+id/nav_privacy"
-                    android:icon="@drawable/ic_privacy_tip"
-                    android:title="MAXFIYLIK" />
-            </group>
+            <item
+                android:id="@+id/nav_permissions"
+                android:icon="@drawable/ic_lock_open"
+                android:title="@string/title_permissions"
+                app:actionLayout="@layout/menu_chevron" />
+            <item
+                android:id="@+id/nav_security"
+                android:icon="@drawable/ic_lock"
+                android:title="@string/title_security"
+                app:actionLayout="@layout/menu_chevron" />
+            <item
+                android:id="@+id/nav_privacy"
+                android:icon="@drawable/ic_privacy_tip"
+                android:title="@string/title_privacy"
+                app:actionLayout="@layout/menu_chevron" />
         </menu>
     </item>
 
-    <!-- Guruh 3: Yordam -->
     <item android:title="">
         <menu>
-            <group android:id="@+id/group_help">
-                <item
-                    android:id="@+id/nav_help"
-                    android:icon="@drawable/ic_help"
-                    android:title="YORDAM" />
-                <item
-                    android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_info"
-                    android:title="Ilova haqida" />
-            </group>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help"
+                android:title="@string/title_help"
+                app:actionLayout="@layout/menu_chevron" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="@string/title_about"
+                app:actionLayout="@layout/menu_chevron" />
         </menu>
     </item>
 

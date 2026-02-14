@@ -44,13 +44,13 @@ class AboutFragment : Fragment() {
         }
 
         binding.textTerms.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutFragment_to_termsFragment)
+            findNavController().navigate(R.id.navigation_terms)
         }
         binding.textPolicy.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutFragment_to_policyFragment)
+            findNavController().navigate(R.id.navigation_policy)
         }
         binding.textLicense.setOnClickListener {
-            findNavController().navigate(R.id.action_aboutFragment_to_licenseFragment)
+            findNavController().navigate(R.id.navigation_license)
         }
     }
 

@@ -42,8 +42,6 @@ class NotificationsFragment : Fragment() {
 
         // Switch listeners
         binding.switch5Min.setOnCheckedChangeListener { _, isChecked -> }
-        binding.switchLimitReached.setOnCheckedChangeListener { _, isChecked -> }
-        binding.switch1Hour.setOnCheckedChangeListener { _, isChecked -> }
     }
 
     override fun onDestroyView() {

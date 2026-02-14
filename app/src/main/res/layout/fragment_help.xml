@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="Yordam"
+            android:text="@string/title_help"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="❓ FAQ"
+                android:text="@string/help_faq_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -92,7 +92,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Limit qanday ishlaydi?"
+                        android:text="@string/faq_q1"
                         android:textColor="@color/black"
                         android:textSize="16sp"/>
                     <ImageView
@@ -105,7 +105,7 @@
                     android:id="@+id/faq_answer_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Limit vaqt belgilaganingizdan so'ng, ilova faqat shu vaqt davomida ishlaydi. Vaqt tugagach, ilova 24 soatga bloklanadi."
+                    android:text="@string/faq_a1"
                     android:textColor="@color/gray_700"
                     android:paddingHorizontal="16dp"
                     android:paddingBottom="16dp"
@@ -132,7 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Ilova bloklanganda nima qilish kerak?"
+                        android:text="@string/faq_q2"
                         android:textColor="@color/black"
                         android:textSize="16sp"/>
                     <ImageView
@@ -145,7 +145,7 @@
                     android:id="@+id/faq_answer_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bloklangan ilovani faqat 24 soatdan keyin ishlata olasiz. Muddatni o'zgartirish mumkin emas."
+                    android:text="@string/faq_a2"
                     android:textColor="@color/gray_700"
                     android:paddingHorizontal="16dp"
                     android:paddingBottom="16dp"
@@ -171,7 +171,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Limit vaqtini qanday o'zgartirish mumkin?"
+                        android:text="@string/faq_q3"
                         android:textColor="@color/black"
                         android:textSize="16sp"/>
                     <ImageView
@@ -184,7 +184,7 @@
                     android:id="@+id/faq_answer_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ilova ro'yxatidan limit o'zgartirmoqchi bo'lgan ilovani tanlang, so'ng 'Tahrirlash' tugmasini bosing va yangi vaqtni belgilang."
+                    android:text="@string/faq_a3"
                     android:textColor="@color/gray_700"
                     android:paddingHorizontal="16dp"
                     android:paddingBottom="16dp"
@@ -201,7 +201,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bog'lanish"
+                android:text="@string/help_contact_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -241,7 +241,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Elektron pochta"
+                            android:text="@string/contact_email_label"
                             android:textColor="@color/gray_700"
                             android:textSize="12sp"/>
                     </LinearLayout>
@@ -286,7 +286,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Qo'llab-quvvatlash markazi"
+                            android:text="@string/contact_phone_label"
                             android:textColor="@color/gray_700"
                             android:textSize="12sp"/>
                     </LinearLayout>

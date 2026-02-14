@@ -30,15 +30,17 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
     private lateinit var navController: NavController
     private val viewModel: AppsViewModel by viewModels()
 
+    override fun attachBaseContext(newBase: Context) {
+        // Til sozlamasini qo'llash
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Toolbarni o'rnatamiz
         setSupportActionBar(binding.toolbar)
-        
-        // Standart sarlavhalarni o'chirish
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.title = null
 
@@ -50,29 +52,27 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
             binding.drawerLayout
         )
 
-        // Navigatsiyani Toolbar bilan bog'laymiz
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
         
-        // MAXSUS TextView NI TOPAMIZ
         val toolbarTitle = findViewById<TextView>(R.id.toolbar_title)
 
-        // Sarlavha va Toolbarni boshqarish
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.navigation_apps) {
-                // Faqat Ilovalar bo'limida ko'rsatamiz
                 binding.appBarLayout.visibility = View.VISIBLE
-                toolbarTitle.text = "Ilovalar"
+                toolbarTitle.text = getString(R.string.title_apps)
             } else {
-                // Boshqa barcha bo'limlarda yashiramiz
                 binding.appBarLayout.visibility = View.GONE
             }
             
-            // Tizim avtomatik qo'shadigan sarlavhani har doim o'chiramiz
             binding.toolbar.title = null
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
         binding.navView.setNavigationItemSelectedListener(this)
+    }
+
+    fun openDrawer() {
+        binding.drawerLayout.openDrawer(GravityCompat.START)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -114,9 +114,7 @@ class MainActivity : AppCompatActivity(), com.google.android.material.navigation
 
     private fun areAllPermissionsGranted(): Boolean {
         return hasUsageStatsPermission() &&
-                checkOverlayPermission() &&
-                isAccessibilityServiceEnabled() &&
-                isBatteryOptimizationIgnored()
+                isAccessibilityServiceEnabled()
     }
 
     private fun startMonitoring() {

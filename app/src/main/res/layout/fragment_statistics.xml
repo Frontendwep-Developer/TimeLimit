@@ -7,8 +7,6 @@
     android:background="@color/background_light"
     tools:context=".StatisticsFragment">
 
-    <!-- ALOHIDA AppBarLayout OLIB TASHLANDI -->
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Umumiy vaqt"
+                    android:text="@string/total_time_label"
                     android:textAppearance="?attr/textAppearanceLabelMedium"
                     android:textColor="@color/slate_500" />
 
@@ -38,14 +36,14 @@
                     android:id="@+id/total_time_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5s 34m"
+                    android:text="5h 34m"
                     android:textAppearance="?attr/textAppearanceDisplaySmall"
                     android:textColor="@color/slate_900" />
 
                 <com.google.android.material.chip.Chip
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Haftalik"
+                    android:text="@string/weekly_chip"
                     app:chipBackgroundColor="@color/primary"
                     app:chipStrokeWidth="0dp"
                     android:textColor="@color/white"/>
@@ -61,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bugungi holat"
+                android:text="@string/today_status"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textColor="@color/slate_900"
                 android:layout_marginBottom="8dp"/>
@@ -89,7 +87,7 @@
                             android:id="@+id/daily_limit_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kunlik limit"
+                            android:text="@string/daily_limit"
                             android:textAppearance="?attr/textAppearanceLabelMedium"
                             android:textColor="@color/slate_500"/>
 
@@ -107,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="15 daqiqa qoldi"
+                            android:text="15 min left"
                             app:chipIcon="@drawable/ic_timer"
                             app:chipBackgroundColor="@color/colorErrorContainer"
                             app:chipStrokeWidth="0dp"
@@ -157,13 +155,13 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Ochilishlar soni"
+                                android:text="@string/openings_count"
                                 android:textColor="@color/slate_900"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
                              <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Bugungi hisob"
+                                android:text="@string/today_count_label"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="@color/slate_500"/>
                         </LinearLayout>
@@ -171,7 +169,7 @@
                             android:id="@+id/openings_count_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12 marta"
+                            android:text="12 times"
                             android:textColor="@color/slate_900"
                             android:textAppearance="?attr/textAppearanceTitleMedium"/>
                      </LinearLayout>
@@ -201,13 +199,13 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="O'rtacha vaqt"
+                                android:text="@string/average_time"
                                 android:textColor="@color/slate_900"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"/>
                              <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="O'tgan haftaga nisbatan"
+                                android:text="@string/last_week_compare"
                                 android:textAppearance="?attr/textAppearanceBodySmall"
                                 android:textColor="@color/slate_500"/>
                         </LinearLayout>

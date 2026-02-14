@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cheklov o'rnatish"
+                    android:text="@string/dialog_set_limit_title"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
@@ -42,7 +41,7 @@
                     android:id="@+id/tv_edit_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Ilova nomi"
+                    tools:text="App Name"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/slate_900"
@@ -58,8 +57,7 @@
                 android:backgroundTint="@color/slate_100"
                 app:tint="@color/slate_400"
                 android:padding="6dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Close"/>
+                android:scaleType="fitCenter"/>
         </LinearLayout>
 
         <View
@@ -67,18 +65,16 @@
             android:layout_height="1dp"
             android:background="@color/slate_100"/>
 
-        <!-- Content Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Quick Options -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vaqt tanlang:"
+                android:text="@string/label_select_time"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="@color/slate_500"
@@ -89,85 +85,60 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:showDividers="middle"
-                android:divider="@drawable/divider_transparent_8dp">
+                android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_15_min_edit"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="15 daqiqa"
+                    android:text="@string/time_15_min"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/slate_700"
                     android:textAllCaps="false"
                     android:gravity="center_vertical|start"
                     android:paddingStart="16dp"
-                    app:icon="@drawable/selector_checkbox_circle"
-                    app:iconGravity="end"
-                    app:iconTint="@null"
                     app:cornerRadius="12dp"
-                    app:strokeColor="@color/slate_200"
-                    app:strokeWidth="1dp"
                     android:backgroundTint="@color/slate_50"
-                    app:elevation="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
+                    android:layout_marginBottom="8dp"
                     android:checkable="true"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_30_min_edit"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="30 daqiqa"
+                    android:text="@string/time_30_min"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/slate_700"
                     android:textAllCaps="false"
                     android:gravity="center_vertical|start"
                     android:paddingStart="16dp"
-                    app:icon="@drawable/selector_checkbox_circle"
-                    app:iconGravity="end"
-                    app:iconTint="@null"
                     app:cornerRadius="12dp"
-                    app:strokeColor="@color/slate_200"
-                    app:strokeWidth="1dp"
                     android:backgroundTint="@color/slate_50"
-                    app:elevation="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
+                    android:layout_marginBottom="8dp"
                     android:checkable="true"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_45_min_edit"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="45 daqiqa"
+                    android:text="@string/time_45_min"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/slate_700"
                     android:textAllCaps="false"
                     android:gravity="center_vertical|start"
                     android:paddingStart="16dp"
-                    app:icon="@drawable/selector_checkbox_circle"
-                    app:iconGravity="end"
-                    app:iconTint="@null"
                     app:cornerRadius="12dp"
-                    app:strokeColor="@color/slate_200"
-                    app:strokeWidth="1dp"
                     android:backgroundTint="@color/slate_50"
-                    app:elevation="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
                     android:checkable="true"/>
             </LinearLayout>
 
-            <!-- Custom Input -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="O'zingiz vaqt kiriting:"
+                android:text="@string/label_custom_time"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="@color/slate_500"
@@ -179,15 +150,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="top">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    
                     <EditText
                         android:id="@+id/et_hours_edit"
                         android:layout_width="match_parent"
@@ -198,19 +167,14 @@
                         android:inputType="number"
                         android:maxLength="2"
                         android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/slate_900"
-                        android:textColorHint="@color/slate_300"/>
-                    
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Soat"
+                        android:text="@string/label_hours"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:textSize="12sp"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"
                         android:textColor="@color/slate_400"/>
                 </LinearLayout>
 
@@ -219,8 +183,6 @@
                     android:layout_height="80dp"
                     android:text=":"
                     android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/slate_300"
                     android:gravity="center"
                     android:layout_marginHorizontal="12dp"/>
 
@@ -229,7 +191,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <EditText
                         android:id="@+id/et_minutes_edit"
                         android:layout_width="match_parent"
@@ -240,46 +201,48 @@
                         android:inputType="number"
                         android:maxLength="2"
                         android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/slate_900"
-                        android:textColorHint="@color/slate_300"/>
-
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Daqiqa"
+                        android:text="@string/label_minutes"
                         android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:textSize="12sp"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"
                         android:textColor="@color/slate_400"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Save Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_save_limit"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginTop="32dp"
-                android:text="Saqlash"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="16dp"
-                android:backgroundTint="@color/primary"
-                app:icon="@drawable/ic_check_circle"
-                app:iconGravity="end"
-                android:elevation="4dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="O'chirish uchun 00:00 kiriting yoki 'Saqlash' tugmasini bosib turing"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/slate_400"/>
+                android:orientation="vertical"
+                android:layout_marginTop="32dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="@string/btn_save"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    android:backgroundTint="@color/primary"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete_limit"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/btn_delete_limit"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#D32F2F"
+                    app:icon="@drawable/ic_delete"
+                    app:iconTint="#D32F2F"
+                    app:iconGravity="textStart"/>
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

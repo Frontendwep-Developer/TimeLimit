@@ -4,7 +4,6 @@ import android.app.Application
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit
 
 class AppsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val appLimitDao: AppLimitDao
+    private val appLimitDao: AppLimitDao = AppDatabase.getDatabase(application).appLimitDao()
 
     private val _appsList = MutableLiveData<List<AppInfo>>()
     val appsList: LiveData<List<AppInfo>> = _appsList
@@ -29,16 +28,22 @@ class AppsViewModel(application: Application) : AndroidViewModel(application) {
     private val _totalUsageTimeFormatted = MutableLiveData<String>()
     val totalUsageTimeFormatted: LiveData<String> = _totalUsageTimeFormatted
 
-    private val _mostUsedApp = MutableLiveData<AppInfo?>()
-    val mostUsedApp: LiveData<AppInfo?> = _mostUsedApp
+    private val _totalLimitTimeFormatted = MutableLiveData<String>()
+    val totalLimitTimeFormatted: LiveData<String> = _totalLimitTimeFormatted
+
+    private val _remainingTimeFormatted = MutableLiveData<String>()
+    val remainingTimeFormatted: LiveData<String> = _remainingTimeFormatted
+
+    private val _usageProgress = MutableLiveData<Int>()
+    val usageProgress: LiveData<Int> = _usageProgress
 
     private val _blockedApps = MutableLiveData<List<AppInfo>>()
     val blockedApps: LiveData<List<AppInfo>> = _blockedApps
 
-    init {
-        val database = AppDatabase.getDatabase(application)
-        appLimitDao = database.appLimitDao()
+    private val _mostUsedApp = MutableLiveData<AppInfo?>()
+    val mostUsedApp: LiveData<AppInfo?> = _mostUsedApp
 
+    init {
         viewModelScope.launch {
             appLimitDao.getAllLimits().distinctUntilChanged().collect { dbLimits ->
                 updateFullAppList(dbLimits)
@@ -48,17 +53,14 @@ class AppsViewModel(application: Application) : AndroidViewModel(application) {
 
     fun forceUpdate() {
         viewModelScope.launch {
-            val currentLimits = appLimitDao.getAllLimitsAsList()
-            updateFullAppList(currentLimits)
+            updateFullAppList(appLimitDao.getAllLimitsAsList())
         }
     }
 
     private suspend fun updateFullAppList(dbLimits: List<AppLimit>) {
         withContext(Dispatchers.IO) {
             val pm = getApplication<Application>().packageManager
-            val mainIntent = Intent(Intent.ACTION_MAIN, null).apply {
-                addCategory(Intent.CATEGORY_LAUNCHER)
-            }
+            val mainIntent = Intent(Intent.ACTION_MAIN, null).apply { addCategory(Intent.CATEGORY_LAUNCHER) }
             val packages = pm.queryIntentActivities(mainIntent, 0)
 
             val allApps = packages.map { resolveInfo ->
@@ -75,47 +77,60 @@ class AppsViewModel(application: Application) : AndroidViewModel(application) {
                 )
             }
 
-            _appsList.postValue(sortApps(allApps))
-
+            _appsList.postValue(allApps.sortedByDescending { it.isLimited })
+            
             val limitedApps = allApps.filter { it.isLimited }
-            val totalUsageSeconds = limitedApps.sumOf { it.usageTime }
-            val hours = totalUsageSeconds / 3600
-            val minutes = (totalUsageSeconds % 3600) / 60
-            _totalUsageTimeFormatted.postValue("${hours} soat ${minutes} daq")
-
-            _mostUsedApp.postValue(limitedApps.maxByOrNull { it.usageTime })
-
             _blockedApps.postValue(limitedApps.filter { it.isBlocked })
+            _mostUsedApp.postValue(limitedApps.maxByOrNull { it.usageTime })
+            
+            val totalUsageSec = limitedApps.sumOf { it.usageTime }
+            val totalLimitSec = limitedApps.sumOf { it.limitTime } * 60
+            
+            _totalUsageTimeFormatted.postValue(formatTime(totalUsageSec))
+            _totalLimitTimeFormatted.postValue(formatTime(totalLimitSec))
+            
+            val remainingSec = (totalLimitSec - totalUsageSec).coerceAtLeast(0)
+            _remainingTimeFormatted.postValue(formatTime(remainingSec))
+            
+            if (totalLimitSec > 0) {
+                _usageProgress.postValue((totalUsageSec * 100 / totalLimitSec).coerceAtMost(100))
+            } else {
+                _usageProgress.postValue(0)
+            }
         }
+    }
+
+    private fun formatTime(seconds: Int): String {
+        val h = seconds / 3600
+        val m = (seconds % 3600) / 60
+        return if (h > 0) "${h}s ${m}m" else "${m}m"
     }
 
     fun setAppLimit(packageName: String, limitInMinutes: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val newLimit = AppLimit(
-                packageName = packageName,
-                limitTime = limitInMinutes,
-                usageTime = 0, // **THE FIX IS HERE: Reset usage time to 0**
-                isBlocked = false,
-                lastReset = System.currentTimeMillis(),
-                usageOffset = 0 // No longer needed, but kept for DB schema compatibility
-            )
+            val existingLimit = appLimitDao.getLimit(packageName)
+            val newLimit = if (existingLimit != null) {
+                existingLimit.copy(
+                    limitTime = limitInMinutes,
+                    usageTime = 0,
+                    isBlocked = false,
+                    lastReset = System.currentTimeMillis()
+                )
+            } else {
+                AppLimit(
+                    packageName = packageName,
+                    limitTime = limitInMinutes,
+                    usageTime = 0,
+                    isBlocked = false,
+                    lastReset = System.currentTimeMillis(),
+                    usageOffset = 0
+                )
+            }
             appLimitDao.insertOrUpdateLimit(newLimit)
-            forceUpdate()
         }
     }
 
     fun removeAppLimit(packageName: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            appLimitDao.deleteLimit(packageName)
-            forceUpdate()
-        }
-    }
-
-    private fun sortApps(apps: List<AppInfo>): List<AppInfo> {
-        return apps.sortedWith(
-            compareByDescending<AppInfo> { it.isBlocked }
-                .thenByDescending { it.isLimited }
-                .thenBy { it.appName }
-        )
+        viewModelScope.launch(Dispatchers.IO) { appLimitDao.deleteLimit(packageName) }
     }
 }

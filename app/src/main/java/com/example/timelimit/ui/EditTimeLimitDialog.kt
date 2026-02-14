@@ -13,6 +13,7 @@ import com.example.timelimit.AppsViewModel
 import com.example.timelimit.databinding.DialogEditTimeLimitBinding
 import com.example.timelimit.model.AppInfo
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class EditTimeLimitDialog(private val appInfo: AppInfo) : DialogFragment() {
 
@@ -74,12 +75,25 @@ class EditTimeLimitDialog(private val appInfo: AppInfo) : DialogFragment() {
             saveLimit()
         }
         
-        binding.btnSaveLimit.setOnLongClickListener {
-            viewModel.removeAppLimit(appInfo.packageName)
-            Toast.makeText(requireContext(), "Limit o'chirildi", Toast.LENGTH_SHORT).show()
-            dismiss()
-            true
+        // Yangi o'chirish tugmasi uchun listener
+        binding.btnDeleteLimit.setOnClickListener {
+            showDeleteConfirmationDialog()
         }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Limitni o'chirish")
+            .setMessage("Haqiqatdan ham bu ilova uchun limitni o'chirmoqchimisiz?")
+            .setNegativeButton("Yo'q") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Ha") { _, _ ->
+                viewModel.removeAppLimit(appInfo.packageName)
+                Toast.makeText(requireContext(), "Limit o'chirildi", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+            .show()
     }
     
     private fun setCheckedButton(selectedButton: MaterialButton) {
@@ -96,25 +110,13 @@ class EditTimeLimitDialog(private val appInfo: AppInfo) : DialogFragment() {
         val hours = hoursStr.toIntOrNull() ?: 0
         val minutes = minutesStr.toIntOrNull() ?: 0
         
-        // LIMIT TEKSHIRUVI:
-        // 1. Soat 2 dan oshmasligi kerak
-        if (hours > 2) {
+        if (hours > 2 || (hours == 2 && minutes > 0)) {
             Toast.makeText(requireContext(), "Maksimal limit 2 soat!", Toast.LENGTH_SHORT).show()
-            binding.etHoursEdit.error = "Max 2"
             return
         }
         
-        // 2. Agar aniq 2 soat bo'lsa, daqiqa 0 bo'lishi shart
-        if (hours == 2 && minutes > 0) {
-             Toast.makeText(requireContext(), "Maksimal limit 2 soat!", Toast.LENGTH_SHORT).show()
-             binding.etMinutesEdit.error = "0 bo'lishi kerak"
-             return
-        }
-        
-        // 3. Daqiqa 59 dan oshmasligi kerak (ihtiyot shart)
         if (minutes > 59) {
-            Toast.makeText(requireContext(), "Daqiqa 59 dan oshmasligi kerak!", Toast.LENGTH_SHORT).show()
-            binding.etMinutesEdit.error = "Xato"
+            Toast.makeText(requireContext(), "Daqiqa noto'g'ri kiritildi!", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -135,10 +137,6 @@ class EditTimeLimitDialog(private val appInfo: AppInfo) : DialogFragment() {
         val minutes = totalMinutes % 60
         binding.etHoursEdit.setText(hours.toString().padStart(2, '0'))
         binding.etMinutesEdit.setText(minutes.toString().padStart(2, '0'))
-        
-        // Errorlarni tozalash
-        binding.etHoursEdit.error = null
-        binding.etMinutesEdit.error = null
     }
 
     override fun onStart() {

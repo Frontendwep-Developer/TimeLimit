@@ -1,53 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App Name -->
+    <!-- App & Navigation -->
     <string name="app_name">TimeLimit</string>
-
-    <!-- Navigation -->
-    <string name="title_dashboard">Boshqaruv</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_apps">Ilovalar</string>
-    <string name="title_statistics">Statistika</string>
     <string name="title_settings">Sozlamalar</string>
+    <string name="title_language">Til</string>
+    <string name="title_notifications">Bildirishnomalar</string>
+    <string name="title_interface">Interfeys</string>
+    <string name="title_security">Xavfsizlik</string>
+    <string name="title_privacy">Maxfiylik</string>
+    <string name="title_permissions">Maxsus ruxsatlar</string>
+    <string name="title_help">Yordam</string>
+    <string name="title_about">Ilova haqida</string>
 
-    <!-- Dashboard -->
-    <string name="dashboard_today_usage">Bugungi ishlatilgan vaqt</string>
-    <string name="dashboard_most_used">Eng ko\'p ishlatilgan ilova</string>
-    <string name="dashboard_blocked_apps">Bloklangan ilovalar</string>
-    <string name="dashboard_no_blocked_apps">Hozircha bloklangan ilovalar yo\'q</string>
-    <string name="dashboard_usage_format">%1$d soat %2$d daqiqa</string>
+    <!-- General Buttons -->
+    <string name="btn_save">Saqlash</string>
+    <string name="btn_cancel">Bekor qilish</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_delete">O‘chirish</string>
+    <string name="btn_read">O‘qish</string>
+    <string name="btn_details">Batafsil ma‘lumot</string>
+    <string name="btn_enable_all">Barchasini yoqish</string>
+    <string name="btn_disable_all">Barchasini o‘chirish</string>
 
-    <!-- Apps List -->
-    <string name="apps_usage_format">%1$d / %2$d daqiqa</string>
-    <string name="no_limit_set">Limit o\'rnatilmagan</string>
-    <string name="status_blocked_tag">BLOKLANGAN</string>
+    <!-- Language Section (IDs from fragment_settings.xml) -->
+    <string name="lang_uzbek_latin">O‘zbekcha (Lotin)</string>
+    <string name="lang_uzbek_cyrillic">O‘zbekcha (Kirill)</string>
+    <string name="lang_russian">Русский</string>
+    <string name="lang_english">English</string>
+    <string name="lang_turkish">Türkçe</string>
 
-    <!-- Add/Edit Dialogs -->
-    <string name="edit_limit_title">%s limitini o\'zgartirish</string>
-    <string name="add_limit_title">%s uchun limit qo\'shish</string>
-    <string name="current_usage_label">Hozirgi ishlatilish:</string>
-    <string name="quick_update_label">Tezkor vaqtlar:</string>
-    <string name="fine_tune_label">Aniq sozlash:</string>
-    <string name="hours_label">Soat</string>
-    <string name="minutes_label">Daqiqa</string>
-    <string name="button_cancel_edit">Bekor qilish</string>
-    <string name="button_delete_limit">O\'chirish</string>
-    <string name="button_save_limit">Saqlash</string>
-    <string name="add_time_limit_button">VAQT CHEGARASINI QO\'SHISH</string>
-    <string name="error_please_enter_time">Iltimos, vaqt kiriting</string>
+    <!-- Notifications Section (IDs from fragment_notifications.xml) -->
+    <string name="notif_5_min_title">5 daqiqa qolganda</string>
+    <string name="notif_5_min_desc">Limit tugashiga 5 daqiqa qolganda</string>
+    <string name="notif_limit_reached_title">Limit tugaganida</string>
+    <string name="notif_limit_reached_desc">Ilova bloklanganda</string>
+    <string name="notif_1_hour_title">1 soat foydalanganda</string>
+    <string name="notif_1_hour_desc">Har qanday ilovadan 1 soat foydalanilganda</string>
 
-    <!-- Unblock Dialog -->
+    <!-- Interface Section (IDs from fragment_interface.xml) -->
+    <string name="theme_light">Yorug‘ rejim</string>
+    <string name="theme_dark">Qorong‘i rejim</string>
+    <string name="theme_auto">Avtomatik</string>
+
+    <!-- Security Section -->
+    <string name="sec_settings_title">Xavfsizlik sozlamalari</string>
+    <string name="sec_password_title">Parol qo‘yish</string>
+    <string name="sec_password_desc">Ilovani qulflash uchun parol</string>
+    <string name="sec_fingerprint_title">Barmoq izi</string>
+    <string name="sec_fingerprint_desc">Tezkor kirish uchun</string>
+    <string name="sec_auto_lock_title">Avtomatik chiqish</string>
+    <string name="sec_auto_lock_desc">Belgilangan vaqtdan keyin</string>
+    <string name="sec_emergency_title">Favqulodda blok</string>
+    <string name="sec_emergency_desc">Barcha ilovalarni bloklash</string>
+    <string name="sec_data_protect_title">Ma‘lumotlar himoyasi</string>
+    <string name="sec_data_protect_desc">Statistikani yashirish</string>
+    <string name="btn_enable_all_sec">Barchasini yoqish</string>
+
+    <!-- Privacy Section -->
+    <string name="priv_settings_title">Maxfiylik sozlamalari</string>
+    <string name="priv_what_collected">Nima yig‘ilyapti?</string>
+    <string name="priv_what_collected_desc">Ilova nomlari va foydalanish vaqti</string>
+    <string name="priv_delete_data">Ma‘lumotlarni o‘chirish</string>
+    <string name="priv_delete_data_desc">Barcha statistikani tozalash</string>
+    <string name="priv_policy_title">Maxfiylik siyosati</string>
+    <string name="priv_policy_desc">Ilova qanday ma‘lumotlarni yig‘adi</string>
+    <string name="priv_consent">Rozilik</string>
+    <string name="priv_consent_desc">Ma‘lumotlar yig\'ishga rozilik</string>
+
+    <!-- Dashboard & Statistics -->
+    <string name="welcome_message">Xush kelibsiz! 👋</string>
+    <string name="today_usage">Bugungi sarf-xarajat</string>
+    <string name="used_label">ishlatildi</string>
+    <string name="daily_limit">Kunlik limit</string>
+    <string name="remaining_time">Qolgan vaqt</string>
+    <string name="most_used_title">Eng ko\'p ishlatilgan</string>
+    <string name="no_blocked_apps">Bloklangan ilovalar yo\'q</string>
+    <string name="new_limit_btn">Yangi limit</string>
+    <string name="total_time_label">Umumiy vaqt</string>
+    <string name="weekly_chip">Haftalik</string>
+    <string name="today_status">Bugungi holat</string>
+    <string name="openings_count">Ochilishlar soni</string>
+    <string name="average_time">O\'rtacha vaqt</string>
+    <string name="last_week_compare">O\'tgan haftaga nisbatan</string>
+    <string name="today_count_label">Bugungi hisob</string>
+
+    <!-- Permissions Section -->
+    <string name="perm_usage_title">Foydalanishga ruxsat</string>
+    <string name="perm_usage_desc">Ilovalar ishlash vaqtini hisoblash</string>
+    <string name="perm_overlay_title">Boshqa ilovalar ustida</string>
+    <string name="perm_overlay_desc">Bloklash oynasini ko‘rsatish</string>
+    <string name="perm_accessibility_title">Maxsus imkoniyatlar</string>
+    <string name="perm_accessibility_desc">Ilovalarni bloklash va nazorat</string>
+    <string name="perm_battery_title">Batareya optimizatsiyasi</string>
+    <string name="perm_battery_desc">Fonda barqaror ishlash uchun</string>
+    <string name="perm_go_to_settings">[ SOZLAMALARGA O‘TISH ]</string>
+
+    <!-- Apps & Blocker -->
+    <string name="empty_state_title">Hech qanday limit qo‘shilmagan</string>
+    <string name="empty_state_desc">Vaqtingizdan unumli foydalanish uchun ilovalarga cheklovlar o‘rnating.</string>
+    <string name="btn_add_app">ILOVA QO‘SHISH</string>
+    <string name="fab_add">QO‘SHISH</string>
+    <string name="blocked_title">Vaqtingiz tugadi</string>
+    <string name="blocked_desc">Bugun uchun belgilangan limitga erishdingiz.</string>
+    <string name="btn_exit">Chiqish</string>
+    <string name="btn_return_to_app">TimeLimit-ga qaytish</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_set_limit_title">Cheklov o\'rnatish</string>
+    <string name="label_select_time">Vaqt tanlang:</string>
+    <string name="label_custom_time">O\'zingiz vaqt kiriting:</string>
+    <string name="label_hours">Soat</string>
+    <string name="label_minutes">Daqiqa</string>
+    <string name="btn_delete_limit">Limitni o\'chirish</string>
+    <string name="time_15_min">15 daqiqa</string>
+    <string name="time_30_min">30 daqiqa</string>
+    <string name="time_45_min">45 daqiqa</string>
     <string name="unblock_dialog_title">%s blokini olib tashlamoqchimisiz?</string>
     <string name="unblock_dialog_button_unblock">Ha</string>
-    <string name="unblock_dialog_button_close">Yoq</string>
+    <string name="unblock_dialog_button_close">Yo\'q</string>
 
-    <!-- Permissions -->
-    <string name="permission_required">Ruxsatnoma talab qilinadi</string>
-    <string name="permission_usage_access_message">Ushbu ilova fon rejimida ilovalardan foydalanishni kuzatish uchun \'Foydalanishga ruxsat\' ruxsatnomasiga muhtoj. Iltimos, sozlamalarda ruxsat bering.</string>
-    <string name="go_to_settings">Sozlamalarga o\'tish</string>
-    
+    <!-- Help & FAQ -->
+    <string name="help_faq_title">❓ FAQ</string>
+    <string name="faq_q1">Limit qanday ishlaydi?</string>
+    <string name="faq_a1">Limit tugagach, ilova 24 soatga bloklanadi.</string>
+    <string name="faq_q2">Ilova bloklanganda nima qilish kerak?</string>
+    <string name="faq_a2">Muddatni o\'zgartirish mumkin emas.</string>
+    <string name="faq_q3">Limit vaqtini qanday o\'zgartirish mumkin?</string>
+    <string name="faq_a3">\'Tahrirlash\' tugmasini bosing.</string>
+    <string name="help_contact_title">Bog\'lanish</string>
+    <string name="contact_email_label">Elektron pochta</string>
+    <string name="contact_phone_label">Qo\'llab-quvvatlash markazi</string>
+
+    <!-- About Section -->
+    <string name="about_section_desc_title">📱 Ilova haqida:</string>
+    <string name="about_description">TimeLimit - bu sizning vaqtingizni boshqarishga yordam beruvchi ilova.</string>
+    <string name="about_section_features_title">✨ Asosiy imkoniyatlar:</string>
+    <string name="feature_1">Vaqt limiti qo\'yish</string>
+    <string name="feature_2">Foydalanish statistikasi</string>
+    <string name="feature_3">Bloklov rejimlari</string>
+    <string name="feature_4">Maxfiylik rejimi</string>
+    <string name="feature_5">Parol himoyasi</string>
+    <string name="about_section_history_title">📅 Yangilanishlar tarixi:</string>
+    <string name="btn_view_history">[ To\'liq tarixni ko\'rish ]</string>
+    <string name="about_section_legal_title">⚖️ Huquqiy:</string>
+    <string name="legal_terms">Foydalanish shartlari</string>
+    <string name="legal_policy">Maxfiylik siyosati</string>
+    <string name="legal_license">Litsenziya shartlari</string>
+    <string name="about_section_developer_title">👨‍💻 Ishlab chiqaruvchi:</string>
+    <string name="about_section_social_title">🌐 Ijtimoiy tarmoqlar:</string>
+    <string name="about_section_tech_title">📊 Texnik ma\'lumotlar:</string>
+    <string name="tech_sdk">SDK: Android 8.0+</string>
+    <string name="tech_size">Hajmi: ~15 MB</string>
+    <string name="tech_languages">Tillar: O\'zbek, Русский, English</string>
+    <string name="tech_devices">Qurilma: Telefon, Planshet</string>
+    <string name="about_footer">© 2024 TimeLimit. Barcha huquqlar himoya qilingan.</string>
+
     <!-- Accessibility Service -->
-    <string name="accessibility_service_description">TimeLimit ilovasi belgilangan vaqt limiti tugagan ilovalarni aniqlash va ularni avtomatik tarzda yopish (Bosh Sahifaga qaytish orqali) uchun ushbu xizmatdan foydalanadi. Bu ilovaning asosiy bloklash funksiyasi to\'g\'ri ishlashi uchun zarur.</string>
-    <string name="accessibility_service_desc_simple">TimeLimit ilovasi boshqa ilovalarni bloklash uchun</string>
-    <string name="accessibility_permission_message">Ilovalarni ishonchli bloklash uchun, iltimos, Sozlamalarda \"TimeLimit\" uchun Maxsus imkoniyatlar xizmatini yoqing.</string>
-
+    <string name="accessibility_service_description">Ilovalarni bloklash uchun zarur.</string>
+    <string name="accessibility_service_desc_simple">TimeLimit Bloklash Xizmati</string>
+    
+    <string name="language_changed">Til o‘zgartirildi</string>
 </resources>

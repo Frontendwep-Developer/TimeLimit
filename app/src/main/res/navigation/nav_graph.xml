@@ -8,83 +8,73 @@
     <fragment
         android:id="@+id/navigation_apps"
         android:name="com.example.timelimit.AppsFragment"
-        android:label=""
+        android:label="Ilovalar"
         tools:layout="@layout/fragment_apps" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.timelimit.ui.settings.SettingsFragment"
-        android:label=""
+        android:label="Til"
         tools:layout="@layout/fragment_settings" />
         
     <fragment
         android:id="@+id/navigation_permissions"
         android:name="com.example.timelimit.ui.permissions.PermissionsFragment"
-        android:label=""
+        android:label="Ruxsatlar"
         tools:layout="@layout/fragment_permissions" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.timelimit.ui.notifications.NotificationsFragment"
-        android:label=""
+        android:label="Bildirishnomalar"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_interface"
         android:name="com.example.timelimit.ui.interface_theme.InterfaceFragment"
-        android:label=""
+        android:label="Interfeys"
         tools:layout="@layout/fragment_interface" />
         
     <fragment
         android:id="@+id/navigation_security"
         android:name="com.example.timelimit.ui.security.SecurityFragment"
-        android:label=""
+        android:label="Xavfsizlik"
         tools:layout="@layout/fragment_security" />
 
     <fragment
         android:id="@+id/navigation_privacy"
         android:name="com.example.timelimit.ui.privacy.PrivacyFragment"
-        android:label=""
+        android:label="Maxfiylik"
         tools:layout="@layout/fragment_privacy" />
 
     <fragment
         android:id="@+id/navigation_help"
         android:name="com.example.timelimit.ui.help.HelpFragment"
-        android:label=""
+        android:label="Yordam"
         tools:layout="@layout/fragment_help" />
 
     <fragment
         android:id="@+id/navigation_about"
         android:name="com.example.timelimit.ui.about.AboutFragment"
-        android:label=""
-        tools:layout="@layout/fragment_about" >
-        <action
-            android:id="@+id/action_aboutFragment_to_termsFragment"
-            app:destination="@id/navigation_terms" />
-        <action
-            android:id="@+id/action_aboutFragment_to_policyFragment"
-            app:destination="@id/navigation_policy" />
-        <action
-            android:id="@+id/action_aboutFragment_to_licenseFragment"
-            app:destination="@+id/navigation_license" />
-    </fragment>
+        android:label="Ilova haqida"
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/navigation_terms"
         android:name="com.example.timelimit.ui.legal.TermsFragment"
-        android:label=""
+        android:label="Foydalanish shartlari"
         tools:layout="@layout/fragment_terms" />
 
     <fragment
         android:id="@+id/navigation_policy"
         android:name="com.example.timelimit.ui.legal.PolicyFragment"
-        android:label=""
+        android:label="Maxfiylik siyosati"
         tools:layout="@layout/fragment_policy" />
 
     <fragment
         android:id="@+id/navigation_license"
         android:name="com.example.timelimit.ui.legal.LicenseFragment"
-        android:label=""
+        android:label="Litsenziya"
         tools:layout="@layout/fragment_license" />
 
 </navigation>

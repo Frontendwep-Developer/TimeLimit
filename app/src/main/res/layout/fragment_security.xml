@@ -8,53 +8,56 @@
     tools:context=".ui.security.SecurityFragment">
 
     <!-- Header -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="56dp"
         android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="12dp">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="-4dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="@color/white" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:includeFontPadding="false"
+            android:text="@string/title_security"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:text="Xavfsizlik"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="-4dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
-            <ImageButton
-                android:id="@+id/btn_close"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_close"
-                app:tint="@color/white" />
-        </LinearLayout>
-        
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -69,7 +72,6 @@
             android:orientation="vertical"
             android:paddingBottom="24dp">
             
-            <!-- SECTION TITLE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,7 +95,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xavfsizlik sozlamalari"
+                        android:text="@string/sec_settings_title"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -108,7 +110,6 @@
                 android:background="#E0E0E0"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- ITEM 1: PAROL QO'YISH -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,7 +141,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Parol qo'yish"
+                        android:text="@string/sec_password_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -148,7 +149,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ilovani qulfash uchun parol"
+                        android:text="@string/sec_password_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -161,7 +162,6 @@
                     app:trackTint="@color/selector_switch_track"/>
             </LinearLayout>
 
-            <!-- ITEM 2: BARMOQ IZI -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Barmoq izi"
+                        android:text="@string/sec_fingerprint_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -201,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tezkor kirish uchun"
+                        android:text="@string/sec_fingerprint_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -214,109 +214,58 @@
                     app:trackTint="@color/selector_switch_track"/>
             </LinearLayout>
 
-            <!-- ITEM 3: AVTOMATIK CHIQISH -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_circle_gray_light">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_smartphone"
+                        app:tint="@color/black"/>
+                </FrameLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
-                    android:gravity="center_vertical"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
 
-                    <FrameLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_circle_gray_light">
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_smartphone"
-                            app:tint="@color/black"/>
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Avtomatik chiqish"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Belgilangan vaqtdan keyin"
-                            android:textColor="@color/gray_700"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_auto_lock"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:thumbTint="@color/selector_switch_thumb"
-                        app:trackTint="@color/selector_switch_track"/>
+                        android:text="@string/sec_auto_lock_title"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sec_auto_lock_desc"
+                        android:textColor="@color/gray_700"
+                        android:textSize="14sp"/>
                 </LinearLayout>
 
-                <!-- Chips -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_auto_lock"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="80dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="12dp">
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5 daqiqa"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_700"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="6dp"
-                        android:background="@drawable/bg_chip_outline"
-                        android:layout_marginEnd="8dp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15 daqiqa"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_700"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="6dp"
-                        android:background="@drawable/bg_chip_outline"
-                        android:layout_marginEnd="8dp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 soat"
-                        android:textSize="12sp"
-                        android:textColor="@color/gray_700"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="6dp"
-                        android:background="@drawable/bg_chip_outline"/>
-                </LinearLayout>
-
+                    app:thumbTint="@color/selector_switch_thumb"
+                    app:trackTint="@color/selector_switch_track"/>
             </LinearLayout>
 
-            <!-- ITEM 4: FAVQULODDA BLOK -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -348,7 +297,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Favqulodda blok"
+                        android:text="@string/sec_emergency_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -356,7 +305,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Barcha ilovalarni bloklash"
+                        android:text="@string/sec_emergency_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -369,7 +318,6 @@
                     app:trackTint="@color/selector_switch_track"/>
             </LinearLayout>
 
-            <!-- ITEM 5: MA'LUMOTLAR HIMOYASI -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -401,7 +349,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ma'lumotlar himoyasi"
+                        android:text="@string/sec_data_protect_title"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
@@ -409,7 +357,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Statistikani yashirish"
+                        android:text="@string/sec_data_protect_desc"
                         android:textColor="@color/gray_700"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -425,7 +373,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Footer -->
     <LinearLayout
         android:id="@+id/footer_layout"
         android:layout_width="match_parent"
@@ -438,7 +385,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Barchasini yoqish"
+            android:text="@string/btn_enable_all"
             android:textColor="@color/primary"
             android:textSize="16sp"
             android:textStyle="bold"
